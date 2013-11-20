@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jameschin.android.mozartsfriend"
+    android:versionCode="29"
+    android:versionName="1.0.29" >
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="17" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <supports-screens android:largeScreens="true" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.SelectSequenceActivity"
+            android:label="@string/title_library"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.SelectKeyActivity"
+            android:label="@string/title_keys"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.SelectTrackActivity"
+            android:label="@string/title_track"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.LibraryActivity"
+            android:label="@string/title_library"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.TunerActivity"
+            android:label="@string/title_tuner"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.MetronomeActivity"
+            android:label="@string/title_metronome"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.TrackActivity"
+            android:label="@string/title_track"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.SettingsActivity"
+            android:label="@string/title_settings"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jameschin.android.mozartsfriend.InfoActivity"
+            android:label="@string/title_info"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

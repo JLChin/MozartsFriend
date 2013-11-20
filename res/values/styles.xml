@@ -1,0 +1,32 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="AppTheme" parent="Theme.Sherlock.Light">
+        <item name="actionBarStyle">@style/AppActionBar</item>
+        <item name="android:actionBarStyle">@style/AppActionBar</item>
+        
+        <item name="actionMenuTextAppearance">@style/MenuTextStyle</item>
+        <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
+        
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+    </style>
+    
+    <style name="AppActionBar" parent="Widget.Sherlock.Light.ActionBar">
+        <item name="background">@drawable/actionbar_background</item>
+        <item name="android:background">@drawable/actionbar_background</item>
+        
+        <item name="titleTextStyle">@style/TitleText</item>
+        <item name="android:titleTextStyle">@style/TitleText</item>
+    </style>
+    
+    <style name="TitleText" parent="TextAppearance.Sherlock.Widget.ActionBar.Title">
+    	<item name="android:textColor">@android:color/white</item>
+    	<item name="android:textStyle">bold</item>
+	</style>
+	
+    <style name="MenuTextStyle" parent="@style/Theme.Sherlock.Light">
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textSize">8sp</item>    
+    </style>
+    
+</resources>

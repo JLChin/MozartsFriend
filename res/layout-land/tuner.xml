@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_background" >
+
+    <TextView
+        android:id="@+id/textview_tuner_note"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/controls_frame"
+        android:gravity="center"
+        android:textColor="#dddddd"
+        android:textSize="100sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/textview_tuner_note_frequency"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="4dp"
+        android:background="@drawable/controls_frame"
+        android:gravity="right"
+        android:paddingRight="10dp"
+        android:text="@string/string_tuner_default_frequency"
+        android:textColor="#cccccc"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview_tuner_note_prev"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="4dp"
+        android:background="@drawable/controls_frame"
+        android:gravity="center"
+        android:textColor="#cccccc"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/textview_tuner_note_next"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="4dp"
+        android:background="@drawable/controls_frame"
+        android:gravity="center"
+        android:textColor="#cccccc"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <View
+        android:id="@+id/view_tuner_indicator_up_1"
+        android:layout_width="30dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/textview_tuner_note"
+        android:background="@drawable/indicator_bar" />
+
+    <View
+        android:id="@+id/view_tuner_indicator_up_2"
+        android:layout_width="30dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/view_tuner_indicator_up_1"
+        android:background="@drawable/indicator_bar" />
+
+    <View
+        android:id="@+id/view_tuner_indicator_up_3"
+        android:layout_width="30dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/view_tuner_indicator_up_2"
+        android:background="@drawable/indicator_bar" />
+
+    <View
+        android:id="@+id/view_tuner_indicator_down_1"
+        android:layout_width="30dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/textview_tuner_note"
+        android:background="@drawable/indicator_bar" />
+
+    <View
+        android:id="@+id/view_tuner_indicator_down_2"
+        android:layout_width="30dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/view_tuner_indicator_down_1"
+        android:background="@drawable/indicator_bar" />
+
+    <View
+        android:id="@+id/view_tuner_indicator_down_3"
+        android:layout_width="30dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/view_tuner_indicator_down_2"
+        android:background="@drawable/indicator_bar" />
+
+</RelativeLayout>

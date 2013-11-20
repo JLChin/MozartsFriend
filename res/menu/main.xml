@@ -1,0 +1,41 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_scales"
+        android:orderInCategory="0"
+        android:showAsAction="always"
+        android:title="@string/menu_scales"/>
+    <item
+        android:id="@+id/menu_chords"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/menu_chords"/>
+    <item
+        android:id="@+id/menu_tuner"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:title="@string/menu_tuner"/>
+    <item
+        android:id="@+id/menu_metronome"
+        android:orderInCategory="3"
+        android:showAsAction="always"
+        android:title="@string/menu_metronome"/>
+    <item
+        android:id="@+id/menu_track"
+        android:orderInCategory="4"
+        android:showAsAction="always"
+        android:title="@string/menu_track"/>
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="5"
+        android:title="@string/menu_settings"/>
+    <item
+        android:id="@+id/menu_info"
+        android:orderInCategory="6"
+        android:title="@string/menu_info"/>
+    <item
+        android:id="@+id/menu_quit"
+        android:orderInCategory="7"
+        android:title="@string/menu_quit"/>
+
+</menu>

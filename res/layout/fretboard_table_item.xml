@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_fretboard_table_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fretboard_item_background"
+    android:minHeight="45dp"
+    android:minWidth="60dp" >
+
+    <TextView
+        android:id="@+id/textview_fret_number_fretboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="4dp"
+        android:textColor="#cccccc"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textview_result_data_interval_fretboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#aaaaaa"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textview_result_data_name_fretboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#cccccc"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

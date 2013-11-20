@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mozart\'s Friend</string>
+    
+    <string name="preference_file_key">com.jameschin.android.mozartsfriend.PREFERENCE_FILE_KEY</string>
+    
+    <string name="menu_scales">Scale</string>
+    <string name="menu_chords">Chord</string>
+    <string name="menu_tuner">Tuner</string>
+    <string name="menu_metronome">Metro</string>
+    <string name="menu_track">Track</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_info">Info</string>
+    <string name="menu_quit">Quit</string>
+    
+    <string name="title_chords">Chords</string>
+    <string name="title_info">Info</string>
+    <string name="title_keys">Keys</string>
+    <string name="title_library">Library</string>
+    <string name="title_metronome">Metronome</string>
+    <string name="title_scales">Scales</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_track">Track</string>
+    <string name="title_tuner">Tuner</string>
+    
+    <string name="string_tempo">Tempo</string>
+    <string name="string_bpm">BPM</string>
+    <string name="string_meter">Meter</string>
+    <string name="string_time">Time</string>
+    <string name="string_volume">Volume</string>
+    <string name="string_percent">%</string>
+    <string name="string_tone">Key</string>
+    <string name="string_interval">Interval</string>
+    <string name="string_style">Style</string>
+    <string name="string_button_play">PLAY</string>
+    <string name="string_button_stop">STOP</string>
+    <string name="string_button_tempo_inc">+</string>
+    <string name="string_button_tempo_dec">-</string>
+    <string name="string_button_tap">TAP</string>
+    
+    <string name="string_tuner_default_frequency">Hz</string>
+    
+    <string name="string_note_view">Note View</string>
+    <string name="string_6_string_guitar_view">6-String Guitar</string>
+    <string name="string_7_string_guitar_view">7-String Guitar</string>
+    <string name="string_8_string_guitar_view">8-String Guitar</string>
+    <string name="string_4_string_bass_view">4-String Bass</string>
+    <string name="string_5_string_bass_view">5-String Bass</string>
+    <string name="string_6_string_bass_view">6-String Bass</string>
+    <string name="string_piano_view">Piano View</string>
+    <string name="string_demo">Hear It!</string>
+    
+    <string name="string_fretboard_length">Fretboard Length</string>
+    <string name="string_6_string_guitar">6-String Guitar</string>
+    <string name="string_7_string_guitar">7-String Guitar</string>
+    <string name="string_8_string_guitar">8-String Guitar</string>
+    <string name="string_4_string_bass">4-String Bass</string>
+    <string name="string_5_string_bass">5-String Bass</string>
+    <string name="string_6_string_bass">6-String Bass</string>
+    <string name="string_default">Default</string>
+        
+    <string name="string_welcome"><b><u>News</u></b>
+        \n\n<b><i>Update 1.0.28:</i></b>
+        \n\nGeneral
+        \n- Various code optimizations.
+        \n- Minor layout updates for all screen sizes.
+        \n\nLibrary
+        \n- User preferred view (Note View, Piano View, Guitar, Bass, etc) is now remembered.
+        \n- Increased fretmarker size slightly.
+        \n\nJam Tracks
+        \n- Added \"Jazz Fusion 2,\" \"Rock Groove Heavy\" and \"Rock Groove Kick\".</string>
+    <string name="string_main_metro">Metronome</string>
+    <string name="string_main_track">Jam Tracks</string>
+    <string name="string_main_tune">Tuner</string>
+    
+    <string name="string_mozarts_friend">Mozart\'s Friend</string>
+    <string name="string_copyright">© 2013 JLC Software</string>
+    
+    <string name="string_link_play"><a href='https://play.google.com/store/apps/details?id=com.jameschin.android.mozartsfriend'>Play</a></string>
+    <string name="string_link_facebook"><a href='https://www.facebook.com/MozartsFriend'>Facebook</a></string>
+    <string name="string_link_email"><a href='mailto:jameschinsoftware@gmail.com'>Email</a></string>
+    
+    <string name="string_info"><b>Development</b>
+        \nJames Chin
+        \n\n<b>QA</b>
+        \nRobert Gibbs
+        \nAdam Hackbarth
+        \nZhang Xuan</string>
+</resources>

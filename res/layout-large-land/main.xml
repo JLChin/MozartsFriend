@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_background"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="7"
+        android:background="@drawable/controls_frame_2" >
+
+        <TextView
+            android:id="@+id/textview_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/string_welcome"
+            android:textColor="#cccccc"
+            android:textSize="20sp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:background="@drawable/controls_frame"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button_main_track"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:text="@string/string_main_track"
+            android:textColor="#cccccc"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/button_main_metro"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:text="@string/string_main_metro"
+            android:textColor="#cccccc"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/button_main_tune"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:text="@string/string_main_tune"
+            android:textColor="#cccccc"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_main_footer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/textview_mozarts_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textview_copyright"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="4dp"
+            android:text="@string/string_mozarts_friend"
+            android:textColor="#cccccc"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textview_copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:text="@string/string_copyright"
+            android:textColor="#cccccc"
+            android:textSize="8sp" />
+    </RelativeLayout>
+
+</LinearLayout>
