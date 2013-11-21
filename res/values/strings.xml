@@ -61,15 +61,12 @@
     <string name="string_default">Default</string>
         
     <string name="string_welcome"><b><u>News</u></b>
-        \n\n<b><i>Update 1.0.28:</i></b>
+        \n\n<b><i>Update 1.0.29:</i></b>
         \n\nGeneral
         \n- Various code optimizations.
         \n- Minor layout updates for all screen sizes.
-        \n\nLibrary
-        \n- User preferred view (Note View, Piano View, Guitar, Bass, etc) is now remembered.
-        \n- Increased fretmarker size slightly.
-        \n\nJam Tracks
-        \n- Added \"Jazz Fusion 2,\" \"Rock Groove Heavy\" and \"Rock Groove Kick\".</string>
+        \n\nMetronome
+        \n- Rare instances of runaway metronome that some users experienced should be fixed.</string>
     <string name="string_main_metro">Metronome</string>
     <string name="string_main_track">Jam Tracks</string>
     <string name="string_main_tune">Tuner</string>

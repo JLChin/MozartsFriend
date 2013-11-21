@@ -55,12 +55,15 @@ public class MetronomeActivity extends BaseActivity {
 	
 	// STATE VARIABLES
 	private boolean playing;
+	private boolean visualFeedback;
 	private long lastTap;
+	private int tempo;
 	private List<Integer> tapTempos;
 	
 	private SharedPreferences.Editor sharedPrefEditor;
 	private WakeLock wakeLock;
 	private Thread tapIndicatorThread;
+	private Thread visualFeedbackThread;
 	private Metronome metronome;
 	
 	@Override
@@ -79,6 +82,8 @@ public class MetronomeActivity extends BaseActivity {
 		
 		SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		sharedPrefEditor = sharedPref.edit();
+		
+		visualFeedback = sharedPref.getBoolean("METRONOME_VISUAL_FEEDBACK", true);
 		
 		// PLAY TOGGLE
 		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
@@ -199,6 +204,7 @@ public class MetronomeActivity extends BaseActivity {
 			seekBarMetronomeTempo.setProgress(savedTempo - MIN_TEMPO);
 			metronome.setTempo(savedTempo);
 			textViewTempo.setText(String.valueOf(savedTempo));
+			tempo = savedTempo;
 			seekBarMetronomeTempo.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If metronome is already playing, restart with new parameters
@@ -209,10 +215,11 @@ public class MetronomeActivity extends BaseActivity {
 						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
 					}
 				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) metronome.stop();
+				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						if (playing == true) metronome.stop();
 						int newTempo = progress + MIN_TEMPO;
 						metronome.setTempo(newTempo);
 						textViewTempo.setText(String.valueOf(newTempo));
@@ -235,10 +242,11 @@ public class MetronomeActivity extends BaseActivity {
 						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
 					}
 				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) metronome.stop();
+				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						if (playing == true) metronome.stop();
 						metronome.setMeter(progress);
 						textViewMeter.setText(metronome.getMeter());
 						
@@ -266,10 +274,11 @@ public class MetronomeActivity extends BaseActivity {
 						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
 					}
 				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) metronome.stop();
+				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						if (playing == true) metronome.stop();
 						metronome.setVolume(progress);
 						textViewVolume.setText(String.valueOf(metronome.getVolume()));
 					}	
@@ -291,10 +300,11 @@ public class MetronomeActivity extends BaseActivity {
 						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
 					}
 				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) metronome.stop();
+				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						if (playing == true) metronome.stop();
 						metronome.setTone(progress);
 						textViewTone.setText(metronome.getTone());
 						
@@ -319,10 +329,11 @@ public class MetronomeActivity extends BaseActivity {
 						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
 					}
 				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) metronome.stop();
+				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						if (playing == true) metronome.stop();
 						metronome.setInterval(progress);
 						textViewInterval.setText(metronome.getInterval());
 						
@@ -375,6 +386,13 @@ public class MetronomeActivity extends BaseActivity {
 	    		t.setTextSize(10);
 	    }
 	}
+	
+	/**
+	 * Starts a new metronome playback task and initiates the visual feedback thread.
+	 */
+	private void startMetro() {
+		new AsyncTaskPlayMetro().execute(metronome);
+	}
 
 	/**
 	 * AsyncTask to separate metronome operation from the UI thread.
@@ -417,6 +435,19 @@ public class MetronomeActivity extends BaseActivity {
 					}
 				});
 			}
+		}
+	}
+	
+	private class BeatIndicator implements Runnable {
+		Handler handler;
+		
+		BeatIndicator(Handler handler){
+			this.handler = handler;
+		}
+
+		public void run() {
+			
+			
 		}
 	}
 
