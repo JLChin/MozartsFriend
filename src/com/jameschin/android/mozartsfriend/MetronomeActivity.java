@@ -28,9 +28,11 @@ import android.widget.ToggleButton;
  * @author James Chin <JamesLChin@gmail.com>
  */
 public class MetronomeActivity extends BaseActivity {
+	// DEFAULT SETTINGS
 	private static final int MAX_TEMPO = 240;
-	private static final int MIN_TEMPO = 10;
+	private static final int MIN_TEMPO = 30;
 	private static final long TAP_DURATION_IN_MILLI = 2000;
+	private static final int FLASH_DURATION_IN_MILLI = 125;
 	private static final int DEFAULT_TEMPO = 112;
 	private static final int DEFAULT_METER = 1; // 2:4
 	private static final int DEFAULT_VOLUME = 100;
@@ -97,7 +99,7 @@ public class MetronomeActivity extends BaseActivity {
 						
 						if (playing == false) {
 							playing = true;
-							new AsyncTaskPlayMetro().execute(metronome);
+							startMetro();
 						}
 					} else {
 						if (wakeLock.isHeld())
@@ -105,7 +107,7 @@ public class MetronomeActivity extends BaseActivity {
 						
 						if (playing == true) {
 							playing = false;
-							metronome.stop();
+							stopMetro();
 						}
 					}
 				}
@@ -120,12 +122,13 @@ public class MetronomeActivity extends BaseActivity {
 					int newTempo = (int) metronome.getTempo();
 					newTempo++;
 					
-					if (playing == true) metronome.stop();
+					if (playing == true) stopMetro();
 					metronome.setTempo(newTempo);
+					tempo = newTempo;
 					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
 					textViewTempo.setText(Integer.toString(newTempo));
 					
-					if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+					if (playing == true) startMetro();
 					
 					sharedPrefEditor.putInt("TEMPO", newTempo);
 					sharedPrefEditor.commit();
@@ -141,12 +144,13 @@ public class MetronomeActivity extends BaseActivity {
 					int newTempo = (int) metronome.getTempo();
 					newTempo--;
 					
-					if (playing == true) metronome.stop();
+					if (playing == true) stopMetro();
 					metronome.setTempo(newTempo);
+					tempo = newTempo;
 					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
 					textViewTempo.setText(Integer.toString(newTempo));
 					
-					if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+					if (playing == true) startMetro();
 					
 					sharedPrefEditor.putInt("TEMPO", newTempo);
 					sharedPrefEditor.commit();
@@ -181,12 +185,13 @@ public class MetronomeActivity extends BaseActivity {
 							newTempo += i;
 						newTempo /= tapTempos.size();
 
-						if (playing == true) metronome.stop();
+						if (playing == true) stopMetro();
 						metronome.setTempo(newTempo);
+						tempo = newTempo;
 						seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
 						textViewTempo.setText(Integer.toString(newTempo));
 
-						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+						if (playing == true) startMetro();
 						
 						sharedPrefEditor.putInt("TEMPO", newTempo);
 						sharedPrefEditor.commit();
@@ -212,16 +217,17 @@ public class MetronomeActivity extends BaseActivity {
 						sharedPrefEditor.putInt("TEMPO", (int) metronome.getTempo());
 						sharedPrefEditor.commit();
 						
-						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+						if (playing == true) startMetro();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) metronome.stop();
+					if (playing == true) stopMetro();
 				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
 						int newTempo = progress + MIN_TEMPO;
 						metronome.setTempo(newTempo);
+						tempo = newTempo;
 						textViewTempo.setText(String.valueOf(newTempo));
 					}
 				}
@@ -239,11 +245,11 @@ public class MetronomeActivity extends BaseActivity {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If metronome is already playing, restart with new parameters
 					synchronized(this) {
-						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+						if (playing == true) startMetro();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) metronome.stop();
+					if (playing == true) stopMetro();
 				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
@@ -271,11 +277,11 @@ public class MetronomeActivity extends BaseActivity {
 						sharedPrefEditor.putInt("VOLUME", metronome.getVolume());
 						sharedPrefEditor.commit();
 						
-						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+						if (playing == true) startMetro();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) metronome.stop();
+					if (playing == true) stopMetro();
 				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
@@ -297,11 +303,11 @@ public class MetronomeActivity extends BaseActivity {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If metronome is already playing, restart with new parameters
 					synchronized(this) {
-						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+						if (playing == true) startMetro();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) metronome.stop();
+					if (playing == true) stopMetro();
 				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
@@ -326,11 +332,11 @@ public class MetronomeActivity extends BaseActivity {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If metronome is already playing, restart with new parameters
 					synchronized(this) {
-						if (playing == true) new AsyncTaskPlayMetro().execute(metronome);
+						if (playing == true) startMetro();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) metronome.stop();
+					if (playing == true) stopMetro();
 				}
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
@@ -391,7 +397,33 @@ public class MetronomeActivity extends BaseActivity {
 	 * Starts a new metronome playback task and initiates the visual feedback thread.
 	 */
 	private void startMetro() {
+		// calculate visual feedback parameters first
+		int beatDurationInMilli = 60000 / tempo; // (milliseconds per minute) / (beats per minute) = (milliseconds per beat)
+		int silenceDurationInMilli = beatDurationInMilli - FLASH_DURATION_IN_MILLI;
+		
+		// calculate the millisecond duration of one measure
+		String meter = metronome.getMeter();
+		int numOfBeats = Integer.valueOf(meter.substring(0, 1)); // first number TODO beats above 9?
+		int beatDivision = Integer.valueOf(meter.substring(meter.length() - 1)); // last number
+		int measureDurationInMilli = (beatDivision == 8) ? (numOfBeats * beatDurationInMilli / 2) : (numOfBeats * beatDurationInMilli);
+		
+		// START TASKS
 		new AsyncTaskPlayMetro().execute(metronome);
+		
+		if (visualFeedback) {
+			visualFeedbackThread = new Thread(new BeatIndicator(measureDurationInMilli, silenceDurationInMilli, new Handler()));
+			visualFeedbackThread.start();
+		}
+	}
+	
+	/**
+	 * Stops metronome playback and interrupts the visual feedback thread.
+	 */
+	private void stopMetro() {
+		metronome.stop();
+		
+		if (visualFeedbackThread != null)
+			visualFeedbackThread.interrupt();
 	}
 
 	/**
@@ -438,16 +470,75 @@ public class MetronomeActivity extends BaseActivity {
 		}
 	}
 	
+	/**
+	 * Thread to control the visual feedback for the beat.
+	 */
 	private class BeatIndicator implements Runnable {
 		Handler handler;
+		int measureDurationInMilli; // millisecond duration of the total loop
+		int silenceDurationInMilli; // milliseconds between the end of the beat flash and the beginning of the next flash
 		
-		BeatIndicator(Handler handler){
+		BeatIndicator(int measureDurationInMilli, int silenceDurationInMilli, Handler handler){
+			this.measureDurationInMilli = measureDurationInMilli;
+			this.silenceDurationInMilli = silenceDurationInMilli;
 			this.handler = handler;
 		}
 
 		public void run() {
+			int remainingMilli;
+			boolean firstBeat;
+			boolean silence;
 			
+			while (!Thread.currentThread().isInterrupted()) {
+				remainingMilli = measureDurationInMilli;
+				firstBeat = true;
+				silence = false;
+				
+				while (remainingMilli > 0) {
+					if (!silence) {
+						if (firstBeat) {
+							setPlayIndicator(R.drawable.button_background_red); // primary ON indicator
+							firstBeat = false;
+						} else
+							setPlayIndicator(R.drawable.tuner_lock_green); // secondary ON indicator
+						
+						try {
+							Thread.sleep(FLASH_DURATION_IN_MILLI);
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt(); // propagate interrupt
+							break;
+						}
+						
+						setPlayIndicator(R.drawable.button_background); // OFF
+						
+						remainingMilli -= FLASH_DURATION_IN_MILLI;
+						silence = true;
+					} else { // silence, period during which light is off
+						int silenceTimeInMilli = (remainingMilli >= silenceDurationInMilli) ? silenceDurationInMilli : remainingMilli;
+						
+						try {
+							Thread.sleep(silenceTimeInMilli);
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt(); // propagate interrupt
+							break;
+						}
+						
+						remainingMilli -= silenceTimeInMilli;
+						silence = false;
+					}
+				}
+			}
 			
+			// Thread interrupted, revert Play indicator
+			setPlayIndicator(R.drawable.button_background);
+		}
+		
+		void setPlayIndicator(final int resID) {
+			handler.post(new Runnable() {
+				public void run() {
+					buttonPlay.setBackgroundResource(resID);
+				}			
+			});
 		}
 	}
 
@@ -458,7 +549,7 @@ public class MetronomeActivity extends BaseActivity {
 	    	if (wakeLock.isHeld())
 	    		wakeLock.release();
 	    	
-	    	if (playing == true) metronome.stop();
+	    	if (playing == true) stopMetro();
 	    }
 	}
 	
@@ -470,7 +561,7 @@ public class MetronomeActivity extends BaseActivity {
 	    		if (!wakeLock.isHeld())
 	    			wakeLock.acquire();
 	    		
-	    		new AsyncTaskPlayMetro().execute(metronome);
+	    		startMetro();
 	    	}
 	    }
 	}
