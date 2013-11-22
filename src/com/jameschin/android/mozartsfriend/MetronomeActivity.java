@@ -6,7 +6,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -62,8 +61,10 @@ public class MetronomeActivity extends BaseActivity {
 	private int tempo;
 	private List<Integer> tapTempos;
 	
+	// SYSTEM
 	private SharedPreferences.Editor sharedPrefEditor;
 	private WakeLock wakeLock;
+	private Thread metronomeThread;
 	private Thread tapIndicatorThread;
 	private Thread visualFeedbackThread;
 	private Metronome metronome;
@@ -394,7 +395,7 @@ public class MetronomeActivity extends BaseActivity {
 	}
 	
 	/**
-	 * Starts a new metronome playback task and initiates the visual feedback thread.
+	 * Calculates parameters and then starts new metronome playback and visual feedback threads.
 	 */
 	private void startMetro() {
 		// calculate visual feedback parameters first
@@ -407,17 +408,33 @@ public class MetronomeActivity extends BaseActivity {
 		int beatDivision = Integer.valueOf(meter.substring(meter.length() - 1)); // last number
 		int measureDurationInMilli = (beatDivision == 8) ? (numOfBeats * beatDurationInMilli / 2) : (numOfBeats * beatDurationInMilli);
 		
-		// START TASKS
-		new AsyncTaskPlayMetro().execute(metronome);
+		// ensure old threads are dead before starting new ones
+		if (visualFeedbackThread != null && visualFeedbackThread.isAlive())
+			try {
+				visualFeedbackThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		
-		if (visualFeedback) {
-			visualFeedbackThread = new Thread(new BeatIndicator(measureDurationInMilli, silenceDurationInMilli, new Handler()));
+		if (metronomeThread != null && metronomeThread.isAlive())
+			try {
+				metronomeThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		
+		// START NEW TASKS
+		metronomeThread = new Thread(new MetronomeThread());
+		metronomeThread.start();
+		
+		if (visualFeedback) { // if visual feedback is enabled in Settings
+			visualFeedbackThread = new Thread(new VisualFeedback(measureDurationInMilli, silenceDurationInMilli, new Handler()));
 			visualFeedbackThread.start();
 		}
 	}
 	
 	/**
-	 * Stops metronome playback and interrupts the visual feedback thread.
+	 * Stops metronome playback and interrupts the visual feedback thread. Both threads then naturally terminate.
 	 */
 	private void stopMetro() {
 		metronome.stop();
@@ -425,24 +442,19 @@ public class MetronomeActivity extends BaseActivity {
 		if (visualFeedbackThread != null)
 			visualFeedbackThread.interrupt();
 	}
-
+	
 	/**
-	 * AsyncTask to separate metronome operation from the UI thread.
-	 * When parameters change, the old task completes and a new task is initiated with the new parameters.
+	 * Thread to separate metronome operation from the UI thread.
+	 * When parameters change, the old thread is killed and a new one is initiated with the new parameters.
 	 */
-	private class AsyncTaskPlayMetro extends AsyncTask<Metronome, Integer, String> {
-		protected String doInBackground(Metronome... metronome) {
-			metronome[0].play();
-			return "Done";
+	private class MetronomeThread implements Runnable {
+		public void run() {
+			metronome.play();
 		}
-
-		protected void onProgressUpdate(Integer... progress) { }
-		
-		protected void onPostExecute(String result) { }
 	}
 	
 	/**
-	 * Simple thread to turn the Tap indicator light off after the acquisition time window has elapsed.
+	 * Thread to turn the Tap indicator light off after the tap acquisition time window has elapsed.
 	 */
 	private class TapIndicator implements Runnable {
 		Handler handler;
@@ -473,12 +485,12 @@ public class MetronomeActivity extends BaseActivity {
 	/**
 	 * Thread to control the visual feedback for the beat.
 	 */
-	private class BeatIndicator implements Runnable {
+	private class VisualFeedback implements Runnable {
 		Handler handler;
 		int measureDurationInMilli; // millisecond duration of the total loop
 		int silenceDurationInMilli; // milliseconds between the end of the beat flash and the beginning of the next flash
 		
-		BeatIndicator(int measureDurationInMilli, int silenceDurationInMilli, Handler handler){
+		VisualFeedback(int measureDurationInMilli, int silenceDurationInMilli, Handler handler){
 			this.measureDurationInMilli = measureDurationInMilli;
 			this.silenceDurationInMilli = silenceDurationInMilli;
 			this.handler = handler;
@@ -533,6 +545,10 @@ public class MetronomeActivity extends BaseActivity {
 			setPlayIndicator(R.drawable.button_background);
 		}
 		
+		/**
+		 * Light (or unlight) the Play Button.
+		 * @param resID the drawable resource to use for the Play Button background.
+		 */
 		void setPlayIndicator(final int resID) {
 			handler.post(new Runnable() {
 				public void run() {
