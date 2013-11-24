@@ -28,8 +28,8 @@ import android.widget.ToggleButton;
  */
 public class MetronomeActivity extends BaseActivity {
 	// DEFAULT SETTINGS
-	private static final int MAX_TEMPO = 240;
-	private static final int MIN_TEMPO = 30;
+	private static final int MAX_TEMPO = 220;
+	private static final int MIN_TEMPO = 40;
 	private static final long TAP_DURATION_IN_MILLI = 2000;
 	private static final int FLASH_DURATION_IN_MILLI = 125;
 	private static final int DEFAULT_TEMPO = 112;
@@ -56,13 +56,13 @@ public class MetronomeActivity extends BaseActivity {
 	
 	// STATE VARIABLES
 	private boolean playing;
-	private boolean visualFeedback;
 	private long lastTap;
 	private int tempo;
+	private int visualFeedbackMode;
 	private List<Integer> tapTempos;
 	
 	// SYSTEM
-	private SharedPreferences.Editor sharedPrefEditor;
+	private SharedPreferences sharedPref;
 	private WakeLock wakeLock;
 	private Thread metronomeThread;
 	private Thread tapIndicatorThread;
@@ -83,10 +83,10 @@ public class MetronomeActivity extends BaseActivity {
 		PowerManager powermanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = powermanager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "MetronomeActivity");
 		
-		SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-		sharedPrefEditor = sharedPref.edit();
+		sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+		final SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
 		
-		visualFeedback = sharedPref.getBoolean("METRONOME_VISUAL_FEEDBACK", true);
+		visualFeedbackMode = sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
 		
 		// PLAY TOGGLE
 		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
@@ -124,10 +124,9 @@ public class MetronomeActivity extends BaseActivity {
 					newTempo++;
 					
 					if (playing == true) stopMetro();
-					metronome.setTempo(newTempo);
-					tempo = newTempo;
+					
 					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
-					textViewTempo.setText(Integer.toString(newTempo));
+					setTempo(newTempo);
 					
 					if (playing == true) startMetro();
 					
@@ -146,10 +145,9 @@ public class MetronomeActivity extends BaseActivity {
 					newTempo--;
 					
 					if (playing == true) stopMetro();
-					metronome.setTempo(newTempo);
-					tempo = newTempo;
+					
 					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
-					textViewTempo.setText(Integer.toString(newTempo));
+					setTempo(newTempo);
 					
 					if (playing == true) startMetro();
 					
@@ -168,7 +166,7 @@ public class MetronomeActivity extends BaseActivity {
 					if (tapIndicatorThread != null)
 						tapIndicatorThread.interrupt();
 					buttonTap.setBackgroundResource(R.drawable.button_background_red);
-					tapIndicatorThread = new Thread(new TapIndicator(new Handler()));
+					tapIndicatorThread = new Thread(new TapIndicator(new Handler()), "Thread - Metronome Tap Tempo Timer");
 					tapIndicatorThread.start();
 					
 					long newTap = System.currentTimeMillis();
@@ -187,10 +185,9 @@ public class MetronomeActivity extends BaseActivity {
 						newTempo /= tapTempos.size();
 
 						if (playing == true) stopMetro();
-						metronome.setTempo(newTempo);
-						tempo = newTempo;
+						
 						seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
-						textViewTempo.setText(Integer.toString(newTempo));
+						setTempo(newTempo);
 
 						if (playing == true) startMetro();
 						
@@ -227,9 +224,7 @@ public class MetronomeActivity extends BaseActivity {
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
 						int newTempo = progress + MIN_TEMPO;
-						metronome.setTempo(newTempo);
-						tempo = newTempo;
-						textViewTempo.setText(String.valueOf(newTempo));
+						setTempo(newTempo);
 					}
 				}
 			});
@@ -395,6 +390,16 @@ public class MetronomeActivity extends BaseActivity {
 	}
 	
 	/**
+	 * Convenience function, sets tempo.
+	 * @param newTempo the new tempo.
+	 */
+	private void setTempo(int newTempo) {
+		metronome.setTempo(newTempo);
+		tempo = newTempo;
+		textViewTempo.setText(String.valueOf(newTempo));
+	}
+	
+	/**
 	 * Calculates parameters and then starts new metronome playback and visual feedback threads.
 	 */
 	private void startMetro() {
@@ -408,33 +413,18 @@ public class MetronomeActivity extends BaseActivity {
 		int beatDivision = Integer.valueOf(meter.substring(meter.length() - 1)); // last number
 		int measureDurationInMilli = (beatDivision == 8) ? (numOfBeats * beatDurationInMilli / 2) : (numOfBeats * beatDurationInMilli);
 		
-		// ensure old threads are dead before starting new ones
-		if (visualFeedbackThread != null && visualFeedbackThread.isAlive())
-			try {
-				visualFeedbackThread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		
-		if (metronomeThread != null && metronomeThread.isAlive())
-			try {
-				metronomeThread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		
 		// START NEW TASKS
-		metronomeThread = new Thread(new MetronomeThread());
+		metronomeThread = new Thread(new MetronomeThread(), "Thread - Metronome Audio");
 		metronomeThread.start();
 		
-		if (visualFeedback) { // if visual feedback is enabled in Settings
-			visualFeedbackThread = new Thread(new VisualFeedback(measureDurationInMilli, silenceDurationInMilli, new Handler()));
+		if ((visualFeedbackMode != SettingsActivity.VISUAL_FEEDBACK_MODE_DISABLED) && tempo <= MAX_TEMPO) {
+			visualFeedbackThread = new Thread(new VisualFeedback(measureDurationInMilli, silenceDurationInMilli, new Handler()), "Thread - Metronome Visual Feedback");
 			visualFeedbackThread.start();
 		}
 	}
 	
 	/**
-	 * Stops metronome playback and interrupts the visual feedback thread. Both threads then naturally terminate.
+	 * Stops metronome playback and interrupts the visual feedback thread. Both threads then terminate.
 	 */
 	private void stopMetro() {
 		metronome.stop();
@@ -511,8 +501,10 @@ public class MetronomeActivity extends BaseActivity {
 						if (firstBeat) {
 							setPlayIndicator(R.drawable.button_background_red); // primary ON indicator
 							firstBeat = false;
-						} else
-							setPlayIndicator(R.drawable.tuner_lock_green); // secondary ON indicator
+						} else {
+							if (visualFeedbackMode != SettingsActivity.VISUAL_FEEDBACK_MODE_FIRST_BEAT_ONLY)
+								setPlayIndicator(R.drawable.tuner_lock_green); // secondary ON indicator
+						}
 						
 						try {
 							Thread.sleep(FLASH_DURATION_IN_MILLI);
@@ -521,7 +513,7 @@ public class MetronomeActivity extends BaseActivity {
 							break;
 						}
 						
-						setPlayIndicator(R.drawable.button_background); // OFF
+						setPlayIndicator(R.drawable.button_background); // indicator OFF
 						
 						remainingMilli -= FLASH_DURATION_IN_MILLI;
 						silence = true;
@@ -572,6 +564,10 @@ public class MetronomeActivity extends BaseActivity {
 	@Override
 	protected void onRestart() {
 	    super.onRestart();
+	    
+	    // in case the user changes visual feedback settings while there is a MetronomeActivity open in the background, and then returns to it
+	    visualFeedbackMode = sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
+	    
 	    synchronized(this) {
 	    	if (playing == true) {
 	    		if (!wakeLock.isHeld())

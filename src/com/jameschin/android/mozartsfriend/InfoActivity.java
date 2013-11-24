@@ -21,8 +21,14 @@ public class InfoActivity extends BaseActivity {
 	
 	private void initialize() {
 		// set hyperlinks
-		((TextView) findViewById(R.id.textview_link_play)).setMovementMethod(LinkMovementMethod.getInstance());
-		((TextView) findViewById(R.id.textview_link_facebook)).setMovementMethod(LinkMovementMethod.getInstance());
-		((TextView) findViewById(R.id.textview_link_email)).setMovementMethod(LinkMovementMethod.getInstance());
+		int[] links = {
+				R.id.textview_link_play,
+				R.id.textview_link_facebook,
+				R.id.textview_link_youtube,
+				R.id.textview_link_email
+		};
+		
+		for (int link : links)
+			((TextView) findViewById(link)).setMovementMethod(LinkMovementMethod.getInstance());
 	}
 }

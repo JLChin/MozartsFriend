@@ -19,8 +19,14 @@ import android.widget.Spinner;
  * @author James Chin <JamesLChin@gmail.com>
  */
 public class SettingsActivity extends BaseActivity {
-	private static final int MAX_FRET_START = 20;
-	private static final int MAX_FRET_RANGE = 8;
+	// DEFAULT SETTINGS
+	static final int MAX_FRET_START = 20;
+	static final int MAX_FRET_RANGE = 8;
+	static final int VISUAL_FEEDBACK_MODE_ENABLED = 0;
+	static final int VISUAL_FEEDBACK_MODE_FIRST_BEAT_ONLY = 1;
+	static final int VISUAL_FEEDBACK_MODE_DISABLED = 2;
+	
+	// SYSTEM
 	private SharedPreferences.Editor sharedPrefEditor;
 
 	@Override
@@ -171,6 +177,25 @@ public class SettingsActivity extends BaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				sharedPrefEditor.putInt("FRETBOARD_LENGTH", MAX_FRET_START + position + 1);
+				sharedPrefEditor.commit();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+		
+		// METRONOME VISUAL FEEDBACK SETTINGS
+		String[] metronomeVisualFeedbackList = { getString(R.string.string_metronome_visual_feedback_mode_enabled), getString(R.string.string_metronome_visual_feedback_mode_firstbeatonly), getString(R.string.string_metronome_visual_feedback_mode_disabled) };
+		ArrayAdapter<String> adapterMetronomeVisualFeedback = new ArrayAdapter<String>(this, R.layout.spinner_item, metronomeVisualFeedbackList);
+		adapterMetronomeVisualFeedback.setDropDownViewResource(R.layout.spinner_dropdown_item);
+		Spinner spinnerMetronomeVisualFeedback = (Spinner) findViewById(R.id.spinner_settings_metronome_visual_feedback);
+		spinnerMetronomeVisualFeedback.setAdapter(adapterMetronomeVisualFeedback);
+		spinnerMetronomeVisualFeedback.setSelection(sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", VISUAL_FEEDBACK_MODE_ENABLED));
+		spinnerMetronomeVisualFeedback.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				sharedPrefEditor.putInt("METRONOME_VISUAL_FEEDBACK_MODE", position);
 				sharedPrefEditor.commit();
 			}
 

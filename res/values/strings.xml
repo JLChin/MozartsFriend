@@ -51,22 +51,31 @@
     <string name="string_piano_view">Piano View</string>
     <string name="string_demo">Hear It!</string>
     
-    <string name="string_fretboard_length">Fretboard Length</string>
-    <string name="string_6_string_guitar">6-String Guitar</string>
-    <string name="string_7_string_guitar">7-String Guitar</string>
-    <string name="string_8_string_guitar">8-String Guitar</string>
-    <string name="string_4_string_bass">4-String Bass</string>
-    <string name="string_5_string_bass">5-String Bass</string>
-    <string name="string_6_string_bass">6-String Bass</string>
+    <string name="string_metronome_visual_feedback">Metronome Visual Feedback</string>
+    <string name="string_metronome_visual_feedback_mode_enabled">Enabled</string>
+    <string name="string_metronome_visual_feedback_mode_firstbeatonly">First Beat Only</string>
+    <string name="string_metronome_visual_feedback_mode_disabled">Disabled</string>
+    <string name="string_fretboard_length">Guitar/Bass Fretboard Length</string>
+    <string name="string_6_string_guitar_tuning">6-String Guitar Tuning</string>
+    <string name="string_7_string_guitar_tuning">7-String Guitar Tuning</string>
+    <string name="string_8_string_guitar_tuning">8-String Guitar Tuning</string>
+    <string name="string_4_string_bass_tuning">4-String Bass Tuning</string>
+    <string name="string_5_string_bass_tuning">5-String Bass Tuning</string>
+    <string name="string_6_string_bass_tuning">6-String Bass Tuning</string>
     <string name="string_default">Default</string>
         
     <string name="string_welcome"><b><u>News</u></b>
         \n\n<b><i>Update 1.0.29:</i></b>
-        \n\nGeneral
-        \n- Various code optimizations.
-        \n- Minor layout updates for all screen sizes.
-        \n\nMetronome
-        \n- Rare instances of runaway metronome that some users experienced should be fixed.</string>
+        \n\n<b>General</b>
+        \n- Various code optimizations, updated documentation.
+        \n\n- \"Help\" section added to the Menu.
+        \n\n\n<b>Metronome</b>
+        \n- Users should notice even greater responsiveness across all devices.
+        \n\n- Rare instances of runaway metronome that some users experienced should be fixed.
+        \n\n- Visual Feedback has been added. This feature can be adjusted under Settings. Note that visual feedback is automatically disabled at extremely high tempos.
+        \n\n\n<b>Jam Tracks</b>
+        \n- \"Bluegrass\" added.
+        \n\n\nHappy Practicing and please feel free to <a href='mailto:jameschinsoftware@gmail.com'>email</a> us!</string>
     <string name="string_main_metro">Metronome</string>
     <string name="string_main_track">Jam Tracks</string>
     <string name="string_main_tune">Tuner</string>
@@ -74,8 +83,9 @@
     <string name="string_mozarts_friend">Mozart\'s Friend</string>
     <string name="string_copyright">© 2013 JLC Software</string>
     
-    <string name="string_link_play"><a href='https://play.google.com/store/apps/details?id=com.jameschin.android.mozartsfriend'>Play</a></string>
+    <string name="string_link_play"><a href='https://play.google.com/store/apps/details?id=com.jameschin.android.mozartsfriend'>Google Play</a></string>
     <string name="string_link_facebook"><a href='https://www.facebook.com/MozartsFriend'>Facebook</a></string>
+    <string name="string_link_youtube"><a href='https://www.youtube.com/jameschinmusic'>YouTube</a></string>
     <string name="string_link_email"><a href='mailto:jameschinsoftware@gmail.com'>Email</a></string>
     
     <string name="string_info"><b>Development</b>

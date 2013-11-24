@@ -18,6 +18,9 @@ import android.os.Handler;
  * Space: O(1)
  * Time: O(n^2) where n is the window length.
  * 
+ * Tradeoffs:
+ *  - Not as fast as Fast Fourier Transform (FFT) algorithm but more accurate and reliable. More resistant to background noise and other signal irregularities.
+ * 
  * Notes:
  * BUFFER_SIZE_IN_BYTES should be at least twice as long as any wavelength to be discerned, four times in the case of 16-bit audio since it is two bytes per one sample.
  * SAMPLES_PER_CYCLE = SAMPLE_RATE_IN_HZ / FREQUENCY_IN_HZ.

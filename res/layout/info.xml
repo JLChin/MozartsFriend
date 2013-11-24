@@ -25,6 +25,15 @@
             android:text="@string/string_link_facebook"
             android:textColor="#cccccc"
             android:textSize="15sp" />
+        
+        <TextView
+            android:id="@+id/textview_link_youtube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/string_link_youtube"
+            android:textColor="#cccccc"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textview_link_email"

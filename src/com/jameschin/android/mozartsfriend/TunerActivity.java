@@ -66,11 +66,17 @@ public class TunerActivity extends BaseActivity{
 			if (!wakeLock.isHeld())
 				wakeLock.acquire();
 			
-			tunerThread = new Thread(new Tuner(this, new Handler()));
+			tunerThread = new Thread(new Tuner(this, new Handler()), "Thread - Tuner");
 			tunerThread.start();
 		}
     }
     
+    /**
+     * Updates the tuner display, the Tuner class calls this function via this Activity's Handler.
+     * @param closestNote the nearest note to the one picked up by the device mic, identified by the Tuner.
+     * @param distanceRatio the relative distance from this note (closestNote) to the next closest note. Min 0/Max 1, positive meaning the next higher note and negative meaning the next lower note from closestNote.
+     * @param frequency the exact primary frequency picked up by the device mic, identified by the Tuner. 
+     */
     protected void updateDisplay(int closestNote, double distanceRatio, double frequency) {
     	indicatorClear();
     	
@@ -110,6 +116,9 @@ public class TunerActivity extends BaseActivity{
     	}
     }
     
+    /**
+     * Clear the screen and all indicators lights.
+     */
     private void indicatorClear() {
     	textViewTunerNote.setBackgroundResource(R.drawable.controls_frame);
     	viewTunerUp1.setVisibility(View.GONE);
@@ -120,6 +129,9 @@ public class TunerActivity extends BaseActivity{
     	viewTunerDown3.setVisibility(View.GONE);
     }
     
+    /**
+     * Light the green Lock indicator.
+     */
     private void indicatorLock() {
     	textViewTunerNote.setBackgroundResource(R.drawable.tuner_lock_green);
     }

@@ -11,7 +11,43 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" >
+            android:layout_marginTop="10dp" >
+
+            <RelativeLayout
+                android:id="@+id/layout_settings_metronome_visual_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp" >
+
+                <TextView
+                    android:id="@+id/textview_metronome_visual_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:text="@string/string_metronome_visual_feedback"
+                    android:textColor="#999999"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_settings_metronome_visual_feedback"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview_metronome_visual_feedback"
+                    android:background="@drawable/button_background"
+                    android:padding="6dp" >
+                </Spinner>
+            </RelativeLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <RelativeLayout
                 android:id="@+id/layout_settings_fretboard_length"
@@ -23,75 +59,55 @@
                     android:id="@+id/textview_fretboard_length"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:padding="6dp"
                     android:text="@string/string_fretboard_length"
                     android:textColor="#999999"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <Spinner
                     android:id="@+id/spinner_settings_fretboard_length"
-                    android:layout_width="100dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/textview_fretboard_length"
+                    android:layout_below="@+id/textview_fretboard_length"
                     android:background="@drawable/button_background"
                     android:padding="6dp" >
                 </Spinner>
             </RelativeLayout>
         </HorizontalScrollView>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/separator" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <RelativeLayout
-                android:id="@+id/layout_settings_guitar6"
+                android:id="@+id/layout_settings_guitar6_tuning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp" >
 
                 <TextView
-                    android:id="@+id/textview_settings_guitar_6"
+                    android:id="@+id/textview_settings_guitar_6_tuning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_6_string_guitar"
+                    android:text="@string/string_6_string_guitar_tuning"
                     android:textColor="#999999"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/button_settings_guitar6_tuning_default"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/textview_settings_guitar_6"
-                    android:layout_alignTop="@+id/textview_settings_guitar_6"
+                    android:layout_alignBottom="@+id/textview_settings_guitar_6_tuning"
+                    android:layout_alignTop="@+id/textview_settings_guitar_6_tuning"
                     android:layout_margin="4dp"
-                    android:layout_toRightOf="@+id/textview_settings_guitar_6"
+                    android:layout_toRightOf="@+id/textview_settings_guitar_6_tuning"
                     android:background="@drawable/button_background"
                     android:text="@string/string_default"
                     android:textColor="#cccccc"
@@ -101,7 +117,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_settings_guitar_6"
+                    android:layout_below="@+id/textview_settings_guitar_6_tuning"
                     android:orientation="horizontal" >
 
                     <Spinner
@@ -155,57 +171,39 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/separator" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <RelativeLayout
-                android:id="@+id/layout_settings_guitar7"
+                android:id="@+id/layout_settings_guitar7_tuning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp" >
 
                 <TextView
-                    android:id="@+id/textview_settings_guitar_7"
+                    android:id="@+id/textview_settings_guitar_7_tuning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_7_string_guitar"
+                    android:text="@string/string_7_string_guitar_tuning"
                     android:textColor="#999999"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/button_settings_guitar7_tuning_default"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/textview_settings_guitar_7"
-                    android:layout_alignTop="@+id/textview_settings_guitar_7"
+                    android:layout_alignBottom="@+id/textview_settings_guitar_7_tuning"
+                    android:layout_alignTop="@+id/textview_settings_guitar_7_tuning"
                     android:layout_margin="4dp"
-                    android:layout_toRightOf="@+id/textview_settings_guitar_7"
+                    android:layout_toRightOf="@+id/textview_settings_guitar_7_tuning"
                     android:background="@drawable/button_background"
                     android:text="@string/string_default"
                     android:textColor="#cccccc"
@@ -215,7 +213,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_settings_guitar_7"
+                    android:layout_below="@+id/textview_settings_guitar_7_tuning"
                     android:orientation="horizontal" >
 
                     <Spinner
@@ -277,57 +275,39 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/separator" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <RelativeLayout
-                android:id="@+id/layout_settings_guitar8"
+                android:id="@+id/layout_settings_guitar8_tuning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp" >
 
                 <TextView
-                    android:id="@+id/textview_settings_guitar_8"
+                    android:id="@+id/textview_settings_guitar_8_tuning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_8_string_guitar"
+                    android:text="@string/string_8_string_guitar_tuning"
                     android:textColor="#999999"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/button_settings_guitar8_tuning_default"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/textview_settings_guitar_8"
-                    android:layout_alignTop="@+id/textview_settings_guitar_8"
+                    android:layout_alignBottom="@+id/textview_settings_guitar_8_tuning"
+                    android:layout_alignTop="@+id/textview_settings_guitar_8_tuning"
                     android:layout_margin="4dp"
-                    android:layout_toRightOf="@+id/textview_settings_guitar_8"
+                    android:layout_toRightOf="@+id/textview_settings_guitar_8_tuning"
                     android:background="@drawable/button_background"
                     android:text="@string/string_default"
                     android:textColor="#cccccc"
@@ -337,7 +317,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_settings_guitar_8"
+                    android:layout_below="@+id/textview_settings_guitar_8_tuning"
                     android:orientation="horizontal" >
 
                     <Spinner
@@ -407,57 +387,39 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/separator" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <RelativeLayout
-                android:id="@+id/layout_settings_bass4"
+                android:id="@+id/layout_settings_bass4_tuning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp" >
 
                 <TextView
-                    android:id="@+id/textview_settings_bass_4"
+                    android:id="@+id/textview_settings_bass_4_tuning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_4_string_bass"
+                    android:text="@string/string_4_string_bass_tuning"
                     android:textColor="#999999"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/button_settings_bass4_tuning_default"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/textview_settings_bass_4"
-                    android:layout_alignTop="@+id/textview_settings_bass_4"
+                    android:layout_alignBottom="@+id/textview_settings_bass_4_tuning"
+                    android:layout_alignTop="@+id/textview_settings_bass_4_tuning"
                     android:layout_margin="4dp"
-                    android:layout_toRightOf="@+id/textview_settings_bass_4"
+                    android:layout_toRightOf="@+id/textview_settings_bass_4_tuning"
                     android:background="@drawable/button_background"
                     android:text="@string/string_default"
                     android:textColor="#cccccc"
@@ -467,7 +429,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_settings_bass_4"
+                    android:layout_below="@+id/textview_settings_bass_4_tuning"
                     android:orientation="horizontal" >
 
                     <Spinner
@@ -505,57 +467,39 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/separator" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <RelativeLayout
-                android:id="@+id/layout_settings_bass5"
+                android:id="@+id/layout_settings_bass5_tuning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp" >
 
                 <TextView
-                    android:id="@+id/textview_settings_bass_5"
+                    android:id="@+id/textview_settings_bass_5_tuning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_5_string_bass"
+                    android:text="@string/string_5_string_bass_tuning"
                     android:textColor="#999999"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/button_settings_bass5_tuning_default"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/textview_settings_bass_5"
-                    android:layout_alignTop="@+id/textview_settings_bass_5"
+                    android:layout_alignBottom="@+id/textview_settings_bass_5_tuning"
+                    android:layout_alignTop="@+id/textview_settings_bass_5_tuning"
                     android:layout_margin="4dp"
-                    android:layout_toRightOf="@+id/textview_settings_bass_5"
+                    android:layout_toRightOf="@+id/textview_settings_bass_5_tuning"
                     android:background="@drawable/button_background"
                     android:text="@string/string_default"
                     android:textColor="#cccccc"
@@ -565,7 +509,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_settings_bass_5"
+                    android:layout_below="@+id/textview_settings_bass_5_tuning"
                     android:orientation="horizontal" >
 
                     <Spinner
@@ -611,57 +555,39 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/separator" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <RelativeLayout
-                android:id="@+id/layout_settings_bass6"
+                android:id="@+id/layout_settings_bass6_tuning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp" >
 
                 <TextView
-                    android:id="@+id/textview_settings_bass_6"
+                    android:id="@+id/textview_settings_bass_6_tuning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_6_string_bass"
+                    android:text="@string/string_6_string_bass_tuning"
                     android:textColor="#999999"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/button_settings_bass6_tuning_default"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/textview_settings_bass_6"
-                    android:layout_alignTop="@+id/textview_settings_bass_6"
+                    android:layout_alignBottom="@+id/textview_settings_bass_6_tuning"
+                    android:layout_alignTop="@+id/textview_settings_bass_6_tuning"
                     android:layout_margin="4dp"
-                    android:layout_toRightOf="@+id/textview_settings_bass_6"
+                    android:layout_toRightOf="@+id/textview_settings_bass_6_tuning"
                     android:background="@drawable/button_background"
                     android:text="@string/string_default"
                     android:textColor="#cccccc"
@@ -671,7 +597,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_settings_bass_6"
+                    android:layout_below="@+id/textview_settings_bass_6_tuning"
                     android:orientation="horizontal" >
 
                     <Spinner
