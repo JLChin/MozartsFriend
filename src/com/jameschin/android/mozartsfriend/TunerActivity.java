@@ -1,10 +1,7 @@
 package com.jameschin.android.mozartsfriend;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,13 +11,16 @@ import android.widget.TextView;
  * @author James Chin <JamesLChin@gmail.com>
  */
 public class TunerActivity extends BaseActivity{
+	// CONSTANTS
     private static final String[] NOTE_NAME = {"G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"};
-    private static final double upRatio1 = 0.04;
-    private static final double upRatio2 = 0.25;
-    private static final double upRatio3 = 0.35;
-    private static final double downRatio1 = -0.09;
-    private static final double downRatio2 = -0.25;
-    private static final double downRatio3 = -0.35;
+    
+    // DEFAULT SETTINGS
+    private static final double UP_RATIO_1 = 0.04;
+    private static final double UP_RATIO_2 = 0.25;
+    private static final double UP_RATIO_3 = 0.35;
+    private static final double DOWN_RATIO_1 = -0.09;
+    private static final double DOWN_RATIO_2 = -0.25;
+    private static final double DOWN_RATIO_3 = -0.35;
     
     // VIEW HOLDERS
     private TextView textViewTunerNote;
@@ -34,7 +34,7 @@ public class TunerActivity extends BaseActivity{
     private View viewTunerDown2;
     private View viewTunerDown3;
    
-    private WakeLock wakeLock;
+    // SYSTEM
     private Thread tunerThread;
     
     @Override
@@ -58,14 +58,8 @@ public class TunerActivity extends BaseActivity{
     	viewTunerDown3 = (View) findViewById(R.id.view_tuner_indicator_down_3);
     	
     	indicatorClear();
-    	
-    	PowerManager powermanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wakeLock = powermanager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "TunerActivity");
 		
 		synchronized(this) {
-			if (!wakeLock.isHeld())
-				wakeLock.acquire();
-			
 			tunerThread = new Thread(new Tuner(this, new Handler()), "Thread - Tuner");
 			tunerThread.start();
 		}
@@ -84,21 +78,21 @@ public class TunerActivity extends BaseActivity{
     		textViewTunerNote.setText(NOTE_NAME[closestNote]);
     		
     		if (distanceRatio >= 0) {
-    			if (distanceRatio > upRatio1) {
+    			if (distanceRatio > UP_RATIO_1) {
     				viewTunerUp1.setVisibility(View.VISIBLE);
-    				if (distanceRatio > upRatio2) {
+    				if (distanceRatio > UP_RATIO_2) {
     					viewTunerUp2.setVisibility(View.VISIBLE);
-            			if (distanceRatio > upRatio3)
+            			if (distanceRatio > UP_RATIO_3)
             				viewTunerUp3.setVisibility(View.VISIBLE);
     				}
     			} else
     				indicatorLock();
     		} else { // (distanceRatio < 0)
-    			if (distanceRatio < downRatio1) {
+    			if (distanceRatio < DOWN_RATIO_1) {
     				viewTunerDown1.setVisibility(View.VISIBLE);
-    				if (distanceRatio < downRatio2) {
+    				if (distanceRatio < DOWN_RATIO_2) {
     					viewTunerDown2.setVisibility(View.VISIBLE);
-            			if (distanceRatio < downRatio3)
+            			if (distanceRatio < DOWN_RATIO_3)
             				viewTunerDown3.setVisibility(View.VISIBLE);
     				}
     			} else
@@ -140,9 +134,6 @@ public class TunerActivity extends BaseActivity{
 	protected void onStop() {
 	    super.onStop();
 	    synchronized(this) {
-	    	if (wakeLock.isHeld())
-	    		wakeLock.release();
-	    	
 	    	tunerThread.interrupt();
 	    }
 	}
@@ -151,10 +142,7 @@ public class TunerActivity extends BaseActivity{
 	protected void onRestart() {
 	    super.onRestart();
 	    synchronized(this) {
-	    	if (!wakeLock.isHeld())
-    			wakeLock.acquire();
-	    	
-	    	tunerThread = new Thread(new Tuner(this, new Handler()));
+	    	tunerThread = new Thread(new Tuner(this, new Handler()), "Thread - Tuner");
 			tunerThread.start();
 	    }
 	}

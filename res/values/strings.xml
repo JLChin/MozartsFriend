@@ -113,7 +113,7 @@
     <string name="string_help_library">One of the features that separates Mozart\'s Friend from other apps is the attention to the rules and nomenclature of music theory, and all notes and intervals are labeled using standard music notation shorthand.
         \n\nAn <i>interval</i> represents the musical relationship between two pitches:
         \n\n [interval quality][interval number]
-        \n\nFor example M3 means the Major 3rd, while d5 means the diminished 5th, and so on.
+        \n\nFor example \"M3\" means the Major 3rd, while \"d5\" means the diminished 5th, and so on.
         \n\nInterval quality:
         \n\n P = Perfect
         \n M = Major
@@ -134,7 +134,7 @@
         \n\nA4 corresponds to the 440 Hz frequency. C4 is the C directly above A4, A5 is the A exactly one octave higher than A4, and so forth.
         \n\nThe <i>Interval</i>, or musical relationship between two pitches, is likewise labeled using standard music notation shorthand:
         \n\n [interval quality][interval number]
-        \n\nFor example M3 means the Major 3rd, while d5 means the diminished 5th, and so on.
+        \n\nFor example \"m3\" means the minor 3rd, while \"A5\" means the Augmented 5th, and so on.
         \n\nInterval quality:
         \n\n P = Perfect
         \n M = Major

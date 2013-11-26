@@ -11,14 +11,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -64,12 +61,12 @@ public class TrackActivity extends BaseActivity {
 	private int volume;
 	private long lastTap;
 	private List<Integer> tapTempos;
+	private TrackData track;
 	
+	// SYSTEM
 	private MediaPlayer mediaPlayer;
-	private WakeLock wakeLock;
 	private SharedPreferences.Editor sharedPrefEditor;
 	private Thread tapIndicatorThread;
-	private TrackData track;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -157,9 +154,6 @@ public class TrackActivity extends BaseActivity {
 	private void initialize() {
 		mediaPlayer = new MediaPlayer();
 		
-		PowerManager powermanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wakeLock = powermanager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "TrackActivity");
-		
 		SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		sharedPrefEditor = sharedPref.edit();
 		
@@ -168,7 +162,6 @@ public class TrackActivity extends BaseActivity {
 		textViewTitle.setText(title);
 		viewTitle = (View) findViewById(R.id.view_track_title);
 		viewTitle.setOnClickListener(new View.OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				onBackPressed();
 			}
@@ -177,21 +170,14 @@ public class TrackActivity extends BaseActivity {
 		// PLAY TOGGLE
 		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
 		buttonPlay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@SuppressLint("Wakelock")
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				synchronized (this) {
 					if (isChecked) {
-						if (!wakeLock.isHeld())
-							wakeLock.acquire();
-						
 						if (playing == false) {
 							playing = true;
 							play();
 						}
 					} else {
-						if (wakeLock.isHeld())
-							wakeLock.release();
-
 						if (playing == true) {
 							playing = false;
 							stop();
@@ -444,9 +430,6 @@ public class TrackActivity extends BaseActivity {
 		super.onStop();
 		synchronized(this) {
 			mediaPlayer.release();
-			
-	    	if (wakeLock.isHeld())
-	    		wakeLock.release();
 	    }
 	}
 	
@@ -457,12 +440,6 @@ public class TrackActivity extends BaseActivity {
 			mediaPlayer = new MediaPlayer();
 			float vol = (float) volume / 100;
 			mediaPlayer.setVolume(vol, vol);
-			
-	    	if (playing == true) {
-	    		if (!wakeLock.isHeld())
-	    			wakeLock.acquire();
-	    	}
 	    }
-		
 	}
 }

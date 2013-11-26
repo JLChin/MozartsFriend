@@ -10,9 +10,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class SelectSequenceActivity extends BaseListActivity {
+	// CONSTANTS
 	public static final String[] SCALES = { "Ionian Mode", "Dorian Mode", "Phrygian Mode", "Lydian Mode", "Mixolydian Mode", "Aeolian Mode", "Locrian Mode", "Acoustic Scale", "Adonai Malakh Scale", "Algerian Scale", "Altered Scale", "Augmented Scale", "Bebop Dominant Scale", "Blues Scale", "Chromatic Scale", "Double Harmonic Scale", "Enigmatic Scale", "Flamenco Scale", "Gypsy Scale", "Half Diminished Scale", "Harmonic Major Scale", "Harmonic Minor Scale", "Hirajoshi Scale", "Hungarian Minor Scale", "In Scale", "Insen Scale", "Istrian Scale", "Iwato Scale", "Lydian Augmented Scale", "Major Scale", "Major Bebop Scale", "Major Locrian Scale", "Major Pentatonic Scale", "Melodic Minor Scale", "Minor Scale", "Minor Pentatonic Scale", "Neapolitan Major Scale", "Neapolitan Minor Scale", "Persian Scale", "Phrygian Dominant Scale", "Prometheus Scale", "Tritone Scale", "Ukranian Dorian Scale", "Whole Tone Scale", "Yo Scale" };
 	public static final String[] CHORDS = { "Augmented Chord", "Augmented 6th Chord", "Augmented 7th Chord", "Augmented Major 7th Chord", "Diminished Chord", "Diminished 7th Chord", "Diminished Major 7th Chord", "Dominant 7th Chord", "Dominant 7th Flat 5th Chord", "Dream Chord", "Major Chord", "Major 6th Chord", "Major 7th Chord", "Minor Chord", "Minor 6th Chord", "Minor 7th Chord", "Minor 7th Flat 5th Chord", "Minor Major 7th Chord", "Mu Chord", "Power Chord", "Suspended 2nd Chord", "Suspended 4th Chord", "7th Suspended 2nd Chord", "7th Suspended 4th Chord", "7/6 Chord", "Viennese Trichord" };
 	
+	// STATE VARIABLES
 	private String operation;
 	private boolean arpeggio;
 	

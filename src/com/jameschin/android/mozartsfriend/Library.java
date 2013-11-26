@@ -11,8 +11,10 @@ import java.util.Map;
  * @author James Chin <JamesLChin@gmail.com>
  */
 public class Library {
+	// CONSTANTS
 	private static final String[] NOTE_NAME = { "C", "D", "E", "F", "G", "A", "B" };
 	
+	// STATE VARIABLES
 	private Map<String, Note> noteMap;
 	private Map<String, Sequence> sequenceMap;
 	

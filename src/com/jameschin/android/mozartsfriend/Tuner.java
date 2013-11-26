@@ -50,6 +50,7 @@ public class Tuner implements Runnable {
     private int sample_rate;
     private int buffer_size;
     
+    // SYSTEM
     private TunerActivity parent;
     private AudioRecord recorder;
     private Handler handler;

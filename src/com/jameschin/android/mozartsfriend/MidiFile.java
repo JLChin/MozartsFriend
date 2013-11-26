@@ -30,13 +30,15 @@ public class MidiFile {
 	static final int HALF_NOTE = 48;
 	static final int WHOLE_NOTE = 96;
 	
-	// TRACK INFORMATION
-	private Context context;
+	// STATE VARIABLES
 	private int key;
 	private int tempo;
 	private int[] tempoEvent;
 	private TrackData track;	
 	protected Vector<int[]> playEvents;
+	
+	// SYSTEM
+	private Context context;
 
 	/**
 	 * MIDI file header for a one-track file.

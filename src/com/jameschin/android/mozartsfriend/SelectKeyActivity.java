@@ -10,9 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class SelectKeyActivity extends BaseListActivity {
-	public static final String[] KEYS = { "C", "C#", "Db", "D", "D#", "Eb",
-			"E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B" };
+	// CONSTANTS
+	public static final String[] KEYS = { "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B" };
 
+	@SuppressWarnings("unused")
 	private String operation;
 
 	@Override

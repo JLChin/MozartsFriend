@@ -11,11 +11,9 @@
         android:minSdkVersion="7"
         android:targetSdkVersion="17" />
 
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-
-    <supports-screens android:largeScreens="true" />
+    <supports-screens
+        android:largeScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:icon="@drawable/ic_launcher"

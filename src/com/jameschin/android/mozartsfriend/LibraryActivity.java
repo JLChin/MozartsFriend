@@ -17,8 +17,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,7 +37,8 @@ import android.widget.TextView;
  * 
  * @author James Chin <JamesLChin@gmail.com>
  */
-public class LibraryActivity extends BaseListActivity {
+public class LibraryActivity extends BaseListActivity {	
+	// CONSTANTS
 	public static final String[] KEYS = { "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B" };
 	
 	// DEFAULT SETTINGS
@@ -85,10 +84,10 @@ public class LibraryActivity extends BaseListActivity {
 	private TextView textViewSequence;
 	private TextView[] textViewPianoKeys;
 	
+	// SYSTEM
 	private Library library;
 	private MediaPlayer mediaPlayer;
 	private SharedPreferences.Editor sharedPrefEditor;
-	private WakeLock wakeLock;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -107,10 +106,6 @@ public class LibraryActivity extends BaseListActivity {
 	private void initialize() {
 		library = new Library();
 		mediaPlayer = new MediaPlayer();
-		
-		PowerManager powermanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wakeLock = powermanager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "LibraryActivity");
-		wakeLock.acquire();
 		
 		// Set content based on intent received from previous activity
 		Intent intent = getIntent();
@@ -760,17 +755,11 @@ public class LibraryActivity extends BaseListActivity {
 	protected void onStop() {
 		super.onStop();
 		mediaPlayer.release();
-		
-		if (wakeLock.isHeld())
-    		wakeLock.release();
 	}
 	
 	@Override
 	protected void onRestart() {
 		super.onRestart();
 		mediaPlayer = new MediaPlayer();
-		
-		if (!wakeLock.isHeld())
-			wakeLock.acquire();
 	}
 }

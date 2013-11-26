@@ -3,6 +3,7 @@ package com.jameschin.android.mozartsfriend;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -17,7 +18,9 @@ public abstract class BaseActivity extends SherlockActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
     @Override

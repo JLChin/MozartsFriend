@@ -16,8 +16,11 @@ import android.widget.TextView;
  * @author James Chin <JamesLChin@gmail.com>
  */
 public class SelectTrackListViewAdapter extends ArrayAdapter<SelectTrackActivity.TrackInfo>{
-	private final Context activity;
+	// STATE VARIABLES
 	private final List<SelectTrackActivity.TrackInfo> tracks;
+	
+	// SYSTEM
+	private final Context activity;
 	
 	public SelectTrackListViewAdapter(Context activity, List<SelectTrackActivity.TrackInfo> tracks) {
 		super(activity, R.layout.list_item, tracks);

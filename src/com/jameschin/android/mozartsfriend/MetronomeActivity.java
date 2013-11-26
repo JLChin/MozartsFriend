@@ -3,13 +3,10 @@ package com.jameschin.android.mozartsfriend;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -63,7 +60,6 @@ public class MetronomeActivity extends BaseActivity {
 	
 	// SYSTEM
 	private SharedPreferences sharedPref;
-	private WakeLock wakeLock;
 	private Thread metronomeThread;
 	private Thread tapIndicatorThread;
 	private Thread visualFeedbackThread;
@@ -80,9 +76,6 @@ public class MetronomeActivity extends BaseActivity {
 	private void initialize() {
 		metronome = new Metronome();
 		
-		PowerManager powermanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wakeLock = powermanager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "MetronomeActivity");
-		
 		sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		final SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
 		
@@ -91,21 +84,14 @@ public class MetronomeActivity extends BaseActivity {
 		// PLAY TOGGLE
 		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
 		buttonPlay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@SuppressLint("Wakelock")
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				synchronized(this) {
 					if (isChecked) {
-						if (!wakeLock.isHeld())
-							wakeLock.acquire();
-						
 						if (playing == false) {
 							playing = true;
 							startMetro();
 						}
 					} else {
-						if (wakeLock.isHeld())
-							wakeLock.release();
-						
 						if (playing == true) {
 							playing = false;
 							stopMetro();
@@ -554,10 +540,8 @@ public class MetronomeActivity extends BaseActivity {
 	protected void onStop() {
 	    super.onStop();
 	    synchronized(this) {
-	    	if (wakeLock.isHeld())
-	    		wakeLock.release();
-	    	
-	    	if (playing == true) stopMetro();
+	    	if (playing == true)
+	    		stopMetro();
 	    }
 	}
 	
@@ -569,12 +553,8 @@ public class MetronomeActivity extends BaseActivity {
 	    visualFeedbackMode = sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
 	    
 	    synchronized(this) {
-	    	if (playing == true) {
-	    		if (!wakeLock.isHeld())
-	    			wakeLock.acquire();
-	    		
+	    	if (playing == true)
 	    		startMetro();
-	    	}
 	    }
 	}
 }

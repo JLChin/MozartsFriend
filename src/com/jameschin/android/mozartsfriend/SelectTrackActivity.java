@@ -21,6 +21,7 @@ import android.widget.ListView;
  * @author James Chin <JamesLChin@gmail.com>
  */
 public class SelectTrackActivity extends BaseListActivity {
+	// STATE VARIABLES
 	List<TrackInfo> tracks;
 	
 	@Override
