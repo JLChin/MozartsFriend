@@ -19,6 +19,7 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
+            <!-- INTERVAL FRAME -->
             <RelativeLayout
                 android:id="@+id/layout_track_interval_frame"
                 android:layout_width="match_parent"
@@ -56,6 +57,7 @@
                     android:textStyle="bold|italic" />
             </RelativeLayout>
 
+            <!-- STYLE FRAME -->
             <RelativeLayout
                 android:id="@+id/layout_track_title_frame"
                 android:layout_width="match_parent"
@@ -95,6 +97,7 @@
                     android:textStyle="bold|italic" />
             </RelativeLayout>
 
+            <!-- TONE FRAME -->
             <RelativeLayout
                 android:id="@+id/layout_track_tone_frame"
                 android:layout_width="match_parent"
@@ -149,6 +152,7 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
+            <!-- IMAGE FRAME -->
             <RelativeLayout
                 android:id="@+id/layout_track_image_frame"
                 android:layout_width="match_parent"
@@ -171,6 +175,7 @@
                     android:src="@drawable/ic_launcher" />
             </RelativeLayout>
 
+            <!-- VOLUME FRAME -->
             <RelativeLayout
                 android:id="@+id/layout_track_volume_frame"
                 android:layout_width="match_parent"
@@ -230,6 +235,7 @@
                     android:textStyle="bold|italic" />
             </RelativeLayout>
 
+            <!-- TEMPO FRAME -->
             <RelativeLayout
                 android:id="@+id/layout_track_tempo_frame"
                 android:layout_width="match_parent"
@@ -291,6 +297,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- BOTTOM CONTROL FRAME -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

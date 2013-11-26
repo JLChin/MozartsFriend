@@ -19,6 +19,7 @@
             android:src="@drawable/ic_launcher" />
     </RelativeLayout>
 
+    <!-- INTERVAL FRAME -->
     <RelativeLayout
         android:id="@+id/layout_metronome_interval_frame"
         android:layout_width="match_parent"
@@ -65,6 +66,7 @@
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
+    <!-- TONE FRAME -->
     <RelativeLayout
         android:id="@+id/layout_metronome_tone_frame"
         android:layout_width="match_parent"
@@ -111,6 +113,7 @@
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
+    <!-- VOLUME FRAME -->
     <RelativeLayout
         android:id="@+id/layout_metronome_volume_frame"
         android:layout_width="match_parent"
@@ -170,6 +173,7 @@
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
+    <!-- METER FRAME -->
     <RelativeLayout
         android:id="@+id/layout_metronome_meter_frame"
         android:layout_width="match_parent"
@@ -229,6 +233,7 @@
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
+    <!-- TEMPO FRAME -->
     <RelativeLayout
         android:id="@+id/layout_metronome_tempo_frame"
         android:layout_width="match_parent"
@@ -288,6 +293,7 @@
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
+    <!-- BOTTOM CONTROL FRAME -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

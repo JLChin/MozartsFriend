@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <!-- METRONOME VISUAL FEEDBACK -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
+        <!-- FRETBOARD LENGTH -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -75,6 +77,7 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
+        <!-- 6 STRING GUITAR -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -171,6 +174,7 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
+        <!-- 7 STRING GUITAR -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -275,6 +279,7 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
+        <!-- 8 STRING GUITAR -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -387,6 +392,7 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
+        <!-- 4 STRING BASS -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -467,6 +473,7 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
+        <!-- 5 STRING BASS -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -555,6 +562,7 @@
             </RelativeLayout>
         </HorizontalScrollView>
 
+        <!-- 6 STRING BASS -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"

@@ -41,6 +41,7 @@
             android:text="@string/title_track"
             android:textColor="#cccccc" />
 
+        <!-- LIBRARY -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -77,6 +78,7 @@
                 android:textColor="#cccccc" />
         </RelativeLayout>
 
+        <!-- METRONOME -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -113,6 +115,7 @@
                 android:textColor="#cccccc" />
         </RelativeLayout>
 
+        <!-- TUNER -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -149,6 +152,7 @@
                 android:textColor="#cccccc" />
         </RelativeLayout>
 
+        <!-- TRACK -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
