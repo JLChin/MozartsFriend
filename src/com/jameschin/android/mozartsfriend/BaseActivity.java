@@ -66,6 +66,11 @@ public abstract class BaseActivity extends SherlockActivity {
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
 			break;
+		case R.id.menu_help:
+			intent = new Intent(this, HelpActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+			break;
 		case R.id.menu_info:
 			intent = new Intent(this, InfoActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

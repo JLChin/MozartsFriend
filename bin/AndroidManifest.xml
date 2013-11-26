@@ -95,6 +95,14 @@
                 android:value="com.jameschin.android.mozartsfriend.MainActivity" />
         </activity>
         <activity
+            android:name="com.jameschin.android.mozartsfriend.HelpActivity"
+            android:label="@string/title_help"
+            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+        </activity>
+        <activity
             android:name="com.jameschin.android.mozartsfriend.InfoActivity"
             android:label="@string/title_info"
             android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >

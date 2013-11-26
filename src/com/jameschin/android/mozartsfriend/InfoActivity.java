@@ -20,7 +20,7 @@ public class InfoActivity extends BaseActivity {
 	}
 	
 	private void initialize() {
-		// set hyperlinks
+		// HYPERLINKS
 		int[] links = {
 				R.id.textview_link_play,
 				R.id.textview_link_facebook,
