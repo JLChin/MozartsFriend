@@ -7,4 +7,4 @@ For more information:
 
 - [Google Play](https://play.google.com/store/apps/details?id=com.jameschin.android.mozartsfriend)
 - [Facebook](https://www.facebook.com/MozartsFriend)
-- [Email](jameslchin@gmail.com)
+- [Email](mailto:jameslchin@gmail.com)
