@@ -1,7 +1,5 @@
 package com.jameschin.android.mozartsfriend;
 
-import java.text.DecimalFormat;
-
 import android.app.AlertDialog;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -168,12 +166,12 @@ public class Tuner implements Runnable {
 					prevFreq = 0.0;
 				} else
 					prevFreq = frequency;
-					
-				double normalizedFreq = getNormalizedFrequency(frequency);
+				
+				// filter out Euro commas that might be introduced
+				double normalizedFreq = Double.valueOf(String.valueOf(getNormalizedFrequency(frequency)).replace(',', '.'));
+				
 				closestNote = getClosestNote(normalizedFreq);
 				distanceRatio = getDistanceRatio(closestNote, normalizedFreq);
-				DecimalFormat decimalFormat = new DecimalFormat("####0.00");
-				frequency = Double.valueOf(decimalFormat.format(frequency));
 			}
 			
 			if (closestNote == -1) {

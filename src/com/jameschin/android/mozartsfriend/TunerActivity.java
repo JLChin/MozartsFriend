@@ -1,5 +1,9 @@
 package com.jameschin.android.mozartsfriend;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -104,7 +108,9 @@ public class TunerActivity extends BaseActivity{
         	
         	textViewTunerNotePrev.setText(NOTE_NAME[closestNote - 1]);
     		textViewTunerNoteNext.setText(NOTE_NAME[closestNote + 1]);
-    		textViewTunerNoteFrequency.setText(frequency + " Hz");
+    		
+    		DecimalFormat decimalFormat = new DecimalFormat("###0.00", new DecimalFormatSymbols(Locale.US));
+    		textViewTunerNoteFrequency.setText(decimalFormat.format(frequency) + " Hz");
     	} else {
     		textViewTunerNote.setText("");
     		textViewTunerNotePrev.setText("");
