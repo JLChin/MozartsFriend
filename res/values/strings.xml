@@ -89,7 +89,7 @@
         \n\n\n<b>Tuner</b>
         \n- Fixed a crash affecting some Euro users.
         \n\n\n<b>Jam Tracks</b>
-        \n- \"Bluegrass\" added.
+        \n- \"Oriental Rhythm 1\", \"Oriental Rhythm 2\" added.
         \n\n\nHappy Practicing!</string>
     <string name="string_main_metro">Metronome</string>
     <string name="string_main_track">Jam Tracks</string>
@@ -161,7 +161,7 @@
         \n\nThe <i>Key</i>, or exact pitch, is labeled using standard scientific pitch notation:
         \n\n [letter name][pitch octave]
         \n\nA4 corresponds to the 440 Hz frequency. C4 is the C directly above A4, A5 is the A exactly one octave higher than A4, and so forth.
-        \n\nWhen you change the <i>Key</i>, ALL instruments on the track transpose to the new pitch. Awesome.
+        \n\nWhen you change the <i>Key</i>, ALL instruments on the track automatically transpose to the new pitch!
         \n\nThe <i>Tempo</i> is set in BPM, also known as \"beats-per-minute.\" The higher the tempo, the faster the beat.
         \n\nAlong with the tempo slider and increment/decrement buttons, <i>Tap Tempo</i> allows you to input tempo both quickly and easily. Simply tap the \"TAP\" button and the track quickly locks on to the tempo. The \"TAP\" button will light red while it is actively listening and acquiring a new tempo. Since there are no mechanical parts, you may find this function to be extremely quick and accurate!
     </string>

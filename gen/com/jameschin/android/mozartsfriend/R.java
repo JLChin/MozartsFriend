@@ -1218,12 +1218,14 @@ containing a value of this type.
         public static final int funk2=0x7f040006;
         public static final int jazz_fusion1=0x7f040007;
         public static final int jazz_fusion2=0x7f040008;
-        public static final int rock_groove_heavy=0x7f040009;
-        public static final int rock_groove_kick=0x7f04000a;
-        public static final int rock_heavy=0x7f04000b;
-        public static final int rock_latin=0x7f04000c;
-        public static final int sarabande=0x7f04000d;
-        public static final int shuffle=0x7f04000e;
+        public static final int oriental_rhythm1=0x7f040009;
+        public static final int oriental_rhythm2=0x7f04000a;
+        public static final int rock_groove_heavy=0x7f04000b;
+        public static final int rock_groove_kick=0x7f04000c;
+        public static final int rock_heavy=0x7f04000d;
+        public static final int rock_latin=0x7f04000e;
+        public static final int sarabande=0x7f04000f;
+        public static final int shuffle=0x7f040010;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
