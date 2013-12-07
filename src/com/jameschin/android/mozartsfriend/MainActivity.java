@@ -14,14 +14,13 @@ public class MainActivity extends BaseActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
 
 		initialize();
 	}
 
 	public void initialize() {
 		Button buttonMainTrack = (Button) findViewById(R.id.button_main_track);
-		//buttonMainTrack.setBackgroundColor(Color.TRANSPARENT);
 		buttonMainTrack.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, SelectTrackActivity.class);
@@ -31,7 +30,6 @@ public class MainActivity extends BaseActivity {
 		});
 		
     	Button buttonMainPlay = (Button) findViewById(R.id.button_main_metro);
-    	//buttonMainPlay.setBackgroundColor(Color.TRANSPARENT);
 		buttonMainPlay.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, MetronomeActivity.class);
@@ -41,7 +39,6 @@ public class MainActivity extends BaseActivity {
 		});
 		
 		Button buttonMainTune = (Button) findViewById(R.id.button_main_tune);
-		//buttonMainTune.setBackgroundColor(Color.TRANSPARENT);
 		buttonMainTune.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, TunerActivity.class);

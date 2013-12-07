@@ -19,7 +19,7 @@ public class SelectKeyActivity extends BaseListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list);
+		setContentView(R.layout.activity_list);
 
 		initialize();
 	}
