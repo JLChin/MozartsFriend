@@ -12,13 +12,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.jameschin.android.mozartsfriend.Library.ResultData;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -764,5 +769,62 @@ public class LibraryActivity extends BaseListActivity {
 	protected void onRestart() {
 		super.onRestart();
 		mediaPlayer = new MediaPlayer();
+	}
+	
+	/**
+	 * Custom ResultData list view adapter.
+	 */
+	class ResultDataListViewAdapter extends ArrayAdapter<ResultData> {
+		private final Context activity;
+		private final List<ResultData> results;
+		private final Set<String> markedNotes;
+		
+		ResultDataListViewAdapter(Context activity, List<ResultData> results, Set<String> markedNotes) {
+			super(activity, R.layout.result_data_list_item, results);
+			this.activity = activity;
+			this.results = results;
+			this.markedNotes = markedNotes;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+	        View view = convertView;
+	        ResultDataView resultDataView = null;
+	 
+	        if(view == null)
+	        {
+	        	LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
+	            view = inflater.inflate(R.layout.result_data_list_item, null);
+	 
+	            // hold the view objects in an object, so they don't need to be re-fetched
+	            resultDataView = new ResultDataView();
+	            resultDataView.name = (TextView) view.findViewById(R.id.textview_result_data_name);
+	            resultDataView.interval = (TextView) view.findViewById(R.id.textview_result_data_interval);
+	 
+	            // cache the view objects in the tag, so they can be re-accessed later
+	            view.setTag(resultDataView);
+	        } else
+	        	resultDataView = (ResultDataView) view.getTag();
+	 
+	        // set up view
+	        ResultData currResult = (ResultData) results.get(position);
+	        resultDataView.name.setText(currResult.noteName);
+	        resultDataView.interval.setText(currResult.noteInterval);
+	        
+	        if (markedNotes.contains(currResult.noteName)) {
+	        	if (currResult.noteInterval == "Root")
+	        		view.setBackgroundResource(R.drawable.fretboard_item_background_green);
+	        	else
+	        		view.setBackgroundResource(R.drawable.fretboard_item_background_purple);
+	        } else
+	        	view.setBackgroundResource(0);
+	 
+	        return view;
+	    }
+	 
+	    class ResultDataView {
+	        TextView name;
+	        TextView interval;
+	    }
 	}
 }

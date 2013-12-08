@@ -8,10 +8,16 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -55,7 +61,7 @@ public class SelectTrackActivity extends BaseListActivity {
 	
 	/**
 	 * Get track titles and resourceIDs from files in raw folder.
-	 * See TrackData.java for file specification.
+	 * See MidiFile.TrackData for file specification.
 	 */
 	private void loadTracks() {
 		tracks = new ArrayList<TrackInfo>();
@@ -93,13 +99,59 @@ public class SelectTrackActivity extends BaseListActivity {
 	/**
 	 * Basic track info holder.
 	 */
-	protected class TrackInfo {
-		protected String title;
-		protected int resourceID;
+	class TrackInfo {
+		String title;
+		int resourceID;
 		
 		TrackInfo(String title, int resourceID) {
 			this.title = title;
 			this.resourceID = resourceID;
+		}
+	}
+	
+	/**
+	 * Custom Track list view adapter.
+	 */
+	class SelectTrackListViewAdapter extends ArrayAdapter<SelectTrackActivity.TrackInfo> {
+		private final List<SelectTrackActivity.TrackInfo> tracks;
+		private final Context activity;
+		
+		SelectTrackListViewAdapter(Context activity, List<SelectTrackActivity.TrackInfo> tracks) {
+			super(activity, R.layout.list_item, tracks);
+			this.activity = activity;
+			this.tracks = tracks;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+	        View view = convertView;
+	        TrackInfoView trackInfoView = null;
+	 
+	        if(view == null)
+	        {
+	        	LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
+	            view = inflater.inflate(R.layout.list_item, null);
+	 
+	            // hold the view objects in an object, so they don't need to be re-fetched
+	            trackInfoView = new TrackInfoView();
+	            trackInfoView.textViewTitle = (TextView) view.findViewById(R.id.textview_list_item);
+	 
+	            // cache the view objects in the tag, so they can be re-accessed later
+	            view.setTag(trackInfoView);
+	        } else
+	        	trackInfoView = (TrackInfoView) view.getTag();
+	 
+	        // set up view
+	        SelectTrackActivity.TrackInfo trackInfo = tracks.get(position);
+	        trackInfoView.textViewTitle.setText(trackInfo.title);
+	        trackInfoView.resourceID = trackInfo.resourceID;
+	 
+	        return view;
+	    }
+		
+		class TrackInfoView {
+			TextView textViewTitle;
+			int resourceID;
 		}
 	}
 }

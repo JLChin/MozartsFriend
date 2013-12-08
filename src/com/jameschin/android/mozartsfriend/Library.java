@@ -70,6 +70,16 @@ public class Library {
 		}
 	}
 	
+	class ResultData {
+		String noteName;
+		String noteInterval;
+		
+		ResultData(String name, String interval) {
+			noteName = name;
+			noteInterval = interval;
+		}
+	}
+	
 	Library() {
 		noteMap = new HashMap<String, Note>();
 		sequenceMap = new HashMap<String, Sequence>();
