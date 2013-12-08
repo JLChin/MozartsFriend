@@ -35,7 +35,7 @@ public class MidiFile {
 	private int tempo;
 	private int[] tempoEvent;
 	private TrackData track;	
-	protected Vector<int[]> playEvents;
+	private Vector<int[]> playEvents;
 	
 	// SYSTEM
 	private Context context;
@@ -299,23 +299,23 @@ public class MidiFile {
 		return start;
 	}
 
-	/** Write the stored MIDI events to a file */
+	/**
+	 * Write the stored MIDI events to a file.
+	 * @param filename the name of the MIDI file to be created.
+	 * @throws IOException
+	 */
 	public void writeToFile(String filename) throws IOException {
 		FileOutputStream outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
 
 		outputStream.write(intArrayToByteArray(header));
 
-		// Calculate the amount of track data
-		// _Do_ include the footer but _do not_ include the
-		// track header
-
+		// calculate track length, including the footer but not the track header
 		int size = tempoEvent.length + keySigEvent.length + timeSigEvent.length + footer.length;
 
 		for (int i = 0; i < playEvents.size(); i++)
 			size += playEvents.elementAt(i).length;
 
-		// Write track data size in big-endian format
-		// Note this math is only valid for up to 64k of data
+		// write track data size in big-endian format, note this math is only valid for up to 64k of data
 		int high = size / 256;
 		int low = size - (high * 256);
 		outputStream.write((byte) 0);
@@ -323,33 +323,33 @@ public class MidiFile {
 		outputStream.write((byte) high);
 		outputStream.write((byte) low);
 
-		// Write the standard metadata — tempo, etc
-		// At present, tempo is stuck at quarter note=60
+		// write metadata events
 		outputStream.write(intArrayToByteArray(tempoEvent));
 		outputStream.write(intArrayToByteArray(keySigEvent));
 		outputStream.write(intArrayToByteArray(timeSigEvent));
 
-		// Write out the note, etc., events
+		// write data
 		for (int i = 0; i < playEvents.size(); i++) {
 			outputStream.write(intArrayToByteArray(playEvents.elementAt(i)));
 		}
 
-		// Write the footer and close
 		outputStream.write(intArrayToByteArray(footer));
 		outputStream.close();
 	}
 
 	/**
-	 * Convert an array of integers which are assumed to contain unsigned bytes
-	 * into an array of bytes
+	 * Convert an integer array containing unsigned bytes into a byte array.
+	 * @param inArray int input array containing unsigned bytes.
+	 * @return converted byte array.
 	 */
-	protected static byte[] intArrayToByteArray(int[] ints) {
-		int length = ints.length;
-		byte[] out = new byte[length];
-		for (int i = 0; i < length; i++)
-			out[i] = (byte) ints[i];
+	private byte[] intArrayToByteArray(int[] inArray) {
+		int length = inArray.length;
+		byte[] outArray = new byte[length];
 		
-		return out;
+		for (int i = 0; i < length; i++)
+			outArray[i] = (byte) inArray[i];
+		
+		return outArray;
 	}
 
 	/**
