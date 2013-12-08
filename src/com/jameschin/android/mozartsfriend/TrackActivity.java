@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jameschin.android.mozartsfriend.MidiFile.MidiNote;
+import com.jameschin.android.mozartsfriend.MidiFile.TrackData;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
