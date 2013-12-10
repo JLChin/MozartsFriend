@@ -28,7 +28,7 @@ import android.widget.ListView;
  */
 public class SelectTrackActivity extends BaseListActivity {
 	// STATE VARIABLES
-	List<TrackInfo> tracks;
+	private List<TrackInfo> tracks;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class SelectTrackActivity extends BaseListActivity {
 			}
 		});
 		
-		setListAdapter(new SelectTrackListViewAdapter (this, tracks));
+		setListAdapter(new SelectTrackListViewAdapter(this, tracks));
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class SelectTrackActivity extends BaseListActivity {
 	/**
 	 * Basic track info holder.
 	 */
-	class TrackInfo {
+	private class TrackInfo {
 		String title;
 		int resourceID;
 		
@@ -112,11 +112,11 @@ public class SelectTrackActivity extends BaseListActivity {
 	/**
 	 * Custom Track list view adapter.
 	 */
-	class SelectTrackListViewAdapter extends ArrayAdapter<SelectTrackActivity.TrackInfo> {
-		private final List<SelectTrackActivity.TrackInfo> tracks;
+	private class SelectTrackListViewAdapter extends ArrayAdapter<TrackInfo> {
+		private final List<TrackInfo> tracks;
 		private final Context activity;
 		
-		SelectTrackListViewAdapter(Context activity, List<SelectTrackActivity.TrackInfo> tracks) {
+		SelectTrackListViewAdapter(Context activity, List<TrackInfo> tracks) {
 			super(activity, R.layout.list_item, tracks);
 			this.activity = activity;
 			this.tracks = tracks;
@@ -127,8 +127,7 @@ public class SelectTrackActivity extends BaseListActivity {
 	        View view = convertView;
 	        TrackInfoView trackInfoView = null;
 	 
-	        if(view == null)
-	        {
+	        if (view == null) {
 	        	LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
 	            view = inflater.inflate(R.layout.list_item, null);
 	 
@@ -142,7 +141,7 @@ public class SelectTrackActivity extends BaseListActivity {
 	        	trackInfoView = (TrackInfoView) view.getTag();
 	 
 	        // set up view
-	        SelectTrackActivity.TrackInfo trackInfo = tracks.get(position);
+	        TrackInfo trackInfo = tracks.get(position);
 	        trackInfoView.textViewTitle.setText(trackInfo.title);
 	        trackInfoView.resourceID = trackInfo.resourceID;
 	 

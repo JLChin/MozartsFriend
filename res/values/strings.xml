@@ -76,20 +76,10 @@
     <string name="string_welcome"><b><u>News</u></b>
         \n\n<b><i>Update 1.0.30:</i></b>
         \n\n<b>General</b> 
-        \n- Larger tablet users should notice an improved experience.
-        \n\n- Various code optimizations, updated documentation.
-        \n\n- WakeLock permission is no longer required.
+        \n- Consolidated classes. The build size has also been reduced.
         \n\n- Minor layout updates.
-        \n\n\n<b>Help</b>
-        \n- New \"Help\" section added to the Menu.
         \n\n\n<b>Metronome</b>
-        \n- Users should notice even greater responsiveness across all devices.
-        \n\n- Fixed a rare instance of runaway metronome.
-        \n\n- Visual Feedback has been added. This new feature can be adjusted under Settings. Note that visual feedback is automatically disabled at extremely high tempos!
-        \n\n\n<b>Tuner</b>
-        \n- Fixed a crash affecting some Euro users.
-        \n\n\n<b>Jam Tracks</b>
-        \n- \"Arena Rock\" added.
+        \n- Added sync correction for audio/visual feedback. This keeps the audio and visual more tightly locked in with the time, particularly on devices with a lot running in the background.
         \n\n\nHappy Practicing!</string>
     <string name="string_main_metro">Metronome</string>
     <string name="string_main_track">Jam Tracks</string>

@@ -35,8 +35,8 @@ import android.widget.ToggleButton;
  */
 public class TrackActivity extends BaseActivity {
 	// DEFAULT SETTINGS
-	private static final int MAX_TEMPO = 240;
-	private static final int MIN_TEMPO = 10;
+	private static final int MAX_TEMPO = 220;
+	private static final int MIN_TEMPO = 40;
 	private static final long TAP_DURATION_IN_MILLI = 2000;
 	private static final int DEFAULT_VOLUME = 100;
 	private static final int DEFAULT_TONE = 4; // E6

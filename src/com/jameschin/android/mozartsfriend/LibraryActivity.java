@@ -774,7 +774,7 @@ public class LibraryActivity extends BaseListActivity {
 	/**
 	 * Custom ResultData list view adapter.
 	 */
-	class ResultDataListViewAdapter extends ArrayAdapter<ResultData> {
+	private class ResultDataListViewAdapter extends ArrayAdapter<ResultData> {
 		private final Context activity;
 		private final List<ResultData> results;
 		private final Set<String> markedNotes;
@@ -791,8 +791,7 @@ public class LibraryActivity extends BaseListActivity {
 	        View view = convertView;
 	        ResultDataView resultDataView = null;
 	 
-	        if(view == null)
-	        {
+	        if (view == null) {
 	        	LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
 	            view = inflater.inflate(R.layout.result_data_list_item, null);
 	 
