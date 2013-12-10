@@ -13,9 +13,6 @@ public class SelectKeyActivity extends BaseListActivity {
 	// CONSTANTS
 	public static final String[] KEYS = { "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B" };
 
-	@SuppressWarnings("unused")
-	private String operation;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +24,6 @@ public class SelectKeyActivity extends BaseListActivity {
 	private void initialize() {
 		initializeListView();
 
-		operation = getIntent().getStringExtra("operation");
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, KEYS));
 	}
 
@@ -37,7 +33,6 @@ public class SelectKeyActivity extends BaseListActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent;
 
-				// operation.equals("SCALES") || operation.equals("CHORDS")
 				String sequence = getIntent().getStringExtra("sequence");
 				boolean arpeggio = getIntent().getBooleanExtra("arpeggio", true);
 				intent = new Intent(SelectKeyActivity.this, LibraryActivity.class);

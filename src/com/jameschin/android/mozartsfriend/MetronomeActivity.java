@@ -479,11 +479,18 @@ public class MetronomeActivity extends BaseActivity {
 			int remainingMilli;
 			boolean firstBeat;
 			boolean silence;
+			long startTime;
+			long prevStartTime = System.currentTimeMillis() - measureDurationInMilli;
 			
 			while (!Thread.currentThread().isInterrupted()) {
-				remainingMilli = measureDurationInMilli;
 				firstBeat = true;
 				silence = false;
+				
+				// sync correction, adjust for any lag
+				startTime = System.currentTimeMillis();
+				int prevLoopDuration = (int)(startTime - prevStartTime);
+				remainingMilli = (prevLoopDuration > measureDurationInMilli) ? (2 * measureDurationInMilli - prevLoopDuration) : measureDurationInMilli;
+				prevStartTime = startTime;
 				
 				while (remainingMilli > 0) {
 					if (!silence) {

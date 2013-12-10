@@ -41,7 +41,7 @@
             android:layout_centerVertical="true"
             android:gravity="right"
             android:textColor="#cccccc"
-            android:textSize="80sp"
+            android:textSize="75sp"
             android:textStyle="bold|italic" />
 
         <SeekBar
@@ -88,7 +88,7 @@
             android:layout_centerVertical="true"
             android:gravity="right"
             android:textColor="#cccccc"
-            android:textSize="80sp"
+            android:textSize="75sp"
             android:textStyle="bold|italic" />
 
         <SeekBar
@@ -135,7 +135,7 @@
             android:layout_centerVertical="true"
             android:gravity="right"
             android:textColor="#cccccc"
-            android:textSize="80sp"
+            android:textSize="75sp"
             android:textStyle="bold|italic" />
 
         <SeekBar
@@ -195,7 +195,7 @@
             android:layout_centerVertical="true"
             android:gravity="right"
             android:textColor="#cccccc"
-            android:textSize="80sp"
+            android:textSize="75sp"
             android:textStyle="bold|italic" />
 
         <SeekBar
@@ -255,7 +255,7 @@
             android:layout_centerVertical="true"
             android:gravity="right"
             android:textColor="#cccccc"
-            android:textSize="80sp"
+            android:textSize="75sp"
             android:textStyle="bold|italic" />
 
         <SeekBar
