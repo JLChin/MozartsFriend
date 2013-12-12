@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jameschin.android.mozartsfriend"
-    android:versionCode="30"
-    android:versionName="1.0.30" >
+    android:versionCode="31"
+    android:versionName="1.0.31" >
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -15,11 +15,18 @@
         android:xlargeScreens="true" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+
         <activity
-            android:name="com.jameschin.android.mozartsfriend.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,84 +35,54 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.SelectSequenceActivity"
+            android:name=".SelectSequenceActivity"
             android:label="@string/title_library"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.SelectKeyActivity"
+            android:name=".SelectKeyActivity"
             android:label="@string/title_keys"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.SelectTrackActivity"
+            android:name=".SelectTrackActivity"
             android:label="@string/title_track"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name="com.jameschin.android.mozartsfriend.LibraryActivity"
             android:label="@string/title_library"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.TunerActivity"
+            android:name=".TunerActivity"
             android:label="@string/title_tuner"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.MetronomeActivity"
+            android:name=".MetronomeActivity"
             android:label="@string/title_metronome"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.TrackActivity"
+            android:name=".TrackActivity"
             android:label="@string/title_track"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_settings"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.HelpActivity"
+            android:name=".HelpActivity"
             android:label="@string/title_help"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name="com.jameschin.android.mozartsfriend.InfoActivity"
             android:label="@string/title_info"
-            android:parentActivityName="com.jameschin.android.mozartsfriend.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jameschin.android.mozartsfriend.MainActivity" />
+            android:parentActivityName=".MainActivity" >
         </activity>
     </application>
 
