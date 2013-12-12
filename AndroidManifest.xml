@@ -50,7 +50,7 @@
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.LibraryActivity"
+            android:name=".LibraryActivity"
             android:label="@string/title_library"
             android:parentActivityName=".MainActivity" >
         </activity>
@@ -80,7 +80,7 @@
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name="com.jameschin.android.mozartsfriend.InfoActivity"
+            android:name=".InfoActivity"
             android:label="@string/title_info"
             android:parentActivityName=".MainActivity" >
         </activity>
