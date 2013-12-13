@@ -11,7 +11,7 @@ import com.actionbarsherlock.view.MenuItem;
 /**
  * BaseListActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public abstract class BaseListActivity extends SherlockListActivity {
 

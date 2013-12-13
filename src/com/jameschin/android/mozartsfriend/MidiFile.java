@@ -15,7 +15,7 @@ import android.content.Context;
  * 
  * This class takes parameters from the Library and Jam Track activities and generates a MIDI file in real-time.
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class MidiFile {
 	// DEFAULT SETTINGS

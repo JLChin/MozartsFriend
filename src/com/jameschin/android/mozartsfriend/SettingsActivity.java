@@ -16,7 +16,7 @@ import android.widget.Spinner;
 /**
  * SettingsActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class SettingsActivity extends BaseActivity {
 	// DEFAULT SETTINGS

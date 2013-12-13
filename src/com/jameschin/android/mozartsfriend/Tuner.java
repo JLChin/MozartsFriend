@@ -31,7 +31,7 @@ import android.os.Handler;
  * - Buffer one cycle against an undesirable read that falls outside the JITTER_THRESHOLD.
  * - Buffer a specified number of cycles against drop outs in readings.
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class Tuner implements Runnable {
 	// DEFAULT SETTINGS

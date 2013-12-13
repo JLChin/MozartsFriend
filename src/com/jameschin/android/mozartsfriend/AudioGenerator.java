@@ -8,7 +8,7 @@ import android.media.AudioTrack;
  * Audio Generator
  * Manages Android AudioTrack operations.
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class AudioGenerator {
 	// DEFAULT SETTINGS

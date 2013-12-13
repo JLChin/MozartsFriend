@@ -9,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * SelectKeyActivity
+ * 
+ * @author James Chin <jameslchin@gmail.com>
+ */
 public class SelectKeyActivity extends BaseListActivity {
 	// CONSTANTS
 	public static final String[] KEYS = { "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B" };

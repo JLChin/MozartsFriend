@@ -7,7 +7,7 @@ import android.widget.ScrollView;
 /**
  * HelpActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class HelpActivity extends BaseActivity {
 	// VIEW HOLDERS

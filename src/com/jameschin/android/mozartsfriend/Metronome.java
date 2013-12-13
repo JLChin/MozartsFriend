@@ -3,7 +3,7 @@ package com.jameschin.android.mozartsfriend;
 /**
  * Metronome
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class Metronome {
 	// DEFAULT SETTINGS

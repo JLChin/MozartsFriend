@@ -13,7 +13,7 @@ import android.widget.TextView;
 /**
  * TunerActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class TunerActivity extends BaseActivity{
 	// CONSTANTS

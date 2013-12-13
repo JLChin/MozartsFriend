@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Musical Library Engine
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class Library {
 	// CONSTANTS

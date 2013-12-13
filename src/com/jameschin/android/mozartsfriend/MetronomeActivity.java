@@ -22,7 +22,7 @@ import android.widget.ToggleButton;
 /**
  * Metronome Activity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class MetronomeActivity extends BaseActivity {
 	// DEFAULT SETTINGS

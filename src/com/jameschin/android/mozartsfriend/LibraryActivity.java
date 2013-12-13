@@ -41,7 +41,7 @@ import android.widget.TextView;
 /**
  * LibraryActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class LibraryActivity extends BaseListActivity {	
 	// CONSTANTS
