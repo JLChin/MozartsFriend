@@ -136,7 +136,7 @@ public class TunerActivity extends BaseActivity{
      * Light the green Lock indicator.
      */
     private void indicatorLock() {
-    	textViewTunerNote.setBackgroundResource(R.drawable.tuner_lock_green);
+    	textViewTunerNote.setBackgroundResource(R.drawable.button_background_green);
     }
     
     @Override
