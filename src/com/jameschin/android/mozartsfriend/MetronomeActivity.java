@@ -26,15 +26,15 @@ import android.widget.ToggleButton;
  */
 public class MetronomeActivity extends BaseActivity {
 	// DEFAULT SETTINGS
-	private static final int MAX_TEMPO = 220;
-	private static final int MIN_TEMPO = 40;
-	private static final long TAP_DURATION_IN_MILLI = 2000;
-	private static final int FLASH_DURATION_IN_MILLI = 125;
-	private static final int DEFAULT_TEMPO = 112;
-	private static final int DEFAULT_METER = 1; // 2:4
-	private static final int DEFAULT_VOLUME = 100;
-	private static final int DEFAULT_TONE = 7; // E6
-	private static final int DEFAULT_INTERVAL = 4; // P4
+	private static final byte DEFAULT_INTERVAL = 4; // P4
+	private static final byte DEFAULT_TONE = 7; // E6
+	private static final byte DEFAULT_VOLUME = 100;
+	private static final byte DEFAULT_METER = 1; // 2:4
+	private static final short DEFAULT_TEMPO = 112;
+	private static final short MAX_TEMPO = 220;
+	private static final short MIN_TEMPO = 40;
+	private static final short TAP_DURATION_IN_MILLI = 2000;
+	private static final short FLASH_DURATION_IN_MILLI = 125;
 	
 	// VIEW HOLDERS
 	private SeekBar seekBarMetronomeTempo;
@@ -55,8 +55,8 @@ public class MetronomeActivity extends BaseActivity {
 	// STATE VARIABLES
 	private boolean playing;
 	private long lastTap;
-	private int tempo;
-	private int visualFeedbackMode;
+	private short tempo;
+	private byte visualFeedbackMode;
 	private List<Integer> tapTempos;
 	
 	// SYSTEM
@@ -82,7 +82,7 @@ public class MetronomeActivity extends BaseActivity {
 		sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		final SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
 		
-		visualFeedbackMode = sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
+		visualFeedbackMode = (byte) sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
 		
 		// PLAY TOGGLE
 		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
@@ -196,7 +196,7 @@ public class MetronomeActivity extends BaseActivity {
 			seekBarMetronomeTempo.setProgress(savedTempo - MIN_TEMPO);
 			metronome.setTempo(savedTempo);
 			textViewTempo.setText(String.valueOf(savedTempo));
-			tempo = savedTempo;
+			tempo = (short) savedTempo;
 			seekBarMetronomeTempo.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If metronome is already playing, restart with new parameters
@@ -384,7 +384,7 @@ public class MetronomeActivity extends BaseActivity {
 	 */
 	private void setTempo(int newTempo) {
 		metronome.setTempo(newTempo);
-		tempo = newTempo;
+		tempo = (short) newTempo;
 		textViewTempo.setText(String.valueOf(newTempo));
 	}
 	
@@ -560,7 +560,7 @@ public class MetronomeActivity extends BaseActivity {
 	    super.onRestart();
 	    
 	    // in case the user changes visual feedback settings while there is a MetronomeActivity open in the background, and then returns to it
-	    visualFeedbackMode = sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
+	    visualFeedbackMode = (byte) sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
 	    
 	    synchronized(this) {
 	    	if (playing == true)

@@ -19,20 +19,20 @@ import android.content.Context;
  */
 public class MidiFile {
 	// DEFAULT SETTINGS
-	static final int DEFAULT_NOTE = 60; // C4 aka "Middle C"
-	static final int DEFAULT_VELOCITY = 100;
-	static final int DEFAULT_LOOP_COUNT = 100;
-	static final int SIXTEENTH_NOTE_TRIPLET = 4;
-	static final int SIXTEENTH_NOTE = 6;
-	static final int TRIPLET = 8;
-	static final int EIGHTH_NOTE = 12;
-	static final int QUARTER_NOTE = 24;
-	static final int HALF_NOTE = 48;
-	static final int WHOLE_NOTE = 96;
+	static final short DEFAULT_NOTE = 60; // C4 aka "Middle C"
+	static final short DEFAULT_VELOCITY = 100;
+	static final short DEFAULT_LOOP_COUNT = 100;
+	static final short SIXTEENTH_NOTE_TRIPLET = 4;
+	static final short SIXTEENTH_NOTE = 6;
+	static final short TRIPLET = 8;
+	static final short EIGHTH_NOTE = 12;
+	static final short QUARTER_NOTE = 24;
+	static final short HALF_NOTE = 48;
+	static final short WHOLE_NOTE = 96;
 	
 	// STATE VARIABLES
-	private int key;
-	private int tempo;
+	private short key;
+	private short tempo;
 	private int[] tempoEvent;
 	private TrackData track;	
 	private Vector<int[]> playEvents;
@@ -104,7 +104,7 @@ public class MidiFile {
 	 * @param tempo track tempo in beats per minute.
 	 * @param track custom container containing all the track information, generated using raw data from the selected Jam Track.
 	 */
-	public MidiFile(Context context, int key, int tempo, TrackData track) {
+	public MidiFile(Context context, short key, short tempo, TrackData track) {
 		playEvents = new Vector<int[]>();
 		this.context = context;
 		this.key = key;

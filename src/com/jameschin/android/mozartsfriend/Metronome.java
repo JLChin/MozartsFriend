@@ -12,12 +12,12 @@ public class Metronome {
 	private static final int BUFFER_SIZE_IN_BYTES = 800; // higher for more compatibility/stability, lower for better responsiveness
 	
 	// STATE VARIABLES
-	private double tempo = 112; // BPM
+	private int tempo = 112; // BPM
 	private double beatSound = 1318.51; // E6
 	private double sound = 1760; // A6 P4
 	private double intervalMultiplier = 1.334840; // P4
-	private int beats = 2; // 2:4
-	private int interval = 4;
+	private byte beats = 2; // 2:4
+	private byte interval = 4;
 	private int bufferSize;
 	private boolean oddTime = false;
 	private boolean play = true;
@@ -89,7 +89,7 @@ public class Metronome {
 	 * Returns the current tempo.
 	 * @return the current tempo.
 	 */
-	public double getTempo() {
+	public int getTempo() {
 		return tempo;
 	}
 	
@@ -97,7 +97,7 @@ public class Metronome {
 	 * Sets the tempo, takes effect after play() is restarted.
 	 * @param newTempo the new tempo.
 	 */
-	public void setTempo(double newTempo) {
+	public void setTempo(int newTempo) {
 		tempo = newTempo;
 	}
 	

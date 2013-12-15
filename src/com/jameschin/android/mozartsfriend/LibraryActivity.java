@@ -54,9 +54,9 @@ public class LibraryActivity extends BaseListActivity {
 	public static final String[] DEFAULT_BASS_4_TUNING = { "E", "A", "D", "G" };
 	public static final String[] DEFAULT_BASS_5_TUNING = { "B", "E", "A", "D", "G" };
 	public static final String[] DEFAULT_BASS_6_TUNING = { "B", "E", "A", "D", "G", "C" };
-	public static final int DEFAULT_FRETBOARD_LENGTH = 25;
-	public static final int DEFAULT_FRET_MARKER_SIZE_IN_DP = 16;
-	public static final int DEFAULT_MIDI_VELOCITY = 100;
+	public static final byte DEFAULT_FRETBOARD_LENGTH = 25;
+	public static final byte DEFAULT_FRET_MARKER_SIZE_IN_DP = 16;
+	public static final byte DEFAULT_MIDI_VELOCITY = 100;
 	public static final String DEFAULT_MIDI_FILE = "midiFile.mid";
 	
 	// USER PARAMETERS
