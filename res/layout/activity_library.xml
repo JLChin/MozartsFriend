@@ -15,6 +15,7 @@
             android:orientation="vertical" >
 
             <!-- HEADER -->
+
             <RelativeLayout
                 android:id="@+id/layout_results_header"
                 android:layout_width="match_parent"
@@ -73,6 +74,7 @@
             </RelativeLayout>
 
             <!-- FRETBOARD VIEW -->
+
             <HorizontalScrollView
                 android:id="@+id/view_fretboard"
                 android:layout_width="wrap_content"
@@ -81,11 +83,11 @@
                 <TableLayout
                     android:id="@+id/table_fretboard"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-                </TableLayout>
+                    android:layout_height="wrap_content" />
             </HorizontalScrollView>
 
             <!-- PIANO VIEW -->
+
             <RelativeLayout
                 android:id="@+id/layout_piano_view"
                 android:layout_width="match_parent"
@@ -113,8 +115,7 @@
                             android:padding="6dp"
                             android:textColor="#777777"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_c_note"
@@ -125,8 +126,7 @@
                             android:padding="6dp"
                             android:textColor="#555555"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -144,8 +144,7 @@
                             android:padding="6dp"
                             android:textColor="#777777"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_d_note"
@@ -156,8 +155,7 @@
                             android:padding="6dp"
                             android:textColor="#555555"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -175,8 +173,7 @@
                             android:padding="6dp"
                             android:textColor="#777777"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_e_note"
@@ -187,8 +184,7 @@
                             android:padding="6dp"
                             android:textColor="#555555"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -206,8 +202,7 @@
                             android:padding="6dp"
                             android:textColor="#777777"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_f_note"
@@ -218,8 +213,7 @@
                             android:padding="6dp"
                             android:textColor="#555555"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -237,8 +231,7 @@
                             android:padding="6dp"
                             android:textColor="#777777"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_g_note"
@@ -249,8 +242,7 @@
                             android:padding="6dp"
                             android:textColor="#555555"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -268,8 +260,7 @@
                             android:padding="6dp"
                             android:textColor="#777777"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_a_note"
@@ -280,8 +271,7 @@
                             android:padding="6dp"
                             android:textColor="#555555"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -299,8 +289,7 @@
                             android:padding="6dp"
                             android:textColor="#777777"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_b_note"
@@ -311,8 +300,7 @@
                             android:padding="6dp"
                             android:textColor="#555555"
                             android:textSize="18sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -342,8 +330,7 @@
                             android:padding="6dp"
                             android:textColor="#aaaaaa"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_csh_note"
@@ -354,8 +341,7 @@
                             android:padding="6dp"
                             android:textColor="#cccccc"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -378,8 +364,7 @@
                             android:padding="6dp"
                             android:textColor="#aaaaaa"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_dsh_note"
@@ -390,8 +375,7 @@
                             android:padding="6dp"
                             android:textColor="#cccccc"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -414,8 +398,7 @@
                             android:padding="6dp"
                             android:textColor="#aaaaaa"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_fsh_note"
@@ -426,8 +409,7 @@
                             android:padding="6dp"
                             android:textColor="#cccccc"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -450,8 +432,7 @@
                             android:padding="6dp"
                             android:textColor="#aaaaaa"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_gsh_note"
@@ -462,8 +443,7 @@
                             android:padding="6dp"
                             android:textColor="#cccccc"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -486,8 +466,7 @@
                             android:padding="6dp"
                             android:textColor="#aaaaaa"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textview_piano_key_ash_note"
@@ -498,8 +477,7 @@
                             android:padding="6dp"
                             android:textColor="#cccccc"
                             android:textSize="15sp"
-                            android:textStyle="bold" >
-                        </TextView>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -512,6 +490,7 @@
     </ScrollView>
 
     <!-- NOTE VIEW -->
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

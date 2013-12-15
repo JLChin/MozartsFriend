@@ -495,7 +495,7 @@ public class MidiFile {
 		int[] instrumentChannels;
 		List<List<MidiNote>> instrumentNotes;
 		
-		TrackData (String name, int defaultTempo, String[] instrumentNames, int[] instrumentPrograms, int[] instrumentChannels, List<List<MidiNote>> instrumentNotes) {
+		TrackData(String name, int defaultTempo, String[] instrumentNames, int[] instrumentPrograms, int[] instrumentChannels, List<List<MidiNote>> instrumentNotes) {
 			this.name = name;
 			this.defaultTempo = defaultTempo;
 			this.instrumentNames = instrumentNames;
