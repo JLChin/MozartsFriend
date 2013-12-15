@@ -31,7 +31,7 @@ import android.widget.ToggleButton;
 /**
  * Jam Track Activity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class TrackActivity extends BaseActivity {
 	// DEFAULT SETTINGS
@@ -40,8 +40,7 @@ public class TrackActivity extends BaseActivity {
 	private static final long TAP_DURATION_IN_MILLI = 2000;
 	private static final int DEFAULT_VOLUME = 100;
 	private static final int DEFAULT_TONE = 4; // E6
-	public static final int DEFAULT_MIDI_VELOCITY = 100;
-	public static final String DEFAULT_MIDI_FILE = "midiFile.mid";
+	private static final String DEFAULT_MIDI_FILE = "midiFile.mid";
 	
 	// VIEW HOLDERS
 	private SeekBar seekBarTempo;

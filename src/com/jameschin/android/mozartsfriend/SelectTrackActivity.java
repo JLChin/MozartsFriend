@@ -24,7 +24,7 @@ import android.widget.ListView;
 /**
  * SelectTrackActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class SelectTrackActivity extends BaseListActivity {
 	// STATE VARIABLES

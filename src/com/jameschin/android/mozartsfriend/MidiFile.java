@@ -15,7 +15,7 @@ import android.content.Context;
  * 
  * This class takes parameters from the Library and Jam Track activities and generates a MIDI file in real-time.
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class MidiFile {
 	// DEFAULT SETTINGS
@@ -495,7 +495,7 @@ public class MidiFile {
 		int[] instrumentChannels;
 		List<List<MidiNote>> instrumentNotes;
 		
-		TrackData (String name, int defaultTempo, String[] instrumentNames, int[] instrumentPrograms, int[] instrumentChannels, List<List<MidiNote>> instrumentNotes) {
+		TrackData(String name, int defaultTempo, String[] instrumentNames, int[] instrumentPrograms, int[] instrumentChannels, List<List<MidiNote>> instrumentNotes) {
 			this.name = name;
 			this.defaultTempo = defaultTempo;
 			this.instrumentNames = instrumentNames;

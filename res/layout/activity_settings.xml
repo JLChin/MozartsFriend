@@ -9,6 +9,7 @@
         android:orientation="vertical" >
 
         <!-- METRONOME VISUAL FEEDBACK -->
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,12 +36,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textview_metronome_visual_feedback"
                     android:background="@drawable/button_background"
-                    android:padding="6dp" >
-                </Spinner>
+                    android:padding="6dp" />
             </RelativeLayout>
         </HorizontalScrollView>
 
         <!-- FRETBOARD LENGTH -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -72,12 +73,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textview_fretboard_length"
                     android:background="@drawable/button_background"
-                    android:padding="6dp" >
-                </Spinner>
+                    android:padding="6dp" />
             </RelativeLayout>
         </HorizontalScrollView>
 
         <!-- 6 STRING GUITAR -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -128,53 +129,48 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar6_tuning_5"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar6_tuning_4"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar6_tuning_3"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar6_tuning_2"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar6_tuning_1"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
                 </LinearLayout>
             </RelativeLayout>
         </HorizontalScrollView>
 
         <!-- 7 STRING GUITAR -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -225,61 +221,55 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar7_tuning_6"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar7_tuning_5"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar7_tuning_4"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar7_tuning_3"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar7_tuning_2"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar7_tuning_1"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
                 </LinearLayout>
             </RelativeLayout>
         </HorizontalScrollView>
 
         <!-- 8 STRING GUITAR -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -330,69 +320,62 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar8_tuning_7"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar8_tuning_6"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar8_tuning_5"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar8_tuning_4"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar8_tuning_3"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar8_tuning_2"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_guitar8_tuning_1"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
                 </LinearLayout>
             </RelativeLayout>
         </HorizontalScrollView>
 
         <!-- 4 STRING BASS -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -443,37 +426,34 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass4_tuning_3"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass4_tuning_2"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass4_tuning_1"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
                 </LinearLayout>
             </RelativeLayout>
         </HorizontalScrollView>
 
         <!-- 5 STRING BASS -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -524,45 +504,41 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass5_tuning_4"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass5_tuning_3"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass5_tuning_2"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass5_tuning_1"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
                 </LinearLayout>
             </RelativeLayout>
         </HorizontalScrollView>
 
         <!-- 6 STRING BASS -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -613,48 +589,42 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass6_tuning_5"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass6_tuning_4"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass6_tuning_3"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass6_tuning_2"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
 
                     <Spinner
                         android:id="@+id/spinner_settings_bass6_tuning_1"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:padding="6dp" >
-                    </Spinner>
+                        android:padding="6dp" />
                 </LinearLayout>
             </RelativeLayout>
         </HorizontalScrollView>

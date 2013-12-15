@@ -9,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * SelectSequenceActivity
+ * 
+ * @author James Chin <jameslchin@gmail.com>
+ */
 public class SelectSequenceActivity extends BaseListActivity {
 	// CONSTANTS
 	public static final String[] SCALES = { "Ionian Mode", "Dorian Mode", "Phrygian Mode", "Lydian Mode", "Mixolydian Mode", "Aeolian Mode", "Locrian Mode", "Acoustic Scale", "Adonai Malakh Scale", "Algerian Scale", "Altered Scale", "Augmented Scale", "Bebop Dominant Scale", "Blues Scale", "Chromatic Scale", "Double Harmonic Scale", "Enigmatic Scale", "Flamenco Scale", "Gypsy Scale", "Half Diminished Scale", "Harmonic Major Scale", "Harmonic Minor Scale", "Hirajoshi Scale", "Hungarian Minor Scale", "In Scale", "Insen Scale", "Istrian Scale", "Iwato Scale", "Lydian Augmented Scale", "Major Scale", "Major Bebop Scale", "Major Locrian Scale", "Major Pentatonic Scale", "Melodic Minor Scale", "Minor Scale", "Minor Pentatonic Scale", "Neapolitan Major Scale", "Neapolitan Minor Scale", "Persian Scale", "Phrygian Dominant Scale", "Prometheus Scale", "Tritone Scale", "Ukranian Dorian Scale", "Whole Tone Scale", "Yo Scale" };

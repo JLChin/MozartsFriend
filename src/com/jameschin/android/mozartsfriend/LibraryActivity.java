@@ -41,7 +41,7 @@ import android.widget.TextView;
 /**
  * LibraryActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class LibraryActivity extends BaseListActivity {	
 	// CONSTANTS
@@ -455,10 +455,17 @@ public class LibraryActivity extends BaseListActivity {
 			array.add(library.getNotes(sequence, root, tuning[i], fretboardLength, true));
 		
 		// CONSTRUCT TABLE
+		// calculate pixel dimensions for fretmarkers, based on screen density
+		float scale = getResources().getDisplayMetrics().density;
+		int pixels = (int) (DEFAULT_FRET_MARKER_SIZE_IN_DP * scale + 0.5f);
+		int margin = pixels / 6;
+		
+		// construct row
 		for (int i = numOfStrings - 1; i >= 0; i--) {
 			List<ResultData> currString = array.get(i);
 			TableRow newRow = new TableRow(this);
 			
+			// construct fret
 			for (int j = 0; j < fretboardLength; j++) {
 				// inflate vacant fret view
 	            View view = getLayoutInflater().inflate(R.layout.fretboard_table_item, null);
@@ -473,11 +480,6 @@ public class LibraryActivity extends BaseListActivity {
 	            if (i == 0) {
 	            	// add single fret marker
 	            	if (j == 3 || j == 5 || j == 7 || j == 9 || j == 12 || j == 15 || j == 17 || j == 19 || j == 21 || j == 24) {
-	            		// calculate pixel dimensions based on screen density
-	            		float scale = getResources().getDisplayMetrics().density;
-	            		int pixels = (int) (DEFAULT_FRET_MARKER_SIZE_IN_DP * scale + 0.5f);
-	            		int margin = pixels / 6;
-	            		
 	            		View fretmarker = new View(this);
 	            		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pixels, pixels);
 	            		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -532,9 +534,11 @@ public class LibraryActivity extends BaseListActivity {
 					fretboardViewCache.get(currData.noteName).add(view);
 	            }
 	            
+	            // add fret to row
 	    		newRow.addView(view);
 			}
 			
+			// add row to fretboard
 			tableFretboard.addView(newRow);
 		}
 		

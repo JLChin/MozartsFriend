@@ -22,7 +22,7 @@ import android.widget.ToggleButton;
 /**
  * Metronome Activity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class MetronomeActivity extends BaseActivity {
 	// DEFAULT SETTINGS
@@ -499,7 +499,7 @@ public class MetronomeActivity extends BaseActivity {
 							firstBeat = false;
 						} else {
 							if (visualFeedbackMode != SettingsActivity.VISUAL_FEEDBACK_MODE_FIRST_BEAT_ONLY)
-								setPlayIndicator(R.drawable.tuner_lock_green); // secondary ON indicator
+								setPlayIndicator(R.drawable.button_background_green); // secondary ON indicator
 						}
 						
 						try {

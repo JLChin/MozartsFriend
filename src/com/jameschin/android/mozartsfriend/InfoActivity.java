@@ -7,7 +7,7 @@ import android.widget.TextView;
 /**
  * InfoActivity
  * 
- * @author James Chin <JamesLChin@gmail.com>
+ * @author James Chin <jameslchin@gmail.com>
  */
 public class InfoActivity extends BaseActivity {
 
