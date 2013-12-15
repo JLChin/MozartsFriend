@@ -40,7 +40,7 @@ public class Tuner implements Runnable {
     private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
     private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     private static final int BUFFER_SIZE_IN_BYTES = 8320; // up from 4096, should handle SGS and basses
-    private static final int MAX_DROPOUT_BUFFER = 2;
+    private static final byte MAX_DROPOUT_BUFFER = 2;
     private static final double JITTER_THRESHOLD = 0.9;
     private static final double[] FREQUENCIES = {49.00, 51.91, 55.00, 58.27, 61.74, 65.41, 69.30, 73.42, 77.78, 82.41, 87.31, 92.50, 98.00, 103.83, 110.00, 116.54, 123.47, 130.81, 138.59, 146.83, 155.56, 164.81, 174.61, 185.00, 196.00, 207.65, 220.00, 233.08, 246.94, 261.63, 277.18, 293.66, 311.13, 329.63, 349.23, 369.99};
     

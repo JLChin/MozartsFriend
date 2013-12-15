@@ -35,11 +35,11 @@ import android.widget.ToggleButton;
  */
 public class TrackActivity extends BaseActivity {
 	// DEFAULT SETTINGS
-	private static final int MAX_TEMPO = 220;
-	private static final int MIN_TEMPO = 40;
-	private static final long TAP_DURATION_IN_MILLI = 2000;
-	private static final int DEFAULT_VOLUME = 100;
-	private static final int DEFAULT_TONE = 4; // E6
+	private static final byte DEFAULT_TONE = 4; // E6
+	private static final byte DEFAULT_VOLUME = 100;
+	private static final short MAX_TEMPO = 220;
+	private static final short MIN_TEMPO = 40;
+	private static final short TAP_DURATION_IN_MILLI = 2000;
 	private static final String DEFAULT_MIDI_FILE = "midiFile.mid";
 	
 	// VIEW HOLDERS
@@ -59,9 +59,9 @@ public class TrackActivity extends BaseActivity {
 	// STATE VARIABLES
 	private boolean playing;
 	private String title;
-	private int key;
-	private int tempo;
-	private int volume;
+	private byte key;
+	private byte volume;
+	private short tempo;
 	private long lastTap;
 	private List<Integer> tapTempos;
 	private TrackData track;
@@ -112,7 +112,7 @@ public class TrackActivity extends BaseActivity {
 				break;
 			case(1):
 				// TRACK TEMPO
-				tempo = Integer.valueOf(line);
+				tempo = Short.valueOf(line);
 				break;
 			case(2):
 				// TRACK INSTRUMENTS
@@ -251,7 +251,7 @@ public class TrackActivity extends BaseActivity {
 							newTempo += i;
 						newTempo /= tapTempos.size();
 
-						tempo = newTempo;
+						tempo = (short) newTempo;
 						seekBarTempo.setProgress(tempo - MIN_TEMPO);
 						textViewTempo.setText(Integer.toString(tempo));
 
@@ -279,7 +279,7 @@ public class TrackActivity extends BaseActivity {
 				public void onStartTrackingTouch(SeekBar arg0) { }
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						tempo = progress + MIN_TEMPO;
+						tempo = (short) (progress + MIN_TEMPO);
 						textViewTempo.setText(String.valueOf(tempo));
 					}
 				}
@@ -289,7 +289,7 @@ public class TrackActivity extends BaseActivity {
 			seekBarVolume = (SeekBar) findViewById(R.id.seekbar_volume);
 			textViewVolume = (TextView) findViewById(R.id.textview_volume);
 			seekBarVolume.setMax(100);
-			volume = sharedPref.getInt("VOLUME", DEFAULT_VOLUME);
+			volume = (byte) sharedPref.getInt("VOLUME", DEFAULT_VOLUME);
 			seekBarVolume.setProgress(volume);
 			float vol = (float) volume / 100;
 			mediaPlayer.setVolume(vol, vol);
@@ -305,7 +305,7 @@ public class TrackActivity extends BaseActivity {
 				public void onStartTrackingTouch(SeekBar arg0) { }
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						volume = progress;
+						volume = (byte) progress;
 						textViewVolume.setText(String.valueOf(volume));
 						float vol = (float) volume / 100;
 						mediaPlayer.setVolume(vol, vol);
@@ -317,7 +317,7 @@ public class TrackActivity extends BaseActivity {
 			seekBarTone = (SeekBar) findViewById(R.id.seekbar_tone);
 			textViewTone = (TextView) findViewById(R.id.textview_tone);
 			seekBarTone.setMax(11);
-			key = sharedPref.getInt("TRACK_TONE", DEFAULT_TONE);
+			key = (byte) sharedPref.getInt("TRACK_TONE", DEFAULT_TONE);
 			seekBarTone.setProgress(key);
 			textViewTone.setText(getTone(key));
 			seekBarTone.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -331,7 +331,7 @@ public class TrackActivity extends BaseActivity {
 				public void onStartTrackingTouch(SeekBar arg0) { }
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
-						key = progress;
+						key = (byte) progress;
 						textViewTone.setText(getTone(key));
 						
 						sharedPrefEditor.putInt("TRACK_TONE", progress);

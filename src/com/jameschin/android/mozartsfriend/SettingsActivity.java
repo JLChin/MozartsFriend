@@ -20,11 +20,11 @@ import android.widget.Spinner;
  */
 public class SettingsActivity extends BaseActivity {
 	// DEFAULT SETTINGS
-	static final int MAX_FRET_START = 20;
-	static final int MAX_FRET_RANGE = 8;
-	static final int VISUAL_FEEDBACK_MODE_ENABLED = 0;
-	static final int VISUAL_FEEDBACK_MODE_FIRST_BEAT_ONLY = 1;
-	static final int VISUAL_FEEDBACK_MODE_DISABLED = 2;
+	static final byte MAX_FRET_START = 20;
+	static final byte MAX_FRET_RANGE = 8;
+	static final byte VISUAL_FEEDBACK_MODE_ENABLED = 0;
+	static final byte VISUAL_FEEDBACK_MODE_FIRST_BEAT_ONLY = 1;
+	static final byte VISUAL_FEEDBACK_MODE_DISABLED = 2;
 	
 	// SYSTEM
 	private SharedPreferences.Editor sharedPrefEditor;
