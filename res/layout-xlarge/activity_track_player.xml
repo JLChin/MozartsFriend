@@ -15,11 +15,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:contentDescription="@string/track_image_description"
             android:padding="10dp"
             android:src="@drawable/ic_launcher" />
     </RelativeLayout>
 
     <!-- STYLE FRAME -->
+
     <RelativeLayout
         android:id="@+id/layout_track_title_frame"
         android:layout_width="match_parent"
@@ -53,13 +55,14 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="20dp"
             android:paddingRight="40dp"
-            android:text="@string/string_style"
+            android:text="@string/track_style"
             android:textColor="#777777"
             android:textSize="40sp"
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
     <!-- TONE FRAME -->
+
     <RelativeLayout
         android:id="@+id/layout_track_tone_frame"
         android:layout_width="match_parent"
@@ -100,13 +103,14 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="20dp"
             android:paddingRight="40dp"
-            android:text="@string/string_tone"
+            android:text="@string/track_tone"
             android:textColor="#777777"
             android:textSize="40sp"
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
     <!-- VOLUME FRAME -->
+
     <RelativeLayout
         android:id="@+id/layout_track_volume_frame"
         android:layout_width="match_parent"
@@ -147,7 +151,7 @@
             android:layout_toRightOf="@+id/textview_volume"
             android:paddingBottom="20dp"
             android:paddingLeft="2dp"
-            android:text="@string/string_percent"
+            android:text="@string/track_percent"
             android:textColor="#cccccc"
             android:textSize="40sp"
             android:textStyle="bold|italic" />
@@ -160,13 +164,14 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="20dp"
             android:paddingRight="40dp"
-            android:text="@string/string_volume"
+            android:text="@string/track_volume"
             android:textColor="#777777"
             android:textSize="40sp"
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
     <!-- TEMPO FRAME -->
+
     <RelativeLayout
         android:id="@+id/layout_track_tempo_frame"
         android:layout_width="match_parent"
@@ -207,7 +212,7 @@
             android:layout_toRightOf="@+id/textview_tempo"
             android:paddingBottom="20dp"
             android:paddingLeft="2dp"
-            android:text="@string/string_bpm"
+            android:text="@string/track_bpm"
             android:textColor="#cccccc"
             android:textSize="40sp"
             android:textStyle="bold|italic" />
@@ -220,13 +225,14 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="20dp"
             android:paddingRight="40dp"
-            android:text="@string/string_tempo"
+            android:text="@string/track_tempo"
             android:textColor="#777777"
             android:textSize="40sp"
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
     <!-- BOTTOM CONTROL FRAME -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -243,8 +249,8 @@
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:textColor="#cccccc"
-            android:textOff="@string/string_button_play"
-            android:textOn="@string/string_button_stop"
+            android:textOff="@string/track_button_play"
+            android:textOn="@string/track_button_stop"
             android:textSize="50sp"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -262,7 +268,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
-                android:text="@string/string_button_tempo_inc"
+                android:text="@string/track_button_tempo_inc"
                 android:textColor="#cccccc"
                 android:textSize="50sp"
                 android:textStyle="bold"
@@ -275,7 +281,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
-                android:text="@string/string_button_tempo_dec"
+                android:text="@string/track_button_tempo_dec"
                 android:textColor="#cccccc"
                 android:textSize="50sp"
                 android:textStyle="bold"
@@ -289,7 +295,7 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:text="@string/string_button_tap"
+            android:text="@string/track_button_tap"
             android:textColor="#cccccc"
             android:textSize="50sp"
             android:textStyle="bold"

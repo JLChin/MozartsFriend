@@ -220,14 +220,14 @@ public class LibraryActivity extends BaseListActivity {
 		spinnerViewSelect = (Spinner) findViewById(R.id.spinner_view_select);
 		
 		List<String> list = new ArrayList<String>();
-		list.add(getString(R.string.string_note_view));
-		list.add(getString(R.string.string_6_string_guitar_view));
-		list.add(getString(R.string.string_7_string_guitar_view));
-		list.add(getString(R.string.string_8_string_guitar_view));
-		list.add(getString(R.string.string_4_string_bass_view));
-		list.add(getString(R.string.string_5_string_bass_view));
-		list.add(getString(R.string.string_6_string_bass_view));
-		list.add(getString(R.string.string_piano_view));
+		list.add(getString(R.string.library_note_view));
+		list.add(getString(R.string.library_6_string_guitar_view));
+		list.add(getString(R.string.library_7_string_guitar_view));
+		list.add(getString(R.string.library_8_string_guitar_view));
+		list.add(getString(R.string.library_4_string_bass_view));
+		list.add(getString(R.string.library_5_string_bass_view));
+		list.add(getString(R.string.library_6_string_bass_view));
+		list.add(getString(R.string.library_piano_view));
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, list);
 		adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);

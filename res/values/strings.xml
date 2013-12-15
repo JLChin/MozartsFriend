@@ -4,7 +4,14 @@
     <!-- SYSTEM -->
     <string name="app_name">Mozart\'s Friend</string>
     <string name="preference_file_key">com.jameschin.android.mozartsfriend.PREFERENCE_FILE_KEY</string>
-    
+
+    <!-- THREADS -->
+    <string name="thread_tuner">Thread - Tuner</string>
+    <string name="thread_metronome_audio">Thread - Metronome Audio</string>
+    <string name="thread_metronome_visual_feedback">Thread - Metronome Visual Feedback</string>
+    <string name="thread_metronome_tap_tempo_timer">Thread - Metronome Tap Tempo Timer</string>
+    <string name="thread_track_tap_tempo_timer">Thread - Track Tap Tempo Timer</string>
+
     <!-- MENU -->
     <string name="menu_scales">Scale</string>
     <string name="menu_chords">Chord</string>
@@ -15,7 +22,7 @@
     <string name="menu_help">Help</string>
     <string name="menu_info">Info</string>
     <string name="menu_quit">Quit</string>
-    
+
     <!-- TITLE -->
     <string name="title_chords">Chords</string>
     <string name="title_help">Help</string>
@@ -27,84 +34,92 @@
     <string name="title_settings">Settings</string>
     <string name="title_track">Jam Tracks</string>
     <string name="title_tuner">Tuner</string>
-    
+
     <!-- METRONOME -->
-    <string name="string_tempo">Tempo</string>
-    <string name="string_bpm">BPM</string>
-    <string name="string_meter">Meter</string>
-    <string name="string_time">Time</string>
-    <string name="string_volume">Volume</string>
-    <string name="string_percent">%</string>
-    <string name="string_tone">Key</string>
-    <string name="string_interval">Interval</string>
-    <string name="string_style">Style</string>
-    <string name="string_button_play">PLAY</string>
-    <string name="string_button_stop">STOP</string>
-    <string name="string_button_tempo_inc">+</string>
-    <string name="string_button_tempo_dec">-</string>
-    <string name="string_button_tap">TAP</string>
-    
+    <string name="metronome_interval">Interval</string>
+    <string name="metronome_tone">Key</string>
+    <string name="metronome_volume">Volume</string>
+    <string name="metronome_percent">%</string>
+    <string name="metronome_meter">Meter</string>
+    <string name="metronome_time">Time</string>
+    <string name="metronome_tempo">Tempo</string>
+    <string name="metronome_bpm">BPM</string>
+    <string name="metronome_button_play">PLAY</string>
+    <string name="metronome_button_stop">STOP</string>
+    <string name="metronome_button_tempo_inc">+</string>
+    <string name="metronome_button_tempo_dec">-</string>
+    <string name="metronome_button_tap">TAP</string>
+    <string name="metronome_image_description"></string>
+
+    <!-- TRACK -->
+    <string name="track_style">Style</string>
+    <string name="track_tone">Key</string>
+    <string name="track_volume">Volume</string>
+    <string name="track_percent">%</string>
+    <string name="track_tempo">Tempo</string>
+    <string name="track_bpm">BPM</string>
+    <string name="track_button_play">PLAY</string>
+    <string name="track_button_stop">STOP</string>
+    <string name="track_button_tempo_inc">+</string>
+    <string name="track_button_tempo_dec">-</string>
+    <string name="track_button_tap">TAP</string>
+    <string name="track_image_description"></string>
+
     <!-- TUNER -->
-    <string name="string_tuner_default_frequency">Hz</string>
-    
+    <string name="tuner_default_frequency">Hz</string>
+    <string name="tuner_alert_title">Tuner</string>
+    <string name="tuner_initialize_error">Can\'t seem to initialize AudioRecord on this device.</string>
+
     <!-- LIBRARY -->
-    <string name="string_note_view">Note View</string>
-    <string name="string_6_string_guitar_view">6-String Guitar</string>
-    <string name="string_7_string_guitar_view">7-String Guitar</string>
-    <string name="string_8_string_guitar_view">8-String Guitar</string>
-    <string name="string_4_string_bass_view">4-String Bass</string>
-    <string name="string_5_string_bass_view">5-String Bass</string>
-    <string name="string_6_string_bass_view">6-String Bass</string>
-    <string name="string_piano_view">Piano View</string>
-    <string name="string_demo">Hear It!</string>
-    
+    <string name="library_note_view">Note View</string>
+    <string name="library_6_string_guitar_view">6-String Guitar</string>
+    <string name="library_7_string_guitar_view">7-String Guitar</string>
+    <string name="library_8_string_guitar_view">8-String Guitar</string>
+    <string name="library_4_string_bass_view">4-String Bass</string>
+    <string name="library_5_string_bass_view">5-String Bass</string>
+    <string name="library_6_string_bass_view">6-String Bass</string>
+    <string name="library_piano_view">Piano View</string>
+    <string name="library_demo">Hear It!</string>
+
     <!-- SETTINGS -->
-    <string name="string_metronome_visual_feedback">Metronome Visual Feedback</string>
-    <string name="string_metronome_visual_feedback_mode_enabled">Enabled</string>
-    <string name="string_metronome_visual_feedback_mode_firstbeatonly">First Beat Only</string>
-    <string name="string_metronome_visual_feedback_mode_disabled">Disabled</string>
-    <string name="string_fretboard_length">Guitar/Bass Fretboard Length</string>
-    <string name="string_6_string_guitar_tuning">6-String Guitar Tuning</string>
-    <string name="string_7_string_guitar_tuning">7-String Guitar Tuning</string>
-    <string name="string_8_string_guitar_tuning">8-String Guitar Tuning</string>
-    <string name="string_4_string_bass_tuning">4-String Bass Tuning</string>
-    <string name="string_5_string_bass_tuning">5-String Bass Tuning</string>
-    <string name="string_6_string_bass_tuning">6-String Bass Tuning</string>
-    <string name="string_default">Default</string>
-    
+    <string name="settings_metronome_visual_feedback">Metronome Visual Feedback</string>
+    <string name="settings_metronome_visual_feedback_mode_enabled">Enabled</string>
+    <string name="settings_metronome_visual_feedback_mode_firstbeatonly">First Beat Only</string>
+    <string name="settings_metronome_visual_feedback_mode_disabled">Disabled</string>
+    <string name="settings_fretboard_length">Guitar/Bass Fretboard Length</string>
+    <string name="settings_6_string_guitar_tuning">6-String Guitar Tuning</string>
+    <string name="settings_7_string_guitar_tuning">7-String Guitar Tuning</string>
+    <string name="settings_8_string_guitar_tuning">8-String Guitar Tuning</string>
+    <string name="settings_4_string_bass_tuning">4-String Bass Tuning</string>
+    <string name="settings_5_string_bass_tuning">5-String Bass Tuning</string>
+    <string name="settings_6_string_bass_tuning">6-String Bass Tuning</string>
+    <string name="settings_default">Default</string>
+
     <!-- MAIN -->
-    <string name="string_welcome"><b><u>News</u></b>
-        \n\n<b><i>Update 1.0.30:</i></b>
-        \n\n<b>General</b> 
-        \n- Consolidated classes. The build size has also been reduced.
+    <string name="main_welcome"><b><u>News</u></b>        \n\n<b><i>Update 1.0.30:</i></b>        \n\n<b>General</b>        \n- Consolidated classes. The build size has also been reduced.
         \n\n- Minor layout updates.
-        \n\n\n<b>Metronome</b>
-        \n- Added sync correction for audio/visual feedback. This keeps the audio and visual more tightly locked in with the time, particularly on devices with a lot running in the background.
+        \n\n\n<b>Metronome</b>        \n- Added sync correction for audio/visual feedback. This keeps the audio and visual more tightly locked in with the time, particularly on devices with a lot running in the background.
         \n\n\nHappy Practicing!</string>
-    <string name="string_main_metro">Metronome</string>
-    <string name="string_main_track">Jam Tracks</string>
-    <string name="string_main_tune">Tuner</string>
-    <string name="string_mozarts_friend">Mozart\'s Friend</string>
-    <string name="string_copyright">© 2014 JLC Software</string>
-    
+    <string name="main_metro">Metronome</string>
+    <string name="main_track">Jam Tracks</string>
+    <string name="main_tune">Tuner</string>
+    <string name="main_copyright">© 2014 JLC Software</string>
+
     <!-- INFO -->
-    <string name="string_link_play"><a href='https://play.google.com/store/apps/details?id=com.jameschin.android.mozartsfriend'>Google Play</a></string>
-    <string name="string_link_facebook"><a href='https://www.facebook.com/MozartsFriend'>Facebook</a></string>
-    <string name="string_link_youtube"><a href='https://www.youtube.com/jameschinmusic'>YouTube</a></string>
-    <string name="string_link_email"><a href='mailto:jameschinsoftware@gmail.com'>Email</a></string>
-    <string name="string_info"><b>Development</b>
-        \nJames Chin
-        \n\n<b>QA</b>
-        \nRobert Gibbs
+    <string name="info_link_play"><a href="https://play.google.com/store/apps/details?id=com.jameschin.android.mozartsfriend">Google Play</a></string>
+    <string name="info_link_facebook"><a href="https://www.facebook.com/MozartsFriend">Facebook</a></string>
+    <string name="info_link_youtube"><a href="https://www.youtube.com/jameschinmusic">YouTube</a></string>
+    <string name="info_link_email"><a href="mailto:jameschinsoftware@gmail.com">Email</a></string>
+    <string name="info_credits"><b>Development</b>        \nJames Chin
+        \n\n<b>QA</b>        \nRobert Gibbs
         \nAdam Hackbarth
         \nZhang Xuan
         \n\n\n\n\nIf you like the app, show your support by reviewing us on Google Play or like-ing us on Facebook or Google+!
-        \n\nIf you\'d like to program, design, translate or otherwise contribute to Mozart\'s Friend, drop us a line, we\'d love to hear from you!
-    </string>
-    
+        \n\nIf you\'d like to program, design, translate or otherwise contribute to Mozart\'s Friend, drop us a line, we\'d love to hear from you!</string>
+
     <!-- HELP -->
-    <string name="string_help_back_to_top">Back To Top</string>
-    <string name="string_help_library">One of the features that separates Mozart\'s Friend from other apps is the attention to the rules and nomenclature of music theory, and all notes and intervals are labeled using standard music notation shorthand.
+    <string name="help_back_to_top">Back To Top</string>
+    <string name="help_library">One of the features that separates Mozart\'s Friend from other apps is the attention to the rules and nomenclature of music theory, and all notes and intervals are labeled using standard music notation shorthand.
         \n\nAn <i>interval</i> represents the musical relationship between two pitches:
         \n\n [interval quality][interval number]
         \n\nFor example \"M3\" means the Major 3rd, while \"d5\" means the diminished 5th, and so on.
@@ -120,9 +135,8 @@
         \n\nSome users may be accustomed to familiar chord diagrams, such as the faithful \"320033\" shape G Major chord. However note that this version of the G Major chord is only usable in standard tuning and in the third fret position.
         \n\nFor this reason, the Chord function was designed to display the map of notes available to choose from and allow the user to construct their own chord based on their own tunings, desired voicing and target area of the fretboard.
         \n\nThe <i>Hear It!</i> feature is a one-touch audio demonstration of the current selection, perfect for quick interactive feedback to learn the sound or just to check if you\'ve got the right chord!
-        \n\nFurthermore, note that <i>Hear It!</i> automatically tracks which notes are selected, so you can hear, say, what a minor 7th chord sounds like with and without the minor 3rd. Or what the Dorian scale sounds like with and without the minor 2nd. The choice of what you want to audition is completely up to you!
-    </string>
-    <string name="string_help_metronome">Mozart\'s Friend includes the first metronome with fully programmable tones and intervallic beats, allowing you to quickly outline a chord to play along with. Transpose keys easily in a single swipe!
+        \n\nFurthermore, note that <i>Hear It!</i> automatically tracks which notes are selected, so you can hear, say, what a minor 7th chord sounds like with and without the minor 3rd. Or what the Dorian scale sounds like with and without the minor 2nd. The choice of what you want to audition is completely up to you!</string>
+    <string name="help_metronome">Mozart\'s Friend includes the first metronome with fully programmable tones and intervallic beats, allowing you to quickly outline a chord to play along with. Transpose keys easily in a single swipe!
         \n\nThe <i>Key</i>, or exact pitch, is labeled using standard scientific pitch notation:
         \n\n [letter name][pitch octave]
         \n\nA4 corresponds to the 440 Hz frequency. C4 is the C directly above A4, A5 is the A exactly one octave higher than A4, and so forth.
@@ -138,21 +152,19 @@
         \n\nThe <i>Meter</i> dictates the pattern and division of time. For example, \"7:8\" means each time measure has the length of 7 8th notes. If you are unfamiliar with meter signatures, it is recommended to simply leave it at the default \"2:4\" or \"4:4\" settings.
         \n\nThe <i>Tempo</i> is set in BPM, also known as \"beats-per-minute.\" The higher the tempo, the faster the beat.
         \n\n<i>Tap Tempo</i> is a great way to match the tempo of your favorite songs. Simply tap the \"TAP\" button to a beat and the metronome quickly locks on to the tempo. The \"TAP\" button will light red while it is actively listening and acquiring a new tempo. Since there are no mechanical parts, you may find this function to be extremely quick and accurate!
-        \n\nMetronome mode also provides Visual Feedback to your programmed tempo, flashing red during the downbeat and green during the offbeat. This can be adjusted under the Settings menu to provide feedback only during the downbeat or to be disabled entirely. Note that Visual Feedback is automatically disabled at extremely high tempos!
-    </string>
-    <string name="string_help_tuner">Mozart\'s Friend includes a chromatic tuner which tracks notes quickly and accurately, giving a clear view of your tuning from across the room.
+        \n\nMetronome mode also provides Visual Feedback to your programmed tempo, flashing red during the downbeat and green during the offbeat. This can be adjusted under the Settings menu to provide feedback only during the downbeat or to be disabled entirely. Note that Visual Feedback is automatically disabled at extremely high tempos!</string>
+    <string name="help_tuner">Mozart\'s Friend includes a chromatic tuner which tracks notes quickly and accurately, giving a clear view of your tuning from across the room.
         \n\nYou may find that Mozart\'s Friend\'s Tuner can tune from farther away than most tuner devices, and is also more resistant to background noise. The large pitch indicators also facilitate tuning from afar.
         \n\nThe tuner is completely fiddle-free, as no interaction is needed whatsoever. As soon as you\'re in <i>Tuner</i> mode, the tuner is ON and actively listening for a primary frequency.
         \n\nNote: certain Android devices are known to have difficulty picking up in Tuner mode. Normal operation allows accurate tuning of an acoustic guitar from over six feet away, even against interferring background noise. Electric instruments may require amplification to be picked up.
-        \n\nTo test if the tuner is working properly on your Android device, you can simply hum or whistle at arm length from your device and it should display the frequency and relative distance from the nearest pitch via the large indicators.
-    </string>
-    <string name="string_help_track">Mozart\'s Friend is the only app with a one-touch backup band! Just select a musical style and you\'re up and running. Adjust your track on the fly quickly and precisely with the adjustable tempo and key!
+        \n\nTo test if the tuner is working properly on your Android device, you can simply hum or whistle at arm length from your device and it should display the frequency and relative distance from the nearest pitch via the large indicators.</string>
+    <string name="help_track">Mozart\'s Friend is the only app with a one-touch backup band! Just select a musical style and you\'re up and running. Adjust your track on the fly quickly and precisely with the adjustable tempo and key!
         \n\nJam Tracks were designed to give practicing musicians an alternative to the metronome for a lightning quick and fuss-free way to practice. Some tracks contain just percussion, while others may contain more instruments such as bass and keyboards. Sound dock or earbuds recommended for rocking out!
         \n\nThe <i>Key</i>, or exact pitch, is labeled using standard scientific pitch notation:
         \n\n [letter name][pitch octave]
         \n\nA4 corresponds to the 440 Hz frequency. C4 is the C directly above A4, A5 is the A exactly one octave higher than A4, and so forth.
         \n\nWhen you change the <i>Key</i>, ALL instruments on the track automatically transpose to the new pitch!
         \n\nThe <i>Tempo</i> is set in BPM, also known as \"beats-per-minute.\" The higher the tempo, the faster the beat.
-        \n\nAlong with the tempo slider and increment/decrement buttons, <i>Tap Tempo</i> allows you to input tempo both quickly and easily. Simply tap the \"TAP\" button and the track quickly locks on to the tempo. The \"TAP\" button will light red while it is actively listening and acquiring a new tempo. Since there are no mechanical parts, you may find this function to be extremely quick and accurate!
-    </string>
+        \n\nAlong with the tempo slider and increment/decrement buttons, <i>Tap Tempo</i> allows you to input tempo both quickly and easily. Simply tap the \"TAP\" button and the track quickly locks on to the tempo. The \"TAP\" button will light red while it is actively listening and acquiring a new tempo. Since there are no mechanical parts, you may find this function to be extremely quick and accurate!</string>
+
 </resources>

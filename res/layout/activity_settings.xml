@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_metronome_visual_feedback"
+                    android:text="@string/settings_metronome_visual_feedback"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_fretboard_length"
+                    android:text="@string/settings_fretboard_length"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_6_string_guitar_tuning"
+                    android:text="@string/settings_6_string_guitar_tuning"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -113,7 +113,7 @@
                     android:layout_margin="4dp"
                     android:layout_toRightOf="@+id/textview_settings_guitar_6_tuning"
                     android:background="@drawable/button_background"
-                    android:text="@string/string_default"
+                    android:text="@string/settings_default"
                     android:textColor="#cccccc"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -192,7 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_7_string_guitar_tuning"
+                    android:text="@string/settings_7_string_guitar_tuning"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -205,7 +205,7 @@
                     android:layout_margin="4dp"
                     android:layout_toRightOf="@+id/textview_settings_guitar_7_tuning"
                     android:background="@drawable/button_background"
-                    android:text="@string/string_default"
+                    android:text="@string/settings_default"
                     android:textColor="#cccccc"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -291,7 +291,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_8_string_guitar_tuning"
+                    android:text="@string/settings_8_string_guitar_tuning"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -304,7 +304,7 @@
                     android:layout_margin="4dp"
                     android:layout_toRightOf="@+id/textview_settings_guitar_8_tuning"
                     android:background="@drawable/button_background"
-                    android:text="@string/string_default"
+                    android:text="@string/settings_default"
                     android:textColor="#cccccc"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -397,7 +397,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_4_string_bass_tuning"
+                    android:text="@string/settings_4_string_bass_tuning"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -410,7 +410,7 @@
                     android:layout_margin="4dp"
                     android:layout_toRightOf="@+id/textview_settings_bass_4_tuning"
                     android:background="@drawable/button_background"
-                    android:text="@string/string_default"
+                    android:text="@string/settings_default"
                     android:textColor="#cccccc"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -475,7 +475,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_5_string_bass_tuning"
+                    android:text="@string/settings_5_string_bass_tuning"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -488,7 +488,7 @@
                     android:layout_margin="4dp"
                     android:layout_toRightOf="@+id/textview_settings_bass_5_tuning"
                     android:background="@drawable/button_background"
-                    android:text="@string/string_default"
+                    android:text="@string/settings_default"
                     android:textColor="#cccccc"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -560,7 +560,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="@string/string_6_string_bass_tuning"
+                    android:text="@string/settings_6_string_bass_tuning"
                     android:textColor="#999999"
                     android:textSize="20sp" />
 
@@ -573,7 +573,7 @@
                     android:layout_margin="4dp"
                     android:layout_toRightOf="@+id/textview_settings_bass_6_tuning"
                     android:background="@drawable/button_background"
-                    android:text="@string/string_default"
+                    android:text="@string/settings_default"
                     android:textColor="#cccccc"
                     android:textSize="12sp"
                     android:textStyle="bold" />

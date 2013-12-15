@@ -42,6 +42,7 @@
             android:textColor="#cccccc" />
 
         <!-- LIBRARY -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -61,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/string_help_library"
+            android:text="@string/help_library"
             android:textColor="#cccccc" />
 
         <RelativeLayout
@@ -74,11 +75,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
-                android:text="@string/string_help_back_to_top"
+                android:text="@string/help_back_to_top"
                 android:textColor="#cccccc" />
         </RelativeLayout>
 
         <!-- METRONOME -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -98,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/string_help_metronome"
+            android:text="@string/help_metronome"
             android:textColor="#cccccc" />
 
         <RelativeLayout
@@ -111,11 +113,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
-                android:text="@string/string_help_back_to_top"
+                android:text="@string/help_back_to_top"
                 android:textColor="#cccccc" />
         </RelativeLayout>
 
         <!-- TUNER -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -135,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/string_help_tuner"
+            android:text="@string/help_tuner"
             android:textColor="#cccccc" />
 
         <RelativeLayout
@@ -148,11 +151,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
-                android:text="@string/string_help_back_to_top"
+                android:text="@string/help_back_to_top"
                 android:textColor="#cccccc" />
         </RelativeLayout>
 
         <!-- TRACK -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -172,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/string_help_track"
+            android:text="@string/help_track"
             android:textColor="#cccccc" />
 
         <RelativeLayout
@@ -185,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
-                android:text="@string/string_help_back_to_top"
+                android:text="@string/help_back_to_top"
                 android:textColor="#cccccc" />
         </RelativeLayout>
     </LinearLayout>

@@ -233,7 +233,7 @@ public class TrackActivity extends BaseActivity {
 					if (tapIndicatorThread != null)
 						tapIndicatorThread.interrupt();
 					buttonTap.setBackgroundResource(R.drawable.button_background_red);
-					tapIndicatorThread = new Thread(new TapIndicator(new Handler()), "Thread - Track Tap Tempo Timer");
+					tapIndicatorThread = new Thread(new TapIndicator(new Handler()), getString(R.string.thread_track_tap_tempo_timer));
 					tapIndicatorThread.start();
 					
 					long newTap = System.currentTimeMillis();

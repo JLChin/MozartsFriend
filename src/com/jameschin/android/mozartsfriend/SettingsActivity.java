@@ -186,7 +186,7 @@ public class SettingsActivity extends BaseActivity {
 		});
 		
 		// METRONOME VISUAL FEEDBACK SETTINGS
-		String[] metronomeVisualFeedbackList = { getString(R.string.string_metronome_visual_feedback_mode_enabled), getString(R.string.string_metronome_visual_feedback_mode_firstbeatonly), getString(R.string.string_metronome_visual_feedback_mode_disabled) };
+		String[] metronomeVisualFeedbackList = { getString(R.string.settings_metronome_visual_feedback_mode_enabled), getString(R.string.settings_metronome_visual_feedback_mode_firstbeatonly), getString(R.string.settings_metronome_visual_feedback_mode_disabled) };
 		ArrayAdapter<String> adapterMetronomeVisualFeedback = new ArrayAdapter<String>(this, R.layout.spinner_item, metronomeVisualFeedbackList);
 		adapterMetronomeVisualFeedback.setDropDownViewResource(R.layout.spinner_dropdown_item);
 		Spinner spinnerMetronomeVisualFeedback = (Spinner) findViewById(R.id.spinner_settings_metronome_visual_feedback);

@@ -65,7 +65,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/button_background"
-                            android:text="@string/string_demo"
+                            android:text="@string/library_demo"
                             android:textColor="#cccccc"
                             android:textSize="12sp"
                             android:textStyle="bold" />
