@@ -26,7 +26,7 @@
         android:background="@drawable/controls_frame"
         android:gravity="right"
         android:paddingRight="10dp"
-        android:text="@string/string_tuner_default_frequency"
+        android:text="@string/tuner_default_frequency"
         android:textColor="#cccccc"
         android:textSize="40sp"
         android:textStyle="bold" />

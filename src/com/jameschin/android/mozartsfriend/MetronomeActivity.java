@@ -155,7 +155,7 @@ public class MetronomeActivity extends BaseActivity {
 					if (tapIndicatorThread != null)
 						tapIndicatorThread.interrupt();
 					buttonTap.setBackgroundResource(R.drawable.button_background_red);
-					tapIndicatorThread = new Thread(new TapIndicator(new Handler()), "Thread - Metronome Tap Tempo Timer");
+					tapIndicatorThread = new Thread(new TapIndicator(new Handler()), getString(R.string.thread_metronome_tap_tempo_timer));
 					tapIndicatorThread.start();
 					
 					long newTap = System.currentTimeMillis();
@@ -403,11 +403,11 @@ public class MetronomeActivity extends BaseActivity {
 		int measureDurationInMilli = (beatDivision == 8) ? (numOfBeats * beatDurationInMilli / 2) : (numOfBeats * beatDurationInMilli);
 		
 		// START NEW TASKS
-		metronomeThread = new Thread(new MetronomeThread(), "Thread - Metronome Audio");
+		metronomeThread = new Thread(new MetronomeThread(), getString(R.string.thread_metronome_audio));
 		metronomeThread.start();
 		
 		if ((visualFeedbackMode != SettingsActivity.VISUAL_FEEDBACK_MODE_DISABLED) && tempo <= MAX_TEMPO) {
-			visualFeedbackThread = new Thread(new VisualFeedback(measureDurationInMilli, silenceDurationInMilli, new Handler()), "Thread - Metronome Visual Feedback");
+			visualFeedbackThread = new Thread(new VisualFeedback(measureDurationInMilli, silenceDurationInMilli, new Handler()), getString(R.string.thread_metronome_visual_feedback));
 			visualFeedbackThread.start();
 		}
 	}

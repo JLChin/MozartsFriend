@@ -76,7 +76,7 @@ public class Tuner implements Runnable {
 			recorder.release();
 		}
     	
-    	ShowError("Can't initialize AudioRecord. Email jameschinsoftware@gmail.com with device model.");
+    	ShowError(parent.getString(R.string.tuner_initialize_error));
 		return false;
     }
     
@@ -282,7 +282,7 @@ public class Tuner implements Runnable {
 	private void ShowError(final String msg) {
 		handler.post(new Runnable() {
 			public void run() {
-				new AlertDialog.Builder(parent).setTitle("Mozart's Friend Tuner").setMessage(msg).show();
+				new AlertDialog.Builder(parent).setTitle(R.string.tuner_alert_title).setMessage(msg).show();
 			}
 		});
 	}

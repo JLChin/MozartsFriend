@@ -59,7 +59,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_background"
                         android:gravity="center"
-                        android:text="@string/string_demo"
+                        android:text="@string/library_demo"
                         android:textColor="#cccccc"
                         android:textSize="12sp"
                         android:textStyle="bold" />

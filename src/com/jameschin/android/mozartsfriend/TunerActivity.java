@@ -110,12 +110,12 @@ public class TunerActivity extends BaseActivity{
     		textViewTunerNoteNext.setText(NOTE_NAME[closestNote + 1]);
     		
     		DecimalFormat decimalFormat = new DecimalFormat("###0.00", new DecimalFormatSymbols(Locale.US));
-    		textViewTunerNoteFrequency.setText(decimalFormat.format(frequency) + " Hz");
+    		textViewTunerNoteFrequency.setText(decimalFormat.format(frequency) + " " + getString(R.string.tuner_default_frequency));
     	} else {
     		textViewTunerNote.setText("");
     		textViewTunerNotePrev.setText("");
     		textViewTunerNoteNext.setText("");
-    		textViewTunerNoteFrequency.setText("Hz");
+    		textViewTunerNoteFrequency.setText(getString(R.string.tuner_default_frequency));
     	}
     }
     
@@ -151,7 +151,7 @@ public class TunerActivity extends BaseActivity{
 	protected void onRestart() {
 	    super.onRestart();
 	    synchronized(this) {
-	    	tunerThread = new Thread(new Tuner(this, new Handler()), "Thread - Tuner");
+	    	tunerThread = new Thread(new Tuner(this, new Handler()), getString(R.string.thread_tuner));
 			tunerThread.start();
 	    }
 	}

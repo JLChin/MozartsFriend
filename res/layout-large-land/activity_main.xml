@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:text="@string/string_welcome"
+            android:text="@string/main_welcome"
             android:textColor="#cccccc"
             android:textSize="20sp" />
     </ScrollView>
@@ -37,7 +37,7 @@
             android:layout_margin="12dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:text="@string/string_main_track"
+            android:text="@string/main_track"
             android:textColor="#cccccc"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -50,7 +50,7 @@
             android:layout_margin="12dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:text="@string/string_main_metro"
+            android:text="@string/main_metro"
             android:textColor="#cccccc"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -63,7 +63,7 @@
             android:layout_margin="12dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:text="@string/string_main_tune"
+            android:text="@string/main_tune"
             android:textColor="#cccccc"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -83,7 +83,7 @@
             android:layout_above="@+id/textview_copyright"
             android:layout_alignParentLeft="true"
             android:paddingLeft="4dp"
-            android:text="@string/string_mozarts_friend"
+            android:text="@string/app_name"
             android:textColor="#cccccc"
             android:textSize="8sp" />
 
@@ -95,7 +95,7 @@
             android:layout_alignParentLeft="true"
             android:paddingBottom="4dp"
             android:paddingLeft="4dp"
-            android:text="@string/string_copyright"
+            android:text="@string/main_copyright"
             android:textColor="#cccccc"
             android:textSize="8sp" />
     </RelativeLayout>
