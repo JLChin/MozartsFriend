@@ -31,6 +31,85 @@ public class Metronome {
 	}
 
 	/**
+	 * Returns the current interval.
+	 * @return the current interval.
+	 */
+	public String getInterval() {
+		switch (interval) {
+		case 0: return "m2";
+		case 1: return "M2";
+		case 2: return "m3";
+		case 3: return "M3";
+		case 4: return "P4";
+		case 5: return "d5";
+		case 6: return "P5";
+		case 7: return "m6";
+		case 8: return "M6";
+		case 9: return "m7";
+		case 10: return "M7";
+		case 11: return "P8";
+		}
+		
+		return "...";
+	}
+
+	/**
+	 * Returns the current meter.
+	 * @return the current meter.
+	 */
+	public String getMeter() {
+		switch (beats) {
+		case 1: return "1:4";
+		case 2: return "2:4";
+		case 3: return oddTime ? "5:8" : "3:4";
+		case 4: return oddTime ? "7:8" : "4:4";
+		case 5: return oddTime ? "9:8" : "5:4";
+		}
+		
+		return "...";
+	}
+
+	/**
+	 * Returns the current tempo.
+	 * @return the current tempo.
+	 */
+	public int getTempo() {
+		return tempo;
+	}
+	
+	/**
+	 * Returns the current tone.
+	 * @return the current tone.
+	 */
+	public String getTone() {
+		switch ((int) beatSound) {
+		case 880: return "A5";
+		case 932: return "A#5";
+		case 988: return "B5";
+		case 1047: return "C6";
+		case 1109: return "C#6";
+		case 1175: return "D6";
+		case 1245: return "D#6";
+		case 1319: return "E6";
+		case 1397: return "F6";
+		case 1480: return "F#6";
+		case 1568: return "G6";
+		case 1661: return "G#6";
+		case 1760: return "A6";
+		}
+		
+		return "...";
+	}
+	
+	/**
+	 * Returns the current volume.
+	 * @return the current volume.
+	 */
+	public int getVolume() {
+		return audioGenerator.getVolume();
+	}
+	
+	/**
 	 * Main thread loop, repeatedly write()'s to AudioTrack's output stream while (play == true).
 	 * TODO note that AudioTrack.write() is a blocking function, we want to ensure this is on a separate thread if we go with a less predictable input stream.
 	 */
@@ -75,46 +154,29 @@ public class Metronome {
 			audioGenerator.writeSound(sound);
 		} while (play);
 	}
-
-	/**
-	 * Terminates this thread's play() loop. Immediately stops the AudioTrack playback and flushes its buffer.
-	 * TODO According to Android documentation, AudioTrack.pause() is supposed to immediately stop immediately without finishing playing through the buffered data. This is currently broken, so instead we reduce the buffer size to increase responsiveness.
-	 */
-	public void stop() {
-		play = false;
-		audioGenerator.stopAudioTrack();
-	}
-
-	/**
-	 * Returns the current tempo.
-	 * @return the current tempo.
-	 */
-	public int getTempo() {
-		return tempo;
-	}
 	
 	/**
-	 * Sets the tempo, takes effect after play() is restarted.
-	 * @param newTempo the new tempo.
+	 * Sets the interval, takes effect after play() is restarted.
+	 * @param newInterval the new interval.
 	 */
-	public void setTempo(int newTempo) {
-		tempo = newTempo;
-	}
-	
-	/**
-	 * Returns the current meter.
-	 * @return the current meter.
-	 */
-	public String getMeter() {
-		switch (beats) {
-		case 1: return "1:4";
-		case 2: return "2:4";
-		case 3: return oddTime ? "5:8" : "3:4";
-		case 4: return oddTime ? "7:8" : "4:4";
-		case 5: return oddTime ? "9:8" : "5:4";
+	public void setInterval(int newInterval) {
+		switch (newInterval) {
+		case 0: interval = 0; intervalMultiplier = 1.059463; break;
+		case 1: interval = 1; intervalMultiplier = 1.122462; break;
+		case 2: interval = 2; intervalMultiplier = 1.189207; break;
+		case 3: interval = 3; intervalMultiplier = 1.259921; break;
+		case 4: interval = 4; intervalMultiplier = 1.334840; break;
+		case 5: interval = 5; intervalMultiplier = 1.414214; break;
+		case 6: interval = 6; intervalMultiplier = 1.498307; break;
+		case 7: interval = 7; intervalMultiplier = 1.587401; break;
+		case 8: interval = 8; intervalMultiplier = 1.681793; break;
+		case 9: interval = 9; intervalMultiplier = 1.781797; break;
+		case 10: interval = 10; intervalMultiplier = 1.887749; break;
+		case 11: interval = 11; intervalMultiplier = 2; break;
+		default: interval = 4; intervalMultiplier = 2;
 		}
 		
-		return "...";
+		sound = beatSound * intervalMultiplier; 
 	}
 	
 	/**
@@ -135,27 +197,11 @@ public class Metronome {
 	}
 	
 	/**
-	 * Returns the current tone.
-	 * @return the current tone.
+	 * Sets the tempo, takes effect after play() is restarted.
+	 * @param newTempo the new tempo.
 	 */
-	public String getTone() {
-		switch ((int) beatSound) {
-		case 880: return "A5";
-		case 932: return "A#5";
-		case 988: return "B5";
-		case 1047: return "C6";
-		case 1109: return "C#6";
-		case 1175: return "D6";
-		case 1245: return "D#6";
-		case 1319: return "E6";
-		case 1397: return "F6";
-		case 1480: return "F#6";
-		case 1568: return "G6";
-		case 1661: return "G#6";
-		case 1760: return "A6";
-		}
-		
-		return "...";
+	public void setTempo(int newTempo) {
+		tempo = newTempo;
 	}
 	
 	/**
@@ -184,65 +230,19 @@ public class Metronome {
 	}
 	
 	/**
-	 * Returns the current interval.
-	 * @return the current interval.
-	 */
-	public String getInterval() {
-		switch (interval) {
-		case 0: return "m2";
-		case 1: return "M2";
-		case 2: return "m3";
-		case 3: return "M3";
-		case 4: return "P4";
-		case 5: return "d5";
-		case 6: return "P5";
-		case 7: return "m6";
-		case 8: return "M6";
-		case 9: return "m7";
-		case 10: return "M7";
-		case 11: return "P8";
-		}
-		
-		return "...";
-	}
-	
-	/**
-	 * Sets the interval, takes effect after play() is restarted.
-	 * @param newInterval the new interval.
-	 */
-	public void setInterval(int newInterval) {
-		switch (newInterval) {
-		case 0: interval = 0; intervalMultiplier = 1.059463; break;
-		case 1: interval = 1; intervalMultiplier = 1.122462; break;
-		case 2: interval = 2; intervalMultiplier = 1.189207; break;
-		case 3: interval = 3; intervalMultiplier = 1.259921; break;
-		case 4: interval = 4; intervalMultiplier = 1.334840; break;
-		case 5: interval = 5; intervalMultiplier = 1.414214; break;
-		case 6: interval = 6; intervalMultiplier = 1.498307; break;
-		case 7: interval = 7; intervalMultiplier = 1.587401; break;
-		case 8: interval = 8; intervalMultiplier = 1.681793; break;
-		case 9: interval = 9; intervalMultiplier = 1.781797; break;
-		case 10: interval = 10; intervalMultiplier = 1.887749; break;
-		case 11: interval = 11; intervalMultiplier = 2; break;
-		default: interval = 4; intervalMultiplier = 2;
-		}
-		
-		sound = beatSound * intervalMultiplier; 
-	}
-	
-	/**
-	 * Returns the current volume.
-	 * @return the current volume.
-	 */
-	public int getVolume() {
-		return audioGenerator.getVolume();
-	}
-	
-	/**
 	 * Sets the volume, takes effect after play() is restarted.
 	 * @param newVolume the new volume.
 	 */
 	public void setVolume(int newVolume) {
 		audioGenerator.setVolume(newVolume);
+	}
+	
+	/**
+	 * Terminates this thread's play() loop. Immediately stops the AudioTrack playback and flushes its buffer.
+	 * TODO According to Android documentation, AudioTrack.pause() is supposed to immediately stop immediately without finishing playing through the buffered data. This is currently broken, so instead we reduce the buffer size to increase responsiveness.
+	 */
+	public void stop() {
+		play = false;
+		audioGenerator.stopAudioTrack();
 	}
 }

@@ -55,7 +55,7 @@ public class TrackActivity extends BaseActivity {
 	private Button buttonTempoInc;
 	private Button buttonTempoDec;
 	private Button buttonTap;
-
+	
 	// STATE VARIABLES
 	private boolean playing;
 	private String title;
@@ -71,89 +71,57 @@ public class TrackActivity extends BaseActivity {
 	private SharedPreferences.Editor sharedPrefEditor;
 	private Thread tapIndicatorThread;
 	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_track_player);
+	/**
+	 * Simple thread to turn the Tap indicator light off after the acquisition time window has elapsed.
+	 */
+	private class TapIndicator implements Runnable {
+		Handler handler;
 		
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		loadTrackData();
-		initialize();
+		TapIndicator(Handler handler) {
+			this.handler = handler;
+		}
+		
+		public void run() {
+			try {
+				Thread.sleep(TAP_DURATION_IN_MILLI);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt(); // propagate interrupt
+			}
+			
+			// note Thread.interrupted() is a static method 
+			if (!Thread.currentThread().isInterrupted()) {
+				// revert background after tap tempo acquire duration has elapsed
+				handler.post(new Runnable() {
+					public void run() {
+						buttonTap.setBackgroundResource(R.drawable.button_background);
+					}
+				});
+			}
+		}
 	}
 	
 	/**
-	 * Get track data from the selected res/raw file.
+	 * Returns the String representation of the current key.
+	 * @param key integer stored as offset from middle C (MIDI value of 60)
+	 * @return the String representation of the current key.
 	 */
-	private void loadTrackData() {
-		int rawResourceID = getIntent().getIntExtra("rawResourceID", -1);
-
-		InputStream inputStream = getResources().openRawResource(rawResourceID);
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-		String line = null;
-
-		try {
-			line = bufferedReader.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
+	private String getTone(int value) {
+		switch(value) {
+		case(0): return "C4";
+		case(1): return "C#4";
+		case(2): return "D4";
+		case(3): return "D#4";
+		case(4): return "E4";
+		case(5): return "F4";
+		case(6): return "F#4";
+		case(7): return "G4";
+		case(8): return "G#4";
+		case(9): return "A4";
+		case(10): return "A#4";
+		case(11): return "B4";
 		}
-
-		int lineCounter = 0;
-		String[] instrumentNames = null;
-		int[] instrumentPrograms = null;
-		int[] instrumentChannels = null;
-		List<List<MidiNote>> instrumentNotes = new ArrayList<List<MidiNote>>();
-
-		while (line != null) {
-			switch(lineCounter) {
-			case(0):
-				// TRACK NAME
-				title = line;
-				break;
-			case(1):
-				// TRACK TEMPO
-				tempo = Short.valueOf(line);
-				break;
-			case(2):
-				// TRACK INSTRUMENTS
-				String[] instruments = line.split(",");
-				int numOfInstruments = instruments.length / 2;
-				instrumentNames = new String[numOfInstruments];
-				instrumentPrograms = new int[numOfInstruments];
-				instrumentChannels = new int[numOfInstruments];
-
-				for (int i = 0, index = 0; i < instruments.length; i += 2, index++) {
-					instrumentNames[index] = instruments[i];
-					instrumentPrograms[index] = Integer.valueOf(instruments[i + 1]);
-					instrumentChannels[index] = (instrumentNames[index].equals("Drums")) ? 9 : 0;
-				}
-				break;
-			default:
-				// TRACK NOTE EVENTS
-				instrumentNotes.add(new ArrayList<MidiNote>());
-				String[] notes = line.split(",");
-
-				int currInstrument = lineCounter - 3;
-				List<MidiNote> curr = instrumentNotes.get(currInstrument);
-
-				for (int i = 0; i < notes.length; i += 3) {
-					int number = Integer.valueOf(notes[i]);
-					int time = Integer.valueOf(notes[i + 1]);
-					int duration = Integer.valueOf(notes[i + 2]);
-					curr.add(new MidiNote(number, time, duration));
-				}
-			}
-
-			lineCounter++;
-			
-			try {
-				line = bufferedReader.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		track = new TrackData(title, tempo, instrumentNames, instrumentPrograms, instrumentChannels, instrumentNotes);
+		
+		return "??";
 	}
 	
 	private void initialize() {
@@ -269,18 +237,18 @@ public class TrackActivity extends BaseActivity {
 			seekBarTempo.setProgress(tempo - MIN_TEMPO);
 			textViewTempo.setText(String.valueOf(tempo));
 			seekBarTempo.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+					synchronized(this) {
+						tempo = (short) (progress + MIN_TEMPO);
+						textViewTempo.setText(String.valueOf(tempo));
+					}
+				}
+				public void onStartTrackingTouch(SeekBar arg0) { }
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If already playing, restart with new parameters
 					synchronized(this) {
 						if (playing == true)
 							play();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
-				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-					synchronized(this) {
-						tempo = (short) (progress + MIN_TEMPO);
-						textViewTempo.setText(String.valueOf(tempo));
 					}
 				}
 			});
@@ -295,14 +263,6 @@ public class TrackActivity extends BaseActivity {
 			mediaPlayer.setVolume(vol, vol);
 			textViewVolume.setText(String.valueOf(volume));
 			seekBarVolume.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				public void onStopTrackingTouch(SeekBar arg0) {
-					// If already playing, restart with new parameters
-					synchronized(this) {
-						sharedPrefEditor.putInt("VOLUME", volume);
-						sharedPrefEditor.commit();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
 						volume = (byte) progress;
@@ -310,6 +270,14 @@ public class TrackActivity extends BaseActivity {
 						float vol = (float) volume / 100;
 						mediaPlayer.setVolume(vol, vol);
 					}	
+				}
+				public void onStartTrackingTouch(SeekBar arg0) { }
+				public void onStopTrackingTouch(SeekBar arg0) {
+					// If already playing, restart with new parameters
+					synchronized(this) {
+						sharedPrefEditor.putInt("VOLUME", volume);
+						sharedPrefEditor.commit();
+					}
 				}
 			});
 			
@@ -321,14 +289,6 @@ public class TrackActivity extends BaseActivity {
 			seekBarTone.setProgress(key);
 			textViewTone.setText(getTone(key));
 			seekBarTone.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				public void onStopTrackingTouch(SeekBar arg0) {
-					// If already playing, restart with new parameters
-					synchronized(this) {
-						if (playing == true)
-							play();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) { }
 				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 					synchronized(this) {
 						key = (byte) progress;
@@ -338,10 +298,121 @@ public class TrackActivity extends BaseActivity {
 						sharedPrefEditor.commit();
 					}
 				}
+				public void onStartTrackingTouch(SeekBar arg0) { }
+				public void onStopTrackingTouch(SeekBar arg0) {
+					// If already playing, restart with new parameters
+					synchronized(this) {
+						if (playing == true)
+							play();
+					}
+				}
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Get track data from the selected res/raw file.
+	 */
+	private void loadTrackData() {
+		int rawResourceID = getIntent().getIntExtra("rawResourceID", -1);
+
+		InputStream inputStream = getResources().openRawResource(rawResourceID);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+		String line = null;
+
+		try {
+			line = bufferedReader.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		int lineCounter = 0;
+		String[] instrumentNames = null;
+		int[] instrumentPrograms = null;
+		int[] instrumentChannels = null;
+		List<List<MidiNote>> instrumentNotes = new ArrayList<List<MidiNote>>();
+
+		while (line != null) {
+			switch(lineCounter) {
+			case(0):
+				// TRACK NAME
+				title = line;
+				break;
+			case(1):
+				// TRACK TEMPO
+				tempo = Short.valueOf(line);
+				break;
+			case(2):
+				// TRACK INSTRUMENTS
+				String[] instruments = line.split(",");
+				int numOfInstruments = instruments.length / 2;
+				instrumentNames = new String[numOfInstruments];
+				instrumentPrograms = new int[numOfInstruments];
+				instrumentChannels = new int[numOfInstruments];
+
+				for (int i = 0, index = 0; i < instruments.length; i += 2, index++) {
+					instrumentNames[index] = instruments[i];
+					instrumentPrograms[index] = Integer.valueOf(instruments[i + 1]);
+					instrumentChannels[index] = (instrumentNames[index].equals("Drums")) ? 9 : 0;
+				}
+				break;
+			default:
+				// TRACK NOTE EVENTS
+				instrumentNotes.add(new ArrayList<MidiNote>());
+				String[] notes = line.split(",");
+
+				int currInstrument = lineCounter - 3;
+				List<MidiNote> curr = instrumentNotes.get(currInstrument);
+
+				for (int i = 0; i < notes.length; i += 3) {
+					int number = Integer.valueOf(notes[i]);
+					int time = Integer.valueOf(notes[i + 1]);
+					int duration = Integer.valueOf(notes[i + 2]);
+					curr.add(new MidiNote(number, time, duration));
+				}
+			}
+
+			lineCounter++;
+			
+			try {
+				line = bufferedReader.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		track = new TrackData(title, tempo, instrumentNames, instrumentPrograms, instrumentChannels, instrumentNotes);
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_track_player);
+		
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+		loadTrackData();
+		initialize();
+	}
+	
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		synchronized(this) {
+			mediaPlayer = new MediaPlayer();
+			float vol = (float) volume / 100;
+			mediaPlayer.setVolume(vol, vol);
+	    }
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		synchronized(this) {
+			mediaPlayer.release();
+	    }
 	}
 	
 	private void play() {
@@ -373,78 +444,7 @@ public class TrackActivity extends BaseActivity {
 		}
 	}
 	
-	/**
-	 * Simple thread to turn the Tap indicator light off after the acquisition time window has elapsed.
-	 */
-	private class TapIndicator implements Runnable {
-		Handler handler;
-		
-		TapIndicator(Handler handler) {
-			this.handler = handler;
-		}
-		
-		public void run() {
-			try {
-				Thread.sleep(TAP_DURATION_IN_MILLI);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt(); // propagate interrupt
-			}
-			
-			// note Thread.interrupted() is a static method 
-			if (!Thread.currentThread().isInterrupted()) {
-				// revert background after tap tempo acquire duration has elapsed
-				handler.post(new Runnable() {
-					public void run() {
-						buttonTap.setBackgroundResource(R.drawable.button_background);
-					}
-				});
-			}
-		}
-	}
-	
-	/**
-	 * Returns the String representation of the current key.
-	 * @param key integer stored as offset from middle C (MIDI value of 60)
-	 * @return the String representation of the current key.
-	 */
-	private String getTone(int value) {
-		switch(value) {
-		case(0): return "C4";
-		case(1): return "C#4";
-		case(2): return "D4";
-		case(3): return "D#4";
-		case(4): return "E4";
-		case(5): return "F4";
-		case(6): return "F#4";
-		case(7): return "G4";
-		case(8): return "G#4";
-		case(9): return "A4";
-		case(10): return "A#4";
-		case(11): return "B4";
-		}
-		
-		return "??";
-	}
-	
 	private void stop() {
 		mediaPlayer.stop();
-	}
-	
-	@Override
-	protected void onStop() {
-		super.onStop();
-		synchronized(this) {
-			mediaPlayer.release();
-	    }
-	}
-	
-	@Override
-	protected void onRestart() {
-		super.onRestart();
-		synchronized(this) {
-			mediaPlayer = new MediaPlayer();
-			float vol = (float) volume / 100;
-			mediaPlayer.setVolume(vol, vol);
-	    }
 	}
 }

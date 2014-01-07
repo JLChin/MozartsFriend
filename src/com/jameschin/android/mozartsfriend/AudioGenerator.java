@@ -45,33 +45,6 @@ public class AudioGenerator {
 	}
 
 	/**
-	 * Generate waveform samples for a pure sine wave, representing a fundamental tone.
-	 * @param samples number of samples of the sine wave to return.
-	 * @param sampleRate the rate at which the sine wave is sampled, in samples per second.
-	 * @param frequency the frequency of the sine wave.
-	 * @return array of waveform samples.
-	 */
-	public double[] getSineWave(int samples, int sampleRate, double frequency) {
-		double[] sample = new double[samples];
-		
-		for (int i = 0; i < samples; i++) {
-			sample[i] = Math.sin(2 * Math.PI * i / (sampleRate / frequency));
-		}
-		
-		return sample;
-	}
-
-	/**
-	 * Write a buffer length of data to the output stream that is already actively playing.
-	 * TODO note that AudioTrack.write() is a blocking function, we want to ensure this is on a separate thread if we go with a less predictable input stream.
-	 * @param samples array of waveform sample data.
-	 */
-	public void writeSound(double[] samples) {
-		byte[] outSoundChunk = get16BitPcm(samples);
-		audioTrack.write(outSoundChunk, 0, outSoundChunk.length);
-	}
-	
-	/**
 	 * Convert array of waveform data into a byte array in 16-bit PCM format.
 	 * @param samples array of waveform sample data.
 	 * @return byte array in 16-bit PCM format.
@@ -93,21 +66,37 @@ public class AudioGenerator {
 	}
 
 	/**
-	 * Immediately stop playback and flush buffer.
-	 * TODO According to Android documentation, AudioTrack.pause() is supposed to immediately stop immediately without finishing playing through the buffered data. This is currently broken, so instead we reduce the buffer size to increase responsiveness.
+	 * Generate waveform samples for a pure sine wave, representing a fundamental tone.
+	 * @param samples number of samples of the sine wave to return.
+	 * @param sampleRate the rate at which the sine wave is sampled, in samples per second.
+	 * @param frequency the frequency of the sine wave.
+	 * @return array of waveform samples.
 	 */
-	public void stopAudioTrack() {
-		audioTrack.pause();
-		audioTrack.flush();
+	public double[] getSineWave(int samples, int sampleRate, double frequency) {
+		double[] sample = new double[samples];
+		
+		for (int i = 0; i < samples; i++) {
+			sample[i] = Math.sin(2 * Math.PI * i / (sampleRate / frequency));
+		}
+		
+		return sample;
 	}
 	
+	/**
+	 * Returns the current playback volume level.
+	 * @return integer volume value 0-100.
+	 */
+	public int getVolume() {
+		return (int) (volume * 100);
+	}
+
 	/**
 	 * Begin playback. Since we are operating in MODE_STREAM, this is only called once at the beginning, before looping write()'s.
 	 */
 	public void play() {
 		audioTrack.play();
 	}
-
+	
 	/**
 	 * Set playback volume.
 	 * @param volume integer value 0-100.
@@ -117,10 +106,21 @@ public class AudioGenerator {
 	}
 
 	/**
-	 * Returns the current playback volume level.
-	 * @return integer volume value 0-100.
+	 * Immediately stop playback and flush buffer.
+	 * TODO According to Android documentation, AudioTrack.pause() is supposed to immediately stop immediately without finishing playing through the buffered data. This is currently broken, so instead we reduce the buffer size to increase responsiveness.
 	 */
-	public int getVolume() {
-		return (int) (volume * 100);
+	public void stopAudioTrack() {
+		audioTrack.pause();
+		audioTrack.flush();
+	}
+
+	/**
+	 * Write a buffer length of data to the output stream that is already actively playing.
+	 * TODO note that AudioTrack.write() is a blocking function, we want to ensure this is on a separate thread if we go with a less predictable input stream.
+	 * @param samples array of waveform sample data.
+	 */
+	public void writeSound(double[] samples) {
+		byte[] outSoundChunk = get16BitPcm(samples);
+		audioTrack.write(outSoundChunk, 0, outSoundChunk.length);
 	}
 }
