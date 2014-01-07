@@ -11,7 +11,7 @@ import android.widget.Button;
  * @author James Chin <jameslchin@gmail.com>
  */
 public class MainActivity extends BaseActivity {
-
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -13,11 +13,34 @@ import java.util.Map;
 public class Library {
 	// CONSTANTS
 	private static final String[] NOTE_NAME = { "C", "D", "E", "F", "G", "A", "B" };
-	
+		
 	// STATE VARIABLES
 	private Map<String, Note> noteMap;
 	private Map<String, Sequence> sequenceMap;
+		
+	/**
+	 * Class representing a musical chord.
+	 */
+	private class Chord extends Sequence {
+		Chord(int[] notes, int[] pattern) {
+			this.notes = notes;
+			this.pattern = pattern;
+		}
+	}
 	
+	/**
+	 * Class representing a musical mode of the major scale.
+	 */
+	private class Mode extends Sequence {
+		Mode(int[] notes, int[] pattern) {
+			this.notes = notes;
+			this.pattern = pattern;
+		}
+	}
+	
+	/**
+	 * Class representing a musical note.
+	 */
 	private class Note {
 		String note;
 		String[] aliases;
@@ -29,11 +52,6 @@ public class Library {
 			this.aliases = aliases;
 		}
 		
-		void setNext(Note n) {
-			next = n;
-			n.prev = this;
-		}
-		
 		boolean equals(String note) {
 			for (String s : aliases) {
 				if (s.equals(note))
@@ -42,31 +60,10 @@ public class Library {
 			
 			return false;
 		}
-	}
-	
-	private class Sequence {
-		int[] notes; // 0 - 11
-		int[] pattern; // 0 - 7
-	}
-	
-	private class Scale extends Sequence {
-		Scale(int[] notes, int[] pattern) {
-			this.notes = notes;
-			this.pattern = pattern;
-		}
-	}
-	
-	private class Mode extends Sequence {
-		Mode(int[] notes, int[] pattern) {
-			this.notes = notes;
-			this.pattern = pattern;
-		}
-	}
-	
-	private class Chord extends Sequence {
-		Chord(int[] notes, int[] pattern) {
-			this.notes = notes;
-			this.pattern = pattern;
+		
+		void setNext(Note n) {
+			next = n;
+			n.prev = this;
 		}
 	}
 	
@@ -78,6 +75,24 @@ public class Library {
 			noteName = name;
 			noteInterval = interval;
 		}
+	}
+	
+	/**
+	 * Class representing a musical scale.
+	 */
+	private class Scale extends Sequence {
+		Scale(int[] notes, int[] pattern) {
+			this.notes = notes;
+			this.pattern = pattern;
+		}
+	}
+	
+	/**
+	 * Class reprensenting a musical note sequence, represented by their in-order note pitch and respective note quality.
+	 */
+	private class Sequence {
+		int[] notes; // 0 - 11
+		int[] pattern; // 0 - 7
 	}
 	
 	Library() {
@@ -338,88 +353,6 @@ public class Library {
 	}
 	
 	/**
-	 * Returns a list of ResultData note information for a single instrument string, starting from nutNote.
-	 * @param sequence the sequence to return notes for.
-	 * @param root the starting note of the sequence.
-	 * @param nutNote the starting note of the instrument string.
-	 * @param length the length of the instrument string.
-	 * @param abbreviated whether to abbreviate the interval labels.
-	 * @return a list of ResultData note information for a single instrument string, starting from nutNote.
-	 */
-	public List<ResultData> getNotes(String sequence, String root, String nutNote, int length, boolean abbreviated) {
-		Sequence seq = sequenceMap.get(sequence);
-		int[] notes = seq.notes;
-		int[] pattern = seq.pattern;
-		
-		List<ResultData> result = new ArrayList<ResultData>();
-		
-		// find starting pitchClass at 0th fret
-		int pitchClass = 0;
-		Note currNote = noteMap.get(root);
-		while (!currNote.equals(nutNote)) {
-			currNote = currNote.next;
-			pitchClass++;
-		}
-		
-		// CONSTRUCT LIST
-		for (int i = 0; i < length; i++) {
-			int index = containsInterval(notes, pitchClass);
-			if (index != -1) {
-				// construct note name
-				String name = getNoteAnchor(root, pattern[index]); 
-				name = addSharpsFlats(name, currNote);
-				
-				result.add(new ResultData(name, getInterval(notes[index], pattern[index], abbreviated)));
-			} else
-				result.add(null);
-			
-			currNote = currNote.next;
-			pitchClass++;
-			if (pitchClass == 12)
-				pitchClass = 0; // octave
-		}
-		
-		return result;
-	}
-	
-	/**
-	 * Returns the index that the pitchClass occurs within the specified note sequence, -1 if not.
-	 * @param notes the specified note sequence to search for the pitchClass.
-	 * @param pitchClass the pitchClass to search for within the specified note sequence.
-	 * @return the index that the pitchClass occurs within the specified note sequence, -1 if not.
-	 */
-	private int containsInterval(int[] notes, int pitchClass) {
-		for (int i = 0; i < notes.length; i++) {
-			if (notes[i] == pitchClass)
-				return i;
-		}
-		
-		return -1;
-	}
-	
-	/**
-	 * Returns the proper note anchor based on the note distance from the root.
-	 * @param root the starting note of the sequence.
-	 * @param distance the note distance from the root.
-	 * @return the proper note anchor based on the note distance from the root.
-	 */
-	private String getNoteAnchor(String root, int distance) {
-		root = root.substring(0, 1); // trim off sharps if any
-		int index = 0;
-		
-		while (!NOTE_NAME[index].equals(root))
-			index++;
-		
-		index += distance;
-		
-		while (index > 6) {
-			index -= 7;
-		}
-		
-		return NOTE_NAME[index];
-	}
-	
-	/**
 	 * Returns the adjusted note name with sharps or flats as necessary.
 	 * @param name the current note name consisting of note letter only.
 	 * @param currNote the Note object representing the true note.
@@ -460,6 +393,21 @@ public class Library {
 		
 		// name is now complete
 		return name;
+	}
+	
+	/**
+	 * Returns the index that the pitchClass occurs within the specified note sequence, -1 if not.
+	 * @param notes the specified note sequence to search for the pitchClass.
+	 * @param pitchClass the pitchClass to search for within the specified note sequence.
+	 * @return the index that the pitchClass occurs within the specified note sequence, -1 if not.
+	 */
+	private int containsInterval(int[] notes, int pitchClass) {
+		for (int i = 0; i < notes.length; i++) {
+			if (notes[i] == pitchClass)
+				return i;
+		}
+		
+		return -1;
 	}
 	
 	/**
@@ -514,5 +462,72 @@ public class Library {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Returns the proper note anchor based on the note distance from the root.
+	 * @param root the starting note of the sequence.
+	 * @param distance the note distance from the root.
+	 * @return the proper note anchor based on the note distance from the root.
+	 */
+	private String getNoteAnchor(String root, int distance) {
+		root = root.substring(0, 1); // trim off sharps if any
+		int index = 0;
+		
+		while (!NOTE_NAME[index].equals(root))
+			index++;
+		
+		index += distance;
+		
+		while (index > 6) {
+			index -= 7;
+		}
+		
+		return NOTE_NAME[index];
+	}
+	
+	/**
+	 * Returns a list of ResultData note information for a single instrument string, starting from nutNote.
+	 * @param sequence the sequence to return notes for.
+	 * @param root the starting note of the sequence.
+	 * @param nutNote the starting note of the instrument string.
+	 * @param length the length of the instrument string.
+	 * @param abbreviated whether to abbreviate the interval labels.
+	 * @return a list of ResultData note information for a single instrument string, starting from nutNote.
+	 */
+	public List<ResultData> getNotes(String sequence, String root, String nutNote, int length, boolean abbreviated) {
+		Sequence seq = sequenceMap.get(sequence);
+		int[] notes = seq.notes;
+		int[] pattern = seq.pattern;
+		
+		List<ResultData> result = new ArrayList<ResultData>();
+		
+		// find starting pitchClass at 0th fret
+		int pitchClass = 0;
+		Note currNote = noteMap.get(root);
+		while (!currNote.equals(nutNote)) {
+			currNote = currNote.next;
+			pitchClass++;
+		}
+		
+		// CONSTRUCT LIST
+		for (int i = 0; i < length; i++) {
+			int index = containsInterval(notes, pitchClass);
+			if (index != -1) {
+				// construct note name
+				String name = getNoteAnchor(root, pattern[index]); 
+				name = addSharpsFlats(name, currNote);
+				
+				result.add(new ResultData(name, getInterval(notes[index], pattern[index], abbreviated)));
+			} else
+				result.add(null);
+			
+			currNote = currNote.next;
+			pitchClass++;
+			if (pitchClass == 12)
+				pitchClass = 0; // octave
+		}
+		
+		return result;
 	}
 }

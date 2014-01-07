@@ -28,13 +28,63 @@ public class SettingsActivity extends BaseActivity {
 	
 	// SYSTEM
 	private SharedPreferences.Editor sharedPrefEditor;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_settings);
+	
+	/**
+	 * Class containing data to facilitate restoring default values.
+	 */
+	private class DefaultData {
+		Spinner[] spinnersToReset;
+		String[] prefKeysToRemove;
+		String[] defaultTuning;
 		
-		initialize();
+		DefaultData(int size) {
+			spinnersToReset = new Spinner[size];
+			prefKeysToRemove = new String[size];
+		}
+	}
+	
+	private class DefaultTuningButtonListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			DefaultData defaultData = (DefaultData) v.getTag();
+			
+			// remove SharedPreference data
+			for (String s : defaultData.prefKeysToRemove)
+				sharedPrefEditor.remove(s);
+			sharedPrefEditor.commit();
+			
+			// restore spinners to default tuning
+			for (int i = 0; i < defaultData.spinnersToReset.length; i++)
+				defaultData.spinnersToReset[i].setSelection(getKeyPosition(defaultData.defaultTuning[i]));
+		}
+	}
+	
+	private class TuningSpinnerListener implements OnItemSelectedListener {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			String name = (String) parent.getTag();
+			String key = LibraryActivity.KEYS[position];
+			sharedPrefEditor.putString(name, key);
+			sharedPrefEditor.commit();
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+		}
+	}
+	
+	/**
+	 * Returns the spinner index position of the specified key.
+	 * @param string the musical key to find the spinner index position for.
+	 * @return the spinner index position of the specified key.
+	 */
+	private int getKeyPosition(String string) {
+		for (int i = 0; i < LibraryActivity.KEYS.length; i++) {
+			if (LibraryActivity.KEYS[i].equals(string))
+				return i;
+		}
+		
+		return -1;
 	}
 	
 	private void initialize() {
@@ -205,61 +255,11 @@ public class SettingsActivity extends BaseActivity {
 		});
 	}
 	
-	private class TuningSpinnerListener implements OnItemSelectedListener {
-		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			String name = (String) parent.getTag();
-			String key = LibraryActivity.KEYS[position];
-			sharedPrefEditor.putString(name, key);
-			sharedPrefEditor.commit();
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-		}
-	}
-	
-	private class DefaultTuningButtonListener implements View.OnClickListener {
-		@Override
-		public void onClick(View v) {
-			DefaultData defaultData = (DefaultData) v.getTag();
-			
-			// remove SharedPreference data
-			for (String s : defaultData.prefKeysToRemove)
-				sharedPrefEditor.remove(s);
-			sharedPrefEditor.commit();
-			
-			// restore spinners to default tuning
-			for (int i = 0; i < defaultData.spinnersToReset.length; i++)
-				defaultData.spinnersToReset[i].setSelection(getKeyPosition(defaultData.defaultTuning[i]));
-		}
-	}
-	
-	/**
-	 * Class containing data to facilitate restoring default values.
-	 */
-	private class DefaultData {
-		Spinner[] spinnersToReset;
-		String[] prefKeysToRemove;
-		String[] defaultTuning;
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_settings);
 		
-		DefaultData(int size) {
-			spinnersToReset = new Spinner[size];
-			prefKeysToRemove = new String[size];
-		}
-	}
-	
-	/**
-	 * Returns the spinner index position of the specified key.
-	 * @param string the musical key to find the spinner index position for.
-	 * @return the spinner index position of the specified key.
-	 */
-	private int getKeyPosition(String string) {
-		for (int i = 0; i < LibraryActivity.KEYS.length; i++) {
-			if (LibraryActivity.KEYS[i].equals(string))
-				return i;
-		}
-		
-		return -1;
+		initialize();
 	}
 }

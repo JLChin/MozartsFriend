@@ -66,362 +66,6 @@ public class MetronomeActivity extends BaseActivity {
 	private Thread visualFeedbackThread;
 	private Metronome metronome;
 	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_metronome);
-		
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		initialize();
-	}
-
-	private void initialize() {
-		metronome = new Metronome();
-		
-		sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-		final SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
-		
-		visualFeedbackMode = (byte) sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
-		
-		// PLAY TOGGLE
-		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
-		buttonPlay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				synchronized(this) {
-					if (isChecked) {
-						if (playing == false) {
-							playing = true;
-							startMetro();
-						}
-					} else {
-						if (playing == true) {
-							playing = false;
-							stopMetro();
-						}
-					}
-				}
-			}
-		});
-		
-		// INCREMENT TEMPO BUTTON
-		buttonTempoInc = (Button) findViewById(R.id.button_tempo_inc);
-		buttonTempoInc.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				synchronized (this) {
-					int newTempo = (int) metronome.getTempo();
-					newTempo++;
-					
-					if (playing == true) stopMetro();
-					
-					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
-					setTempo(newTempo);
-					
-					if (playing == true) startMetro();
-					
-					sharedPrefEditor.putInt("TEMPO", newTempo);
-					sharedPrefEditor.commit();
-				}
-			}
-		});
-		
-		// DECREMENT TEMPO BUTTON
-		buttonTempoDec = (Button) findViewById(R.id.button_tempo_dec);
-		buttonTempoDec.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				synchronized (this) {
-					int newTempo = (int) metronome.getTempo();
-					newTempo--;
-					
-					if (playing == true) stopMetro();
-					
-					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
-					setTempo(newTempo);
-					
-					if (playing == true) startMetro();
-					
-					sharedPrefEditor.putInt("TEMPO", newTempo);
-					sharedPrefEditor.commit();
-				}
-			}
-		});
-		
-		// TAP BUTTON
-		buttonTap = (Button) findViewById(R.id.button_tap);
-		buttonTap.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				synchronized (this) {
-					// turn indicator on
-					if (tapIndicatorThread != null)
-						tapIndicatorThread.interrupt();
-					buttonTap.setBackgroundResource(R.drawable.button_background_red);
-					tapIndicatorThread = new Thread(new TapIndicator(new Handler()), getString(R.string.thread_metronome_tap_tempo_timer));
-					tapIndicatorThread.start();
-					
-					long newTap = System.currentTimeMillis();
-					long gap = newTap - lastTap;
-					lastTap = newTap;
-						
-					if (gap > TAP_DURATION_IN_MILLI || gap < 1)
-						tapTempos = new ArrayList<Integer>();
-					else {
-						tapTempos.add((int) (60 / ((double) gap / 1000)));
-
-						// set BPM with average tap tempo
-						int newTempo = 0;
-						for (int i : tapTempos)
-							newTempo += i;
-						newTempo /= tapTempos.size();
-
-						if (playing == true) stopMetro();
-						
-						seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
-						setTempo(newTempo);
-
-						if (playing == true) startMetro();
-						
-						sharedPrefEditor.putInt("TEMPO", newTempo);
-						sharedPrefEditor.commit();
-					}
-				}
-			}
-		});
-		
-		try {
-			// TEMPO CONTROL FRAME
-			seekBarMetronomeTempo = (SeekBar) findViewById(R.id.seekbar_tempo);
-			textViewTempo = (TextView) findViewById(R.id.textview_tempo);
-			seekBarMetronomeTempo.setMax(MAX_TEMPO - MIN_TEMPO);
-			int savedTempo = sharedPref.getInt("TEMPO", DEFAULT_TEMPO);
-			seekBarMetronomeTempo.setProgress(savedTempo - MIN_TEMPO);
-			metronome.setTempo(savedTempo);
-			textViewTempo.setText(String.valueOf(savedTempo));
-			tempo = (short) savedTempo;
-			seekBarMetronomeTempo.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				public void onStopTrackingTouch(SeekBar arg0) {
-					// If metronome is already playing, restart with new parameters
-					synchronized(this) {
-						sharedPrefEditor.putInt("TEMPO", (int) metronome.getTempo());
-						sharedPrefEditor.commit();
-						
-						if (playing == true) startMetro();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) stopMetro();
-				}
-				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-					synchronized(this) {
-						int newTempo = progress + MIN_TEMPO;
-						setTempo(newTempo);
-					}
-				}
-			});
-
-			// METER CONTROL FRAME
-			seekBarMetronomeMeter = (SeekBar) findViewById(R.id.seekbar_meter);
-			textViewMeter = (TextView) findViewById(R.id.textview_meter);
-			seekBarMetronomeMeter.setMax(7);
-			int savedMeter = sharedPref.getInt("METER", DEFAULT_METER);
-			seekBarMetronomeMeter.setProgress(savedMeter);
-			metronome.setMeter(savedMeter);
-			textViewMeter.setText(metronome.getMeter());
-			seekBarMetronomeMeter.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				public void onStopTrackingTouch(SeekBar arg0) {
-					// If metronome is already playing, restart with new parameters
-					synchronized(this) {
-						if (playing == true) startMetro();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) stopMetro();
-				}
-				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-					synchronized(this) {
-						metronome.setMeter(progress);
-						textViewMeter.setText(metronome.getMeter());
-						
-						sharedPrefEditor.putInt("METER", progress);
-						sharedPrefEditor.commit();
-					}
-				}
-			});
-			
-			// VOLUME CONTROL FRAME
-			seekBarMetronomeVolume = (SeekBar) findViewById(R.id.seekbar_volume);
-			textViewVolume = (TextView) findViewById(R.id.textview_volume);
-			seekBarMetronomeVolume.setMax(100);
-			int savedVolume = sharedPref.getInt("VOLUME", DEFAULT_VOLUME);
-			seekBarMetronomeVolume.setProgress(savedVolume);
-			metronome.setVolume(savedVolume);
-			textViewVolume.setText(String.valueOf(metronome.getVolume()));
-			seekBarMetronomeVolume.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				public void onStopTrackingTouch(SeekBar arg0) {
-					// If metronome is already playing, restart with new parameters
-					synchronized(this) {
-						sharedPrefEditor.putInt("VOLUME", metronome.getVolume());
-						sharedPrefEditor.commit();
-						
-						if (playing == true) startMetro();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) stopMetro();
-				}
-				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-					synchronized(this) {
-						metronome.setVolume(progress);
-						textViewVolume.setText(String.valueOf(metronome.getVolume()));
-					}	
-				}
-			});
-			
-			// TONE CONTROL FRAME
-			seekBarMetronomeTone = (SeekBar) findViewById(R.id.seekbar_tone);
-			textViewTone = (TextView) findViewById(R.id.textview_tone);
-			seekBarMetronomeTone.setMax(12);
-			int savedTone = sharedPref.getInt("TONE", DEFAULT_TONE);
-			seekBarMetronomeTone.setProgress(savedTone);
-			metronome.setTone(savedTone);
-			textViewTone.setText(metronome.getTone());
-			seekBarMetronomeTone.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				public void onStopTrackingTouch(SeekBar arg0) {
-					// If metronome is already playing, restart with new parameters
-					synchronized(this) {
-						if (playing == true) startMetro();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) stopMetro();
-				}
-				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-					synchronized(this) {
-						metronome.setTone(progress);
-						textViewTone.setText(metronome.getTone());
-						
-						sharedPrefEditor.putInt("TONE", progress);
-						sharedPrefEditor.commit();
-					}
-				}
-			});
-
-			// INTERVAL CONTROL FRAME
-			seekBarMetronomeInterval = (SeekBar) findViewById(R.id.seekbar_interval);
-			textViewInterval = (TextView) findViewById(R.id.textview_interval);
-			seekBarMetronomeInterval.setMax(11);
-			int savedInterval = sharedPref.getInt("INTERVAL", DEFAULT_INTERVAL);
-			seekBarMetronomeInterval.setProgress(savedInterval);
-			metronome.setInterval(savedInterval);
-			textViewInterval.setText(metronome.getInterval());
-			seekBarMetronomeInterval.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				public void onStopTrackingTouch(SeekBar arg0) {
-					// If metronome is already playing, restart with new parameters
-					synchronized(this) {
-						if (playing == true) startMetro();
-					}
-				}
-				public void onStartTrackingTouch(SeekBar arg0) {
-					if (playing == true) stopMetro();
-				}
-				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-					synchronized(this) {
-						metronome.setInterval(progress);
-						textViewInterval.setText(metronome.getInterval());
-						
-						sharedPrefEditor.putInt("INTERVAL", progress);
-						sharedPrefEditor.commit();
-					}
-				}
-			});
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		supportScreen();
-	}
-	
-	/**
-	 * Fine tune screen for smaller "normal" screens
-	 */
-	private void supportScreen() {
-		TextView[] fontGroup1 = {textViewTempo, textViewMeter, textViewVolume, textViewTone, textViewInterval};
-		TextView[] fontGroup2 = {
-			(TextView) findViewById(R.id.textview_tempo_tempo),
-			(TextView) findViewById(R.id.textview_meter_meter),
-			(TextView) findViewById(R.id.textview_volume_volume),
-			(TextView) findViewById(R.id.textview_tone_tone),
-			(TextView) findViewById(R.id.textview_interval_interval),
-			(TextView) findViewById(R.id.textview_volume_percent),
-			(TextView) findViewById(R.id.textview_meter_time),
-			(TextView) findViewById(R.id.textview_tempo_bpm)
-		};
-		RelativeLayout layoutMetronomeTop = (RelativeLayout) findViewById(R.id.layout_metronome_top);
-		
-		DisplayMetrics dm = new DisplayMetrics();
-	    getWindowManager().getDefaultDisplay().getMetrics(dm);
-	    double x = Math.pow(dm.widthPixels/dm.xdpi, 2);
-	    double y = Math.pow(dm.heightPixels/dm.ydpi, 2);
-	    double screenInches = Math.sqrt(x+y);
-	    
-	    if (screenInches < 4.5) {
-	    	if (layoutMetronomeTop != null)
-	    		layoutMetronomeTop.setVisibility(View.GONE);
-	    	
-	    	for (TextView t : fontGroup1) {
-	    		t.setGravity(Gravity.CENTER);
-	    		t.setTextSize(40);
-	    	}
-	    		
-	    	for (TextView t : fontGroup2)
-	    		t.setTextSize(10);
-	    }
-	}
-	
-	/**
-	 * Convenience function, sets tempo.
-	 * @param newTempo the new tempo.
-	 */
-	private void setTempo(int newTempo) {
-		metronome.setTempo(newTempo);
-		tempo = (short) newTempo;
-		textViewTempo.setText(String.valueOf(newTempo));
-	}
-	
-	/**
-	 * Calculates parameters and then starts new metronome playback and visual feedback threads.
-	 */
-	private void startMetro() {
-		// calculate visual feedback parameters first
-		int beatDurationInMilli = 60000 / tempo; // (milliseconds per minute) / (beats per minute) = (milliseconds per beat)
-		int silenceDurationInMilli = beatDurationInMilli - FLASH_DURATION_IN_MILLI;
-		
-		// calculate the millisecond duration of one measure
-		String meter = metronome.getMeter();
-		int numOfBeats = Integer.valueOf(meter.substring(0, 1)); // first number TODO beats above 9?
-		int beatDivision = Integer.valueOf(meter.substring(meter.length() - 1)); // last number
-		int measureDurationInMilli = (beatDivision == 8) ? (numOfBeats * beatDurationInMilli / 2) : (numOfBeats * beatDurationInMilli);
-		
-		// START NEW TASKS
-		metronomeThread = new Thread(new MetronomeThread(), getString(R.string.thread_metronome_audio));
-		metronomeThread.start();
-		
-		if ((visualFeedbackMode != SettingsActivity.VISUAL_FEEDBACK_MODE_DISABLED) && tempo <= MAX_TEMPO) {
-			visualFeedbackThread = new Thread(new VisualFeedback(measureDurationInMilli, silenceDurationInMilli, new Handler()), getString(R.string.thread_metronome_visual_feedback));
-			visualFeedbackThread.start();
-		}
-	}
-	
-	/**
-	 * Stops metronome playback and interrupts the visual feedback thread. Both threads then terminate.
-	 */
-	private void stopMetro() {
-		metronome.stop();
-		
-		if (visualFeedbackThread != null)
-			visualFeedbackThread.interrupt();
-	}
-	
 	/**
 	 * Thread to separate metronome operation from the UI thread.
 	 * When parameters change, the old thread is killed and a new one is initiated with the new parameters.
@@ -545,14 +189,280 @@ public class MetronomeActivity extends BaseActivity {
 			});
 		}
 	}
+	
+	private void initialize() {
+		metronome = new Metronome();
+		
+		sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+		final SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
+		
+		visualFeedbackMode = (byte) sharedPref.getInt("METRONOME_VISUAL_FEEDBACK_MODE", SettingsActivity.VISUAL_FEEDBACK_MODE_ENABLED);
+		
+		// PLAY TOGGLE
+		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
+		buttonPlay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				synchronized(this) {
+					if (isChecked) {
+						if (playing == false) {
+							playing = true;
+							startMetro();
+						}
+					} else {
+						if (playing == true) {
+							playing = false;
+							stopMetro();
+						}
+					}
+				}
+			}
+		});
+		
+		// INCREMENT TEMPO BUTTON
+		buttonTempoInc = (Button) findViewById(R.id.button_tempo_inc);
+		buttonTempoInc.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				synchronized (this) {
+					int newTempo = (int) metronome.getTempo();
+					newTempo++;
+					
+					if (playing == true) stopMetro();
+					
+					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
+					setTempo(newTempo);
+					
+					if (playing == true) startMetro();
+					
+					sharedPrefEditor.putInt("TEMPO", newTempo);
+					sharedPrefEditor.commit();
+				}
+			}
+		});
+		
+		// DECREMENT TEMPO BUTTON
+		buttonTempoDec = (Button) findViewById(R.id.button_tempo_dec);
+		buttonTempoDec.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				synchronized (this) {
+					int newTempo = (int) metronome.getTempo();
+					newTempo--;
+					
+					if (playing == true) stopMetro();
+					
+					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
+					setTempo(newTempo);
+					
+					if (playing == true) startMetro();
+					
+					sharedPrefEditor.putInt("TEMPO", newTempo);
+					sharedPrefEditor.commit();
+				}
+			}
+		});
+		
+		// TAP BUTTON
+		buttonTap = (Button) findViewById(R.id.button_tap);
+		buttonTap.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				synchronized (this) {
+					// turn indicator on
+					if (tapIndicatorThread != null)
+						tapIndicatorThread.interrupt();
+					buttonTap.setBackgroundResource(R.drawable.button_background_red);
+					tapIndicatorThread = new Thread(new TapIndicator(new Handler()), getString(R.string.thread_metronome_tap_tempo_timer));
+					tapIndicatorThread.start();
+					
+					long newTap = System.currentTimeMillis();
+					long gap = newTap - lastTap;
+					lastTap = newTap;
+						
+					if (gap > TAP_DURATION_IN_MILLI || gap < 1)
+						tapTempos = new ArrayList<Integer>();
+					else {
+						tapTempos.add((int) (60 / ((double) gap / 1000)));
 
+						// set BPM with average tap tempo
+						int newTempo = 0;
+						for (int i : tapTempos)
+							newTempo += i;
+						newTempo /= tapTempos.size();
+
+						if (playing == true) stopMetro();
+						
+						seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
+						setTempo(newTempo);
+
+						if (playing == true) startMetro();
+						
+						sharedPrefEditor.putInt("TEMPO", newTempo);
+						sharedPrefEditor.commit();
+					}
+				}
+			}
+		});
+		
+		try {
+			// TEMPO CONTROL FRAME
+			seekBarMetronomeTempo = (SeekBar) findViewById(R.id.seekbar_tempo);
+			textViewTempo = (TextView) findViewById(R.id.textview_tempo);
+			seekBarMetronomeTempo.setMax(MAX_TEMPO - MIN_TEMPO);
+			int savedTempo = sharedPref.getInt("TEMPO", DEFAULT_TEMPO);
+			seekBarMetronomeTempo.setProgress(savedTempo - MIN_TEMPO);
+			metronome.setTempo(savedTempo);
+			textViewTempo.setText(String.valueOf(savedTempo));
+			tempo = (short) savedTempo;
+			seekBarMetronomeTempo.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+					synchronized(this) {
+						int newTempo = progress + MIN_TEMPO;
+						setTempo(newTempo);
+					}
+				}
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) stopMetro();
+				}
+				public void onStopTrackingTouch(SeekBar arg0) {
+					// If metronome is already playing, restart with new parameters
+					synchronized(this) {
+						sharedPrefEditor.putInt("TEMPO", (int) metronome.getTempo());
+						sharedPrefEditor.commit();
+						
+						if (playing == true) startMetro();
+					}
+				}
+			});
+
+			// METER CONTROL FRAME
+			seekBarMetronomeMeter = (SeekBar) findViewById(R.id.seekbar_meter);
+			textViewMeter = (TextView) findViewById(R.id.textview_meter);
+			seekBarMetronomeMeter.setMax(7);
+			int savedMeter = sharedPref.getInt("METER", DEFAULT_METER);
+			seekBarMetronomeMeter.setProgress(savedMeter);
+			metronome.setMeter(savedMeter);
+			textViewMeter.setText(metronome.getMeter());
+			seekBarMetronomeMeter.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+					synchronized(this) {
+						metronome.setMeter(progress);
+						textViewMeter.setText(metronome.getMeter());
+						
+						sharedPrefEditor.putInt("METER", progress);
+						sharedPrefEditor.commit();
+					}
+				}
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) stopMetro();
+				}
+				public void onStopTrackingTouch(SeekBar arg0) {
+					// If metronome is already playing, restart with new parameters
+					synchronized(this) {
+						if (playing == true) startMetro();
+					}
+				}
+			});
+			
+			// VOLUME CONTROL FRAME
+			seekBarMetronomeVolume = (SeekBar) findViewById(R.id.seekbar_volume);
+			textViewVolume = (TextView) findViewById(R.id.textview_volume);
+			seekBarMetronomeVolume.setMax(100);
+			int savedVolume = sharedPref.getInt("VOLUME", DEFAULT_VOLUME);
+			seekBarMetronomeVolume.setProgress(savedVolume);
+			metronome.setVolume(savedVolume);
+			textViewVolume.setText(String.valueOf(metronome.getVolume()));
+			seekBarMetronomeVolume.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+					synchronized(this) {
+						metronome.setVolume(progress);
+						textViewVolume.setText(String.valueOf(metronome.getVolume()));
+					}	
+				}
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) stopMetro();
+				}
+				public void onStopTrackingTouch(SeekBar arg0) {
+					// If metronome is already playing, restart with new parameters
+					synchronized(this) {
+						sharedPrefEditor.putInt("VOLUME", metronome.getVolume());
+						sharedPrefEditor.commit();
+						
+						if (playing == true) startMetro();
+					}
+				}
+			});
+			
+			// TONE CONTROL FRAME
+			seekBarMetronomeTone = (SeekBar) findViewById(R.id.seekbar_tone);
+			textViewTone = (TextView) findViewById(R.id.textview_tone);
+			seekBarMetronomeTone.setMax(12);
+			int savedTone = sharedPref.getInt("TONE", DEFAULT_TONE);
+			seekBarMetronomeTone.setProgress(savedTone);
+			metronome.setTone(savedTone);
+			textViewTone.setText(metronome.getTone());
+			seekBarMetronomeTone.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+					synchronized(this) {
+						metronome.setTone(progress);
+						textViewTone.setText(metronome.getTone());
+						
+						sharedPrefEditor.putInt("TONE", progress);
+						sharedPrefEditor.commit();
+					}
+				}
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) stopMetro();
+				}
+				public void onStopTrackingTouch(SeekBar arg0) {
+					// If metronome is already playing, restart with new parameters
+					synchronized(this) {
+						if (playing == true) startMetro();
+					}
+				}
+			});
+
+			// INTERVAL CONTROL FRAME
+			seekBarMetronomeInterval = (SeekBar) findViewById(R.id.seekbar_interval);
+			textViewInterval = (TextView) findViewById(R.id.textview_interval);
+			seekBarMetronomeInterval.setMax(11);
+			int savedInterval = sharedPref.getInt("INTERVAL", DEFAULT_INTERVAL);
+			seekBarMetronomeInterval.setProgress(savedInterval);
+			metronome.setInterval(savedInterval);
+			textViewInterval.setText(metronome.getInterval());
+			seekBarMetronomeInterval.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+					synchronized(this) {
+						metronome.setInterval(progress);
+						textViewInterval.setText(metronome.getInterval());
+						
+						sharedPrefEditor.putInt("INTERVAL", progress);
+						sharedPrefEditor.commit();
+					}
+				}
+				public void onStartTrackingTouch(SeekBar arg0) {
+					if (playing == true) stopMetro();
+				}
+				public void onStopTrackingTouch(SeekBar arg0) {
+					// If metronome is already playing, restart with new parameters
+					synchronized(this) {
+						if (playing == true) startMetro();
+					}
+				}
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		supportScreen();
+	}
+	
 	@Override
-	protected void onStop() {
-	    super.onStop();
-	    synchronized(this) {
-	    	if (playing == true)
-	    		stopMetro();
-	    }
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_metronome);
+		
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+		initialize();
 	}
 	
 	@Override
@@ -565,6 +475,96 @@ public class MetronomeActivity extends BaseActivity {
 	    synchronized(this) {
 	    	if (playing == true)
 	    		startMetro();
+	    }
+	}
+	
+	@Override
+	protected void onStop() {
+	    super.onStop();
+	    synchronized(this) {
+	    	if (playing == true)
+	    		stopMetro();
+	    }
+	}
+	
+	/**
+	 * Convenience function, sets tempo.
+	 * @param newTempo the new tempo.
+	 */
+	private void setTempo(int newTempo) {
+		metronome.setTempo(newTempo);
+		tempo = (short) newTempo;
+		textViewTempo.setText(String.valueOf(newTempo));
+	}
+	
+	/**
+	 * Calculates parameters and then starts new metronome playback and visual feedback threads.
+	 */
+	private void startMetro() {
+		// calculate visual feedback parameters first
+		int beatDurationInMilli = 60000 / tempo; // (milliseconds per minute) / (beats per minute) = (milliseconds per beat)
+		int silenceDurationInMilli = beatDurationInMilli - FLASH_DURATION_IN_MILLI;
+		
+		// calculate the millisecond duration of one measure
+		String meter = metronome.getMeter();
+		int numOfBeats = Integer.valueOf(meter.substring(0, 1)); // first number TODO beats above 9?
+		int beatDivision = Integer.valueOf(meter.substring(meter.length() - 1)); // last number
+		int measureDurationInMilli = (beatDivision == 8) ? (numOfBeats * beatDurationInMilli / 2) : (numOfBeats * beatDurationInMilli);
+		
+		// START NEW TASKS
+		metronomeThread = new Thread(new MetronomeThread(), getString(R.string.thread_metronome_audio));
+		metronomeThread.start();
+		
+		if ((visualFeedbackMode != SettingsActivity.VISUAL_FEEDBACK_MODE_DISABLED) && tempo <= MAX_TEMPO) {
+			visualFeedbackThread = new Thread(new VisualFeedback(measureDurationInMilli, silenceDurationInMilli, new Handler()), getString(R.string.thread_metronome_visual_feedback));
+			visualFeedbackThread.start();
+		}
+	}
+
+	/**
+	 * Stops metronome playback and interrupts the visual feedback thread. Both threads then terminate.
+	 */
+	private void stopMetro() {
+		metronome.stop();
+		
+		if (visualFeedbackThread != null)
+			visualFeedbackThread.interrupt();
+	}
+	
+	/**
+	 * Fine tune screen for smaller "normal" screens
+	 */
+	private void supportScreen() {
+		TextView[] fontGroup1 = {textViewTempo, textViewMeter, textViewVolume, textViewTone, textViewInterval};
+		TextView[] fontGroup2 = {
+			(TextView) findViewById(R.id.textview_tempo_tempo),
+			(TextView) findViewById(R.id.textview_meter_meter),
+			(TextView) findViewById(R.id.textview_volume_volume),
+			(TextView) findViewById(R.id.textview_tone_tone),
+			(TextView) findViewById(R.id.textview_interval_interval),
+			(TextView) findViewById(R.id.textview_volume_percent),
+			(TextView) findViewById(R.id.textview_meter_time),
+			(TextView) findViewById(R.id.textview_tempo_bpm)
+		};
+		RelativeLayout layoutMetronomeTop = (RelativeLayout) findViewById(R.id.layout_metronome_top);
+		
+		DisplayMetrics dm = new DisplayMetrics();
+	    getWindowManager().getDefaultDisplay().getMetrics(dm);
+	    double x = Math.pow(dm.widthPixels/dm.xdpi, 2);
+	    double y = Math.pow(dm.heightPixels/dm.ydpi, 2);
+	    double screenInches = Math.sqrt(x+y);
+	    
+	    if (screenInches < 4.5) {
+	    	if (layoutMetronomeTop != null)
+	    		layoutMetronomeTop.setVisibility(View.GONE);
+	    	
+	    	for (TextView t : fontGroup1) {
+	    		t.setGravity(Gravity.CENTER);
+	    		t.setTextSize(40);
+	    	}
+	    		
+	    	for (TextView t : fontGroup2)
+	    		t.setTextSize(10);
 	    }
 	}
 }

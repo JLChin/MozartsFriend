@@ -30,14 +30,64 @@ public class SelectTrackActivity extends BaseListActivity {
 	// STATE VARIABLES
 	private List<TrackInfo> tracks;
 	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list);
-
-		initialize();
+	/**
+	 * Custom Track list view adapter.
+	 */
+	private class SelectTrackListViewAdapter extends ArrayAdapter<TrackInfo> {
+		class TrackInfoView {
+			TextView textViewTitle;
+			int resourceID;
+		}
+		private final List<TrackInfo> tracks;
+		
+		private final Context activity;
+		
+		SelectTrackListViewAdapter(Context activity, List<TrackInfo> tracks) {
+			super(activity, R.layout.list_item, tracks);
+			this.activity = activity;
+			this.tracks = tracks;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+	        View view = convertView;
+	        TrackInfoView trackInfoView = null;
+	 
+	        if (view == null) {
+	        	LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
+	            view = inflater.inflate(R.layout.list_item, null);
+	 
+	            // hold the view objects in an object, so they don't need to be re-fetched
+	            trackInfoView = new TrackInfoView();
+	            trackInfoView.textViewTitle = (TextView) view.findViewById(R.id.textview_list_item);
+	 
+	            // cache the view objects in the tag, so they can be re-accessed later
+	            view.setTag(trackInfoView);
+	        } else
+	        	trackInfoView = (TrackInfoView) view.getTag();
+	 
+	        // set up view
+	        TrackInfo trackInfo = tracks.get(position);
+	        trackInfoView.textViewTitle.setText(trackInfo.title);
+	        trackInfoView.resourceID = trackInfo.resourceID;
+	 
+	        return view;
+	    }
 	}
-
+	
+	/**
+	 * Basic track info holder.
+	 */
+	private class TrackInfo {
+		String title;
+		int resourceID;
+		
+		TrackInfo(String title, int resourceID) {
+			this.title = title;
+			this.resourceID = resourceID;
+		}
+	}
+	
 	private void initialize() {
 		loadTracks();
 		initializeListView();
@@ -96,61 +146,11 @@ public class SelectTrackActivity extends BaseListActivity {
 	    }
 	}
 	
-	/**
-	 * Basic track info holder.
-	 */
-	private class TrackInfo {
-		String title;
-		int resourceID;
-		
-		TrackInfo(String title, int resourceID) {
-			this.title = title;
-			this.resourceID = resourceID;
-		}
-	}
-	
-	/**
-	 * Custom Track list view adapter.
-	 */
-	private class SelectTrackListViewAdapter extends ArrayAdapter<TrackInfo> {
-		private final List<TrackInfo> tracks;
-		private final Context activity;
-		
-		SelectTrackListViewAdapter(Context activity, List<TrackInfo> tracks) {
-			super(activity, R.layout.list_item, tracks);
-			this.activity = activity;
-			this.tracks = tracks;
-		}
-		
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-	        View view = convertView;
-	        TrackInfoView trackInfoView = null;
-	 
-	        if (view == null) {
-	        	LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
-	            view = inflater.inflate(R.layout.list_item, null);
-	 
-	            // hold the view objects in an object, so they don't need to be re-fetched
-	            trackInfoView = new TrackInfoView();
-	            trackInfoView.textViewTitle = (TextView) view.findViewById(R.id.textview_list_item);
-	 
-	            // cache the view objects in the tag, so they can be re-accessed later
-	            view.setTag(trackInfoView);
-	        } else
-	        	trackInfoView = (TrackInfoView) view.getTag();
-	 
-	        // set up view
-	        TrackInfo trackInfo = tracks.get(position);
-	        trackInfoView.textViewTitle.setText(trackInfo.title);
-	        trackInfoView.resourceID = trackInfo.resourceID;
-	 
-	        return view;
-	    }
-		
-		class TrackInfoView {
-			TextView textViewTitle;
-			int resourceID;
-		}
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_list);
+
+		initialize();
 	}
 }

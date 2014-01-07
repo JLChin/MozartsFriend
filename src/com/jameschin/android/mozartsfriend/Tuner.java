@@ -59,6 +59,59 @@ public class Tuner implements Runnable {
     }
     
     /**
+     * Returns the index of the closest note to the current frequency.
+     * @param frequency the current discovered frequency.
+     * @return the index of the closest note to the current frequency.
+     */
+    private int getClosestNote(double frequency) {
+        double minDist = Double.MAX_VALUE;
+        int closestIndex = -1;
+        
+        for (int i = 1; i < FREQUENCIES.length - 1; i++) {
+            double dist = Math.abs(FREQUENCIES[i] - frequency);
+            if (dist < minDist) {
+                minDist = dist;
+                closestIndex = i;
+            }
+        }
+        
+        return closestIndex;
+    }
+    
+    /**
+     * Returns the normalized distance between the current frequency and the next closest frequency, between -0.5 and +0.5.
+     * @param closestNote index of the closest note to the current frequency.
+     * @param normalizedFreq normalized value of the current frequency.
+     * @return the normalized distance between the current frequency and the next closest frequency, between -0.5 and +0.5.
+     */
+    private double getDistanceRatio(int closestNote, double normalizedFreq) {
+    	double closestFreq = FREQUENCIES[closestNote];
+    	
+    	double distance = normalizedFreq - closestFreq;
+		if (distance >= 0)
+			return distance / (FREQUENCIES[closestNote + 1] - closestFreq); // positive value between 0, 0.5
+		else
+			return distance / (closestFreq - FREQUENCIES[closestNote - 1]); // negative value between 0, -0.5
+    }
+	
+	/**
+	 * Returns the normalized frequency within the range of defined frequencies.
+	 * @param frequency the current discovered frequency.
+	 * @return the normalized frequency within the range of defined frequencies.
+	 */
+    private double getNormalizedFrequency(double frequency) {
+        while ( frequency < 51.91 ) {
+        	frequency = 2 * frequency;
+        }
+        
+        while ( frequency > 349.23 ) {
+        	frequency = 0.5 * frequency;
+        }
+        
+        return frequency;
+    }
+    
+    /**
      * Initialize AudioRecord instance, iterating through preferred configurations.
      * @return true if successful, false if uninitialized.
      */
@@ -207,61 +260,20 @@ public class Tuner implements Runnable {
 		
 		recorder.release();
 	}
-	
-	/**
-	 * Returns the normalized frequency within the range of defined frequencies.
-	 * @param frequency the current discovered frequency.
-	 * @return the normalized frequency within the range of defined frequencies.
+    
+    /**
+	 * Displays error dialog on the UI via the parent TunerActivity's handler.
+	 * @param msg the error message to display.
 	 */
-    private double getNormalizedFrequency(double frequency) {
-        while ( frequency < 51.91 ) {
-        	frequency = 2 * frequency;
-        }
-        
-        while ( frequency > 349.23 ) {
-        	frequency = 0.5 * frequency;
-        }
-        
-        return frequency;
-    }
+	private void ShowError(final String msg) {
+		handler.post(new Runnable() {
+			public void run() {
+				new AlertDialog.Builder(parent).setTitle(R.string.tuner_alert_title).setMessage(msg).show();
+			}
+		});
+	}
     
-    /**
-     * Returns the index of the closest note to the current frequency.
-     * @param frequency the current discovered frequency.
-     * @return the index of the closest note to the current frequency.
-     */
-    private int getClosestNote(double frequency) {
-        double minDist = Double.MAX_VALUE;
-        int closestIndex = -1;
-        
-        for (int i = 1; i < FREQUENCIES.length - 1; i++) {
-            double dist = Math.abs(FREQUENCIES[i] - frequency);
-            if (dist < minDist) {
-                minDist = dist;
-                closestIndex = i;
-            }
-        }
-        
-        return closestIndex;
-    }
-    
-    /**
-     * Returns the normalized distance between the current frequency and the next closest frequency, between -0.5 and +0.5.
-     * @param closestNote index of the closest note to the current frequency.
-     * @param normalizedFreq normalized value of the current frequency.
-     * @return the normalized distance between the current frequency and the next closest frequency, between -0.5 and +0.5.
-     */
-    private double getDistanceRatio(int closestNote, double normalizedFreq) {
-    	double closestFreq = FREQUENCIES[closestNote];
-    	
-    	double distance = normalizedFreq - closestFreq;
-		if (distance >= 0)
-			return distance / (FREQUENCIES[closestNote + 1] - closestFreq); // positive value between 0, 0.5
-		else
-			return distance / (closestFreq - FREQUENCIES[closestNote - 1]); // negative value between 0, -0.5
-    }
-    
-    /**
+	/**
      * Updates the UI via the parent TunerActivity's handler.
      * @param closestNote index of the closest note to the current frequency.
      * @param distanceRatio the normalized distance between the current frequency and the next closest frequency, between -0.5 and +0.5.
@@ -271,18 +283,6 @@ public class Tuner implements Runnable {
 		handler.post(new Runnable() {
 			public void run() {
 				parent.updateDisplay(closestNote, distanceRatio, frequency);
-			}
-		});
-	}
-    
-	/**
-	 * Displays error dialog on the UI via the parent TunerActivity's handler.
-	 * @param msg the error message to display.
-	 */
-	private void ShowError(final String msg) {
-		handler.post(new Runnable() {
-			public void run() {
-				new AlertDialog.Builder(parent).setTitle(R.string.tuner_alert_title).setMessage(msg).show();
 			}
 		});
 	}
