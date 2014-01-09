@@ -98,7 +98,7 @@ public class LibraryActivity extends BaseListActivity {
 	
 	/**
 	 * OnClickListener for Views representing the frets, generates a response based on the data cached into the View's tag.
-	 * TODO add API level-dependant PopupMenu
+	 * TODO add API level-dependent PopupMenu
 	 */
 	private class FretboardOnClickListener implements View.OnClickListener {
 		@Override
@@ -156,14 +156,14 @@ public class LibraryActivity extends BaseListActivity {
 	 * Custom ResultData list view adapter.
 	 */
 	private class ResultDataListViewAdapter extends ArrayAdapter<ResultData> {
+		private final Context activity;
+		private final List<ResultData> results;
+		private final Set<String> markedNotes;
+		
 		class ResultDataView {
 	        TextView name;
 	        TextView interval;
 	    }
-		private final Context activity;
-		private final List<ResultData> results;
-		
-		private final Set<String> markedNotes;
 		
 		ResultDataListViewAdapter(Context activity, List<ResultData> results, Set<String> markedNotes) {
 			super(activity, R.layout.result_data_list_item, results);

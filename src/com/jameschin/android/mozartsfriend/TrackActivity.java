@@ -415,6 +415,9 @@ public class TrackActivity extends BaseActivity {
 	    }
 	}
 	
+	/**
+	 * Construct a MIDI file based on current parameters and start player.
+	 */
 	private void play() {
 		// CONSTRUCT MIDI FILE
 		MidiFile midiFile = new MidiFile(this, key, tempo, track);
@@ -444,6 +447,9 @@ public class TrackActivity extends BaseActivity {
 		}
 	}
 	
+	/**
+	 * Stop player immediately.
+	 */
 	private void stop() {
 		mediaPlayer.stop();
 	}

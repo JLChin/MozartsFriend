@@ -34,13 +34,13 @@ public class SelectTrackActivity extends BaseListActivity {
 	 * Custom Track list view adapter.
 	 */
 	private class SelectTrackListViewAdapter extends ArrayAdapter<TrackInfo> {
+		private final Context activity;
+		private final List<TrackInfo> tracks;
+		
 		class TrackInfoView {
 			TextView textViewTitle;
 			int resourceID;
 		}
-		private final List<TrackInfo> tracks;
-		
-		private final Context activity;
 		
 		SelectTrackListViewAdapter(Context activity, List<TrackInfo> tracks) {
 			super(activity, R.layout.list_item, tracks);
