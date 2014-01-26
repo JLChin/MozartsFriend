@@ -450,8 +450,7 @@ public class LibraryActivity extends BaseListActivity {
 				currentView = position;
 				
 				// save the user's preferred view
-				sharedPrefEditor.putInt("LIBRARY_VIEW", position);
-				sharedPrefEditor.commit();
+				sharedPrefEditor.putInt("LIBRARY_VIEW", position).commit();
 				
 				generateView(position);
 			}

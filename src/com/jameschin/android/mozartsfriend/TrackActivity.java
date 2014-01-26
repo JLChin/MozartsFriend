@@ -144,7 +144,7 @@ public class TrackActivity extends BaseActivity {
 		buttonPlay = (ToggleButton) findViewById(R.id.button_play);
 		buttonPlay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				synchronized (this) {
+				synchronized(this) {
 					if (isChecked) {
 						if (playing == false) {
 							playing = true;
@@ -164,7 +164,7 @@ public class TrackActivity extends BaseActivity {
 		buttonTempoInc = (Button) findViewById(R.id.button_tempo_inc);
 		buttonTempoInc.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				synchronized (this) {
+				synchronized(this) {
 					if (tempo < MAX_TEMPO)
 						tempo++;
 					
@@ -180,7 +180,7 @@ public class TrackActivity extends BaseActivity {
 		buttonTempoDec = (Button) findViewById(R.id.button_tempo_dec);
 		buttonTempoDec.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				synchronized (this) {
+				synchronized(this) {
 					if (tempo > MIN_TEMPO)
 						tempo--;
 					
@@ -196,7 +196,7 @@ public class TrackActivity extends BaseActivity {
 		buttonTap = (Button) findViewById(R.id.button_tap);
 		buttonTap.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				synchronized (this) {
+				synchronized(this) {
 					// turn indicator on
 					if (tapIndicatorThread != null)
 						tapIndicatorThread.interrupt();
@@ -275,8 +275,7 @@ public class TrackActivity extends BaseActivity {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If already playing, restart with new parameters
 					synchronized(this) {
-						sharedPrefEditor.putInt("VOLUME", volume);
-						sharedPrefEditor.commit();
+						sharedPrefEditor.putInt("VOLUME", volume).commit();
 					}
 				}
 			});
@@ -294,8 +293,7 @@ public class TrackActivity extends BaseActivity {
 						key = (byte) progress;
 						textViewTone.setText(getTone(key));
 						
-						sharedPrefEditor.putInt("TRACK_TONE", progress);
-						sharedPrefEditor.commit();
+						sharedPrefEditor.putInt("TRACK_TONE", progress).commit();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) { }

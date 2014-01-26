@@ -64,8 +64,7 @@ public class SettingsActivity extends BaseActivity {
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 			String name = (String) parent.getTag();
 			String key = LibraryActivity.KEYS[position];
-			sharedPrefEditor.putString(name, key);
-			sharedPrefEditor.commit();
+			sharedPrefEditor.putString(name, key).commit();
 		}
 
 		@Override
@@ -226,8 +225,7 @@ public class SettingsActivity extends BaseActivity {
 		spinnerFretLength.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				sharedPrefEditor.putInt("FRETBOARD_LENGTH", MAX_FRET_START + position + 1);
-				sharedPrefEditor.commit();
+				sharedPrefEditor.putInt("FRETBOARD_LENGTH", MAX_FRET_START + position + 1).commit();
 			}
 
 			@Override
@@ -245,8 +243,7 @@ public class SettingsActivity extends BaseActivity {
 		spinnerMetronomeVisualFeedback.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				sharedPrefEditor.putInt("METRONOME_VISUAL_FEEDBACK_MODE", position);
-				sharedPrefEditor.commit();
+				sharedPrefEditor.putInt("METRONOME_VISUAL_FEEDBACK_MODE", position).commit();
 			}
 
 			@Override

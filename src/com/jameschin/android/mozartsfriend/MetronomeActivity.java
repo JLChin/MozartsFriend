@@ -222,7 +222,7 @@ public class MetronomeActivity extends BaseActivity {
 		buttonTempoInc = (Button) findViewById(R.id.button_tempo_inc);
 		buttonTempoInc.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				synchronized (this) {
+				synchronized(this) {
 					int newTempo = (int) metronome.getTempo();
 					newTempo++;
 					
@@ -230,11 +230,9 @@ public class MetronomeActivity extends BaseActivity {
 					
 					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
 					setTempo(newTempo);
+					sharedPrefEditor.putInt("TEMPO", newTempo).commit();
 					
 					if (playing == true) startMetro();
-					
-					sharedPrefEditor.putInt("TEMPO", newTempo);
-					sharedPrefEditor.commit();
 				}
 			}
 		});
@@ -243,7 +241,7 @@ public class MetronomeActivity extends BaseActivity {
 		buttonTempoDec = (Button) findViewById(R.id.button_tempo_dec);
 		buttonTempoDec.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				synchronized (this) {
+				synchronized(this) {
 					int newTempo = (int) metronome.getTempo();
 					newTempo--;
 					
@@ -251,11 +249,9 @@ public class MetronomeActivity extends BaseActivity {
 					
 					seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
 					setTempo(newTempo);
+					sharedPrefEditor.putInt("TEMPO", newTempo).commit();
 					
 					if (playing == true) startMetro();
-					
-					sharedPrefEditor.putInt("TEMPO", newTempo);
-					sharedPrefEditor.commit();
 				}
 			}
 		});
@@ -264,7 +260,7 @@ public class MetronomeActivity extends BaseActivity {
 		buttonTap = (Button) findViewById(R.id.button_tap);
 		buttonTap.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				synchronized (this) {
+				synchronized(this) {
 					// turn indicator on
 					if (tapIndicatorThread != null)
 						tapIndicatorThread.interrupt();
@@ -291,11 +287,9 @@ public class MetronomeActivity extends BaseActivity {
 						
 						seekBarMetronomeTempo.setProgress(newTempo - MIN_TEMPO);
 						setTempo(newTempo);
+						sharedPrefEditor.putInt("TEMPO", newTempo).commit();
 
 						if (playing == true) startMetro();
-						
-						sharedPrefEditor.putInt("TEMPO", newTempo);
-						sharedPrefEditor.commit();
 					}
 				}
 			}
@@ -324,8 +318,7 @@ public class MetronomeActivity extends BaseActivity {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If metronome is already playing, restart with new parameters
 					synchronized(this) {
-						sharedPrefEditor.putInt("TEMPO", (int) metronome.getTempo());
-						sharedPrefEditor.commit();
+						sharedPrefEditor.putInt("TEMPO", (int) metronome.getTempo()).commit();
 						
 						if (playing == true) startMetro();
 					}
@@ -346,8 +339,7 @@ public class MetronomeActivity extends BaseActivity {
 						metronome.setMeter(progress);
 						textViewMeter.setText(metronome.getMeter());
 						
-						sharedPrefEditor.putInt("METER", progress);
-						sharedPrefEditor.commit();
+						sharedPrefEditor.putInt("METER", progress).commit();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
@@ -382,8 +374,7 @@ public class MetronomeActivity extends BaseActivity {
 				public void onStopTrackingTouch(SeekBar arg0) {
 					// If metronome is already playing, restart with new parameters
 					synchronized(this) {
-						sharedPrefEditor.putInt("VOLUME", metronome.getVolume());
-						sharedPrefEditor.commit();
+						sharedPrefEditor.putInt("VOLUME", metronome.getVolume()).commit();
 						
 						if (playing == true) startMetro();
 					}
@@ -404,8 +395,7 @@ public class MetronomeActivity extends BaseActivity {
 						metronome.setTone(progress);
 						textViewTone.setText(metronome.getTone());
 						
-						sharedPrefEditor.putInt("TONE", progress);
-						sharedPrefEditor.commit();
+						sharedPrefEditor.putInt("TONE", progress).commit();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
@@ -433,8 +423,7 @@ public class MetronomeActivity extends BaseActivity {
 						metronome.setInterval(progress);
 						textViewInterval.setText(metronome.getInterval());
 						
-						sharedPrefEditor.putInt("INTERVAL", progress);
-						sharedPrefEditor.commit();
+						sharedPrefEditor.putInt("INTERVAL", progress).commit();
 					}
 				}
 				public void onStartTrackingTouch(SeekBar arg0) {
@@ -481,6 +470,7 @@ public class MetronomeActivity extends BaseActivity {
 	@Override
 	protected void onStop() {
 	    super.onStop();
+	    
 	    synchronized(this) {
 	    	if (playing == true)
 	    		stopMetro();
@@ -532,7 +522,7 @@ public class MetronomeActivity extends BaseActivity {
 	}
 	
 	/**
-	 * Fine tune screen for smaller "normal" screens
+	 * Fine tune screen for smaller "normal" screens.
 	 */
 	private void supportScreen() {
 		TextView[] fontGroup1 = {textViewTempo, textViewMeter, textViewVolume, textViewTone, textViewInterval};
